@@ -1,0 +1,39 @@
+extends base
+include ../mixins/flash-messages
+include ../mixins/auth/auth-forms
+
+block bhead
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="renderer" content="webkit")
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    script(src="/js/ie10-viewport-bug-workaround.js")
+    <!--[if lt IE 9]>
+    script(src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")
+    script(src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js")
+    <![endif]-->
+    link(href="/styles/pc.min.css", rel="stylesheet")
+    block head
+block bbody
+    body
+        .site-wrapper.has-sticky-footer
+            //- SITE HEADER
+            include ../includes/layout/header
+            //- SITE BODY
+            block body
+                //.container
+                //    block content
+            //- SITE FOOTER
+            include ../includes/layout/footer
+        //- MODALS
+        block modal
+        if !user
+            #modal-auth(tabindex="-1", role="dialog", aria-labelledby="signin", aria-hidden="true").modal.fade
+                .modal-dialog
+                    .modal-content
+                        +auth-forms({ modal: true, initial: 'signin' })
+block btail
+    script(src='/js/lib/jquery/1.11.1.min.js')
+    script(src='/js/lib/bootstrap-3.2.0/bootstrap.min.js')
+    script(src='/js/ui.js')
+    script(src="/js/lib/baidu/tongji.js")
+    block js

@@ -1,0 +1,131 @@
+@import "bootstrap-3.2.0/custom";
+
+@import "modules/header";
+@import "modules/layout";
+@import "modules/carousel";
+@import "modules/abstract";
+@import "site/variables";
+@import "site/utils";
+@import "site/mixins";
+@import "site/auth";
+
+body {
+  background: @base-bg;
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: @bund-red;
+  border-color: @bund-red;
+}
+
+.btn-primary:hover {
+  background-color: #E78384;
+  border-color: #E78384;
+}
+
+a, p {
+  font-family: 'Avenir Next','Helvetica Neue','Avenir','Helvetica','Lantinghei SC','Hiragino Sans GB','sans-serif' !important;
+}
+
+.hidden-xs {
+  display: block !important;
+}
+
+@media (max-width: 767px) {
+  .hidden-xs {
+    display: none !important;
+  }
+}
+
+.tile {
+  .tile-base();
+  padding: 1em;
+  position: relative;
+  z-index: 2;
+}
+
+// columns separated fields
+// need space when the form collapses
+.form-row {
+  .col-spacing(0,0 5px);
+  .make-row(10px);
+
+  @media (max-width: @screen-sm) {
+    .col-spacing(0 0 .8em,0 5px);
+  }
+}
+
+.abstract-title {
+  color: #ffffff;
+}
+.abstract-text {
+  color: #ffffff;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 767px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all .25s ease-out;
+    -o-transition: all .25s ease-out;
+    transition: all .25s ease-out;
+  }
+
+  .row-offcanvas-right {
+    right: 0;
+  }
+
+  .row-offcanvas-left {
+    left: 0;
+  }
+
+  .row-offcanvas-right
+  .sidebar-offcanvas {
+    right: -75%; /* 6 columns */
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -75%; /* 6 columns */
+  }
+
+  .row-offcanvas-right.active {
+    right: 75%; /* 6 columns */
+  }
+
+  .row-offcanvas-left.active {
+    left: 75%; /* 6 columns */
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 75%; /* 6 columns */
+  }
+}
+
+.list-group-item.disabled, .list-group-item.disabled:hover, .list-group-item.disabled:focus {
+  background-color: @bund-red;
+  color: #ffffff;
+}
+
+.post {
+  position: absolute;
+}
+
+div.abstract {
+  -moz-box-shadow: 1px 2px 2px @abstract-border;
+  -webkit-box-shadow: 1px 2px 2px @abstract-border;
+  box-shadow: 1px 2px 2px @abstract-border;
+  /* For IE 8 */
+  -ms-filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color=@abstract-border);
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color=@abstract-border);
+}

@@ -1,0 +1,45 @@
+// Containers
+// ------------------------------
+.container-xs,
+.container-sm,
+.container-md,
+.container-lg,
+.container-800 {
+  .container-fixed();
+}
+@media (min-width: @screen-sm-min) {
+  .container-xs { width: 600px; }
+  .container-sm { width: @screen-sm-min - @grid-gutter-width; }
+  .container-md { max-width: @screen-md-min - @grid-gutter-width; }
+  .container-lg { max-width: 1500px; }
+  .container-800 { max-width: 800px;}
+}
+
+// Sticky footer (only on desktop)
+// ------------------------------
+@headerHeight: 80px;
+@footerHeight: 0px;
+.site-wrapper.has-sticky-footer {
+  position: relative;
+  padding-top: @headerHeight;
+  padding-bottom: @footerHeight;
+  min-height: 100%;
+  background: @body-bg;
+  @media (max-width: @screen-xs-max) {
+    padding-bottom: 0;
+  }
+}
+
+.site-footer {
+  color: @foot-color;
+  background: @foot-bkg;
+  padding: 45px;
+  margin-top: 30px;
+  font-size: 12px;
+}
+
+// Page content
+.page-content {
+  .floor;
+  .floor-1;
+}

@@ -1,0 +1,118 @@
+extends ../../layouts/base
+block bhead
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="renderer" content="webkit")
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    script(src="/js/ie10-viewport-bug-workaround.js")
+    <!--[if lt IE 9]>
+    script(src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")
+    script(src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js")
+    <![endif]-->
+    link(href="/styles/landrover.min.css", rel="stylesheet")
+    block head
+block bbody
+    body(style="background-color:#ECECEC;overflow-x: hidden;" onload="init()")
+        .container-sm
+            div(class="navbar navbar-inverse navbar-fixed-top" role="navigation")
+                .container-sm
+                    .navbar-header
+                        img(src="/images/other/landrover.png")
+
+        .container-sm(style="background-color:#ECECEC;margin-top:70px")
+            img(src="/images/other/landrover2.png").img-responsive
+            h4 路虎•揽胜极光
+            h4 倾橙限量版 耀您私享
+            p 成功提交个人信息之后，路虎将在第一时间为您奉上最新的专享礼遇、最新产品及试驾活动资讯。
+            - var checkFormError = function(key) { return form.error && form.error.errors && form.error.errors[key] ? 'has-error' : null }
+            form(method='post' action='' onsubmit="return validate_form(this);" enctype='multipart/form-data' autocomplete='off' novalidate).form-horizontal
+                h4 个人信息
+                .form-group
+                    label.col-sm-3.control-label 姓名:
+                    .col-sm-9: input(type='text', name='name' value='').form-control
+                .form-group
+                    label.col-sm-3.control-label 性别:
+                    .col-sm-9
+                        label.radio-inline
+                            input(type="radio" name="gender" id="inlineRadio1" value="男" checked)
+                            span 男
+                        label.radio-inline
+                            input(type="radio" name="gender" id="inlineRadio2" value="女")
+                            span 女
+                .form-group
+                    label.col-sm-3.control-label 联系电话:
+                    .col-sm-9: input(type='text', name='phone' value='').form-control
+                .form-group
+                    label.col-sm-3.control-label 电子邮箱:
+                    .col-sm-9: input(type='email', name='email' value='').form-control
+                .form-group
+                    label.col-sm-3.control-label 省:
+                    .col-sm-4
+                        select(id="province" name='province' onchange="getCity()").form-control
+                            option(value='北京') 北京
+                            option(value='上海') 上海
+                            option(value='天津') 天津
+                            option(value='重庆') 重庆
+                            option(value='河北') 河北
+                            option(value='山西') 山西
+                            option(value='内蒙古') 内蒙古
+                            option(value='辽宁') 辽宁
+                            option(value='吉林') 吉林
+                            option(value='黑龙江') 黑龙江
+                            option(value='江苏') 江苏
+                            option(value='浙江') 浙江
+                            option(value='安徽') 安徽
+                            option(value='福建') 福建
+                            option(value='江西') 江西
+                            option(value='山东') 山东
+                            option(value='河南') 河南
+                            option(value='湖北') 湖北
+                            option(value='湖南') 湖南
+                            option(value='广东') 广东
+                            option(value='广西') 广西
+                            option(value='海南') 海南
+                            option(value='四川') 四川
+                            option(value='贵州') 贵州
+                            option(value='云南') 云南
+                            option(value='西藏') 西藏
+                            option(value='陕西') 陕西
+                            option(value='甘肃') 甘肃
+                            option(value='宁夏') 宁夏
+                            option(value='青海') 青海
+                            option(value='新疆') 新疆
+                            option(value='香港') 香港
+                            option(value='澳门') 澳门
+                            option(value='台湾') 台湾
+                    label.col-sm-1.control-label 市:
+                    .col-sm-4
+                        select(id="city" name='city').form-control
+                h4 购车计划
+                .form-group
+                    label.col-sm-3.control-label 您感兴趣的车型:
+                    .col-sm-9
+                        select(name='type').form-control
+                            option 路虎•揽胜极光•倾橙限量版
+                .form-group
+                    label.col-sm-3.control-label 预计购车时间:
+                    .col-sm-9
+                        select(name='time').form-control
+                            option 0～3个月
+                            option 4～6个月
+                            option 7～12个月
+                            option 一年以后
+                .form-group
+                    label.col-sm-3.control-label 购车预算:
+                    .col-sm-9
+                        select(name='budget').form-control
+                            option 50万以下
+                            option 50～99万
+                            option 100～149万
+                            option 150～200万
+                            option 200万以上
+                hr.mv-2
+                button(id='submit' type='submit', data-loading-text="保存中...").btn.btn-primary 保存信息
+    script(src='/js/lib/jquery/1.11.1.min.js')
+    script(src='/js/lib/bootstrap-3.2.0/bootstrap.min.js')
+    script(src="/js/lib/baidu/tongji.js")
+    script(src="/js/landrover.js")
+
+    block js

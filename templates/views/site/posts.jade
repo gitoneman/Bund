@@ -1,0 +1,32 @@
+extends ../../layouts/pc
+include ../../includes/layout/abstract
+block head
+    link(href="/styles/site/posts.min.css", rel="stylesheet")
+//- BODY
+block body
+    .container(style='position:relative')
+        .row#posts(c=filters.category)
+        img.center-block.loading(src='/images/loading.gif' width='50' style='display:none')
+    //each post in data.posts
+    //    h1= post['标题']
+    //- for(var i= 1; i<=data.posts.size; i++){
+    //- }
+    //for i<data.posts.
+    //ul
+    //    while n < 4
+    //        li= n++
+    //.container
+    //    div.row
+    //        .col-sm-4
+    //            +abstract('/images/test.png')
+    //            +abstract('/images/test.png')
+    //        .col-sm-4
+    //            +abstract('/images/test.png')
+    //            +abstract('/images/test.png')
+    //        .col-sm-4
+    //            +abstract('/images/test.png')
+    //            +abstract('/images/test.png')
+block js
+    script(src='/js/lib/jquery/imagesloaded.min.js')
+    script(src='/js/lib/jquery/ias.min.js')
+    script(src='/js/ias.js')

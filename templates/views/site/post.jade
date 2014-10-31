@@ -1,0 +1,71 @@
+extends ../../layouts/pc
+
+block head
+    link(href="/styles/site/post.min.css", rel="stylesheet")
+//- BODY
+block body
+    .container-800
+        if !post
+            h1 文章不存在
+        else
+            p.post-title= post['标题']
+            - var author_label = post['作者'].split('标签');
+            p.post-subtitle!= author_label[0]
+            if author_label.length>1
+                p.post-subtitle!= '标签' + author_label[1].replace(/href=\"/g, 'href=\"/')
+            p.post-time= post._['发布时间'].format('YYYY年MM月DD日')
+            <!-- JiaThis Button BEGIN -->
+            .jiathis_style
+                a.jiathis_button_qzone.sharebtn
+                a.jiathis_button_tsina.sharebtn
+                a.jiathis_button_tqq.sharebtn
+                a.jiathis_button_weixin.sharebtn
+                a.jiathis_button_renren.sharebtn
+                a(href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank")
+                a.jiathis_counter_style
+            script(type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1408005833784246" charset="utf-8")
+            <!-- JiaThis Button END -->
+            p &nbsp
+            p &nbsp
+            div.post-content!= post['正文']['更多']
+        .comments
+            form(method='post').comment-form.mt-5
+                h4.mb-1=post['赞数'] == 0 ? '还没有人赞这篇文章' : '有' + post['赞数'] + '个人赞了这篇文章'
+                    if user
+                        if thumbup
+                            input(type='hidden', name='action', value='thumb-up', id='thumb')
+                            button(type='submit').btn.btn-success#thumbbtn 点赞
+                        else
+                            input(type='hidden', name='action', value='thumb-down', id='thumb')
+                            button(type='submit').btn.btn-info#thumbbtn 取消赞
+                    //if user in post['赞']
+            if !user
+                h4.mb-1
+                    a(href='/signin', data-from=page.path, data-initial='signin').js-auth-trigger 登录
+                    span= post['评论'].length == 0 ? '后，第一个发表评论' : '后，发表评论，已有'+post['评论'].length+'条'
+            else
+                h4.mb-1=post['评论'].length == 0 ? '第一个发表评论' : '已有'+post['评论'].length + '条评论'
+            for comment in post['评论']
+                if comment['作者']
+                    .comment.media
+                        .pull-left
+                            img(src="/images/avatar.png", width=36).media-object.img-circle
+                            //img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=comment.author.name.full, width=40, height=40).media-object.img-circle
+                        .media-body
+                            h6.mt-0
+                                =comment['作者'].name.full
+                                //span.text-muted  &middot; #{moment(comment.publishedOn).fromNow()}
+                            !=comment['内容'].html
+            if user
+                //- Reply form
+                form(method='post').comment-form.mt-5
+                    input(type='hidden', name='action', value='create-comment')
+                    .media
+                        .pull-left
+                            //span 口
+                            img(src="/images/avatar.png", width=36).media-object.img-circle
+                            //img(src=user.photo.exists ? user._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=user.name.full, width=40, height=40).img-responsive.img-circle
+                        .media-body
+                            textarea(placeholder='写下您的评论...', name='内容').form-control
+                            .mv-1
+                                button(type='submit').btn.btn-success 提交

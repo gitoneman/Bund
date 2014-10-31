@@ -1,0 +1,8 @@
+mixin sidemenu(posts)
+    div(class="col-xs-8 col-sm-4 col-md-3 sidebar-offcanvas" id="sidebar" role="navigation")
+        div.list-group(style='background-color:white')
+            a.list-group-item.disabled 热门
+            each post in posts
+                a(href='/posts/post/' + post['_id']).list-group-item
+                    h4.list-group-item-heading= post['标题']
+            img(src="/images/qcode-daily.jpg" width="160").center-block

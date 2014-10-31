@@ -1,0 +1,99 @@
+var keystone = require('keystone'),
+    middleware = require('./middleware'),
+    importRoutes = keystone.importer(__dirname);
+ 
+// Common Middleware
+keystone.pre('routes', middleware.initErrorHandlers);
+keystone.pre('routes', middleware.initLocals);
+//keystone.pre('routes', middleware.loadSponsors);
+keystone.pre('render', middleware.flashMessages);
+ 
+// Handle 404 errors
+keystone.set('404', function(req, res, next) {
+    res.notfound();
+});
+ 
+// Handle other errors
+keystone.set('500', function(err, req, res, next) {
+    var title, message;
+    if (err instanceof Error) {
+        message = err.message;
+        err = err.stack;
+    }
+    res.err(err, title, message);
+});
+ 
+// Load Routes
+var routes = {
+    views: importRoutes('./views'),
+    wx: importRoutes('./wx'),
+    ajax: importRoutes('./ajax'),
+    old: importRoutes('./old'),
+    other: importRoutes('./other')
+};
+ 
+// Bind Routes
+exports = module.exports = function(app) {
+    // Website
+    app.get('/', routes.views.index);
+    app.get('/posts/:category?', routes.views.posts);
+    app.all('/posts/post/:post', routes.views.post);
+
+    // Session
+    app.all('/join', routes.views.session.join);
+    app.all('/signin', routes.views.session.signin);
+    app.get('/signout', routes.views.session.signout);
+    app.all('/forgot-password', routes.views.session['forgot-password']);
+    app.all('/reset-password/:key', routes.views.session['reset-password']);
+
+    // User
+    app.all('/me*', middleware.requireUser);
+    app.all('/me', routes.views.me);
+//    app.all('/me/create/post', routes.views.createPost);
+//    app.all('/me/create/link', routes.views.createLink);
+
+    // Json
+    app.get('/get-carousel', routes.ajax.carousel);
+    app.post('/share', routes.ajax.share);
+    app.get('/postpage', routes.ajax.postpage);
+
+    // Other
+    app.all('/landrover', routes.other.landrover);
+
+    app.get('/wx', routes.wx.index);
+
+    app.get('http://*', function(req, res) {
+        console.log('A get request not available');
+        res.json('false');
+    });
+    app.put('*', function(req, res) {
+        console.log('A put request not available');
+        res.json('false');
+    });
+    // Authentication
+
+    //Old Mobile Apps
+
+//    app.all('/api_app_ios_300.php', routes.old.api_app_ios_300);
+//
+//    //老版启动广告 ok
+//    app.post('/tstartup_ad.php', routes.old.tstartup_ad);
+//
+//    //ipad版用到参数为retina=1
+//    app.get('/api_app_ios_130.php', routes.old.api_app_ios_130);
+//    //
+//    app.get('/ipad_xml.php', routes.old.ipad_xml);
+//    //手机广告 ok
+//    app.get('/ad/:id', routes.old.ad);
+//    //广告点击统计 ok
+//    app.get('/adlog/:id', routes.old.adlog);
+//    //新版启动广告 ok
+//    app.get('/startup_ad.php', routes.old.startup_ad);
+//    app.get('/api_app_ios_ad_130.php', routes.old.api_app_ios_ad_130);
+//    //ipad同步缓存，返回目录宝路径 ok
+//    app.get('/api_app_ios_rsync.php', routes.old.api_app_ios_rsync);
+//    //
+//    app.get('/volume/:id', routes.old.volume)
+
+    app.all('*', routes.old.forward);
+}

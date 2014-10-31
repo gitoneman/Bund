@@ -1,0 +1,34 @@
+//-
+	Sign in
+	------------------------------
+	
+	Args
+	* modal  - boolean
+	* initial [default "join"] - accepts "signin" | "join" | "password"
+	
+mixin form-signin(args)
+	.auth-box.modal-pane-signin(class=args.modal && args.initial != 'signin' ? 'hidden' : null)
+		if args.modal
+			.modal-header
+				button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
+				h2.modal-title 登录外滩
+		div(class=args.modal ? 'modal-body' : null)
+			//include ../../includes/social-signin
+			//p.auth-form-divider: span.auth-form-divider-text or
+			form(method='post', action='/signin', role='signin', novalidate).auth-form
+				input(type='hidden', name='action', value='signin')
+				input(type='hidden', name='target', value=!args.modal ? form.target : page.path)
+				.form-groups
+					.form-group
+						label(for='signin-email').sr-only 邮箱
+						input(type='email', name='email', placeholder='邮箱', id='signin-email', value=locals.form ? locals.form.email : null).form-control.form-control--first
+					.form-group
+						label(for='signin-password').sr-only 密码
+						input(type='password', name='password', placeholder='密码', id='signin-password', value='').form-control.form-control--last
+				button(type='submit').btn.btn-block.btn-primary.btn-submit 登录
+			
+			.row.text-muted.mt-3
+				.col-xs-8 没有账号?
+					a(href=args.modal ? js : '/join', rel=args.modal ? 'modal-pane' : null, data-modal-pane=args.modal ? 'join' : null) 点击注册
+				.col-xs-4.text-right
+					a(href=args.modal ? js : '/forgot-password', rel=args.modal ? 'modal-pane' : null, data-modal-pane=args.modal ? 'password' : null) 忘记密码?

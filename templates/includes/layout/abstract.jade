@@ -1,0 +1,19 @@
+mixin abstract(post)
+    - var imglink = post['图片链接']?post['图片链接']:((post['图片'].filename) ? '/upload/' + post['图片'].filename : '/images/test.png');
+    div.abstract
+        a(href='/posts/post/' + post['_id'])
+            img.img-responsive(src=imglink)
+            div.gradient
+                div.gradient-title
+                    h3
+                        small
+                            font.abstract-title= post['标题']
+                    h4
+                        small
+                            //include /public/images/share.svg
+                            span(class="glyphicon glyphicon-share glyphicon-inverse")
+                            font.abstract-text= post['分享数']
+                            //include /public/images/thumbs-up.svg
+                            span(class="glyphicon glyphicon-thumbs-up glyphicon-inverse")
+                            font.abstract-text= post['赞数']
+            .clearfix

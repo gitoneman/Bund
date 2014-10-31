@@ -1,0 +1,1 @@
+nohup nodemon web.js > node.out 2>&1 &

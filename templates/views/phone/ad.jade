@@ -1,0 +1,62 @@
+doctype html
+html
+    head
+        meta(charset=utf-8)
+        meta(name="apple-mobile-web-app-capable" content="yes")
+        meta(content="width=device-width, initial-scale=1.0, user-scalable=1" name="viewport")
+        script(type="text/javascript" src="/js/old/g.js")
+        script(type="text/javascript" src="/js/old/ipad_common.js")
+        script(type="text/javascript" src="/js/old/bundpic.js")
+        title= ad['广告名']||''
+        style.
+            body{
+                padding:0;
+                margin:0;
+            }
+            p {
+                margin:0;
+                padding:0;
+            }
+            img {
+                display: block;
+            }
+            #portrait_div {
+                /*width:768px;*/
+                margin:0 auto;
+            }
+            #landscape_div {
+                width:1024px;
+                margin:0 auto;
+                display:none;
+            }
+            /* Landscape */
+            @media all and (orientation:landscape)
+            {
+                #portrait_div {
+                    display:none;
+                }
+                #landscape_div {
+                    display:block;
+                }
+            }
+        script.
+            set_viewport();
+    body(onload="load()")
+        #portrait_div!= ad['竖屏']||''
+            script(src=ad['统计链接']||'')
+        #landscape_div!= ad['横屏']||''
+            script(src=ad['统计链接']||'')
+        script.
+            function load(){
+                init_touch();
+                try{
+                var xmlHttp = window.ActiveXObject ?
+                    new ActiveXObject("Microsoft.XMLHTTP") :
+                    new XMLHttpRequest();
+                xmlHttp.open("GET","http://www.bundpic.com/adlog/#{ad.id}", true);
+                xmlHttp.send(null);
+                return true;
+                } catch(e){
+                    return false;
+                }
+            }

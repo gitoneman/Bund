@@ -1,0 +1,24 @@
+extends ../../layouts/pc
+include ../../includes/layout/abstract
+//- BODY
+block body
+    .container-lg
+        include ../../includes/layout/carousel
+        div.row.row-offcanvas.row-offcanvas-right
+            div(class="col-sm-8 col-md-9 main")
+                p(class="pull-right visible-xs")
+                    button(type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas") 热门
+                p.visible-xs &nbsp
+                .row#posts
+                    //each post in posts
+                    //    .col-sm-6.col-md-4
+                    //        +abstract(post)
+                img.center-block.loading(src='/images/loading.gif' width='50' style='display:none')
+            include ../../mixins/sidemenu
+            +sidemenu(hots)
+        //#pagination
+        //    a.next(href="postpage?p=2&n=1") next
+block js
+    script(src='/js/lib/jquery/imagesloaded.min.js')
+    script(src='/js/lib/jquery/ias.min.js')
+    script(src='/js/ias.js')
