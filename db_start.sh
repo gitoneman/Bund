@@ -1,1 +1,1 @@
-nohup ./start_db_centos.sh > mongo.out 2>&1 &
+nohup mongod --dbpath /data/BundDB --port 28933 > ./logs/mongo.out 2>&1 &

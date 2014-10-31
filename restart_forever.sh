@@ -1,0 +1,1 @@
+sudo forever restart -a -l /dev/null -o ./logs/out.log -e ./logs/err.log web.js

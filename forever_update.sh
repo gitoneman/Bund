@@ -1,0 +1,1 @@
+forever start -a -l /dev/null -o ./logs/update.log -e ./logs/update_err.log update.js
