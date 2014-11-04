@@ -2,22 +2,6 @@
 require('dotenv').load();
 var keystone = require('keystone');
 
-//process.on('uncaughtException', function(e) {
-//    if (e.code === 'EADDRINUSE') {
-//        console.log('------------------------------------------------\n' +
-//            keystone.get('name') + ' failed to start: address already in use\n' +
-//            'Please check you are not already running a server on the specified port.');
-//        process.exit();
-//        throw (e);
-//    } else if (e.code === 'ECONNRESET') {
-//        //Connection reset by peer, ignore it instead of exiting server with a throw.
-//        console.log('Connection reset by peer');
-//        console.log(e);
-//    } else {
-//        throw (e);
-//    }
-//});
-
 keystone.init({
     'brand': '外滩后台',
     'name': '外滩后台',
