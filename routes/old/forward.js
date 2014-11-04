@@ -2,7 +2,7 @@ var request = require("request");
 var d = require('domain').create();
 d.on('error', function(err){
     // handle the error safely
-    console.log(err.code);
+    console.log('Forward Error:'+err.code);
 });
 
 
