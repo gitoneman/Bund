@@ -183,7 +183,7 @@ var Update_From_Old = function () {
                     if (!post) {
                         isUpdate = false;
                     } else {
-                        if(isFirst&&process.env.FULL_CRAWL) {
+                        if(isFirst&&process.env.FULL_CRAWL=='true') {
                             isUpdate = false;
                         } else {
                             isUpdate = true;
