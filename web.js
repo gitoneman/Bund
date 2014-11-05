@@ -17,7 +17,7 @@ keystone.init({
     'emails': 'templates/emails',
 
     'auto update': true,
-    'mongo': 'mongodb://localhost:28933/bund',
+    'mongo': process.env.MONGO_URI || 'mongodb://localhost:28933/bund',
 
     'session': true,
     'session store': 'mongo',
