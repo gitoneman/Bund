@@ -1,6 +1,7 @@
 var keystone = require('keystone'),
     middleware = require('./middleware'),
     importRoutes = keystone.importer(__dirname);
+var proxy = require('express-http-proxy');
  
 // Common Middleware
 keystone.pre('routes', middleware.initErrorHandlers);
@@ -94,6 +95,6 @@ exports = module.exports = function(app) {
 //    app.get('/api_app_ios_rsync.php', routes.old.api_app_ios_rsync);
 //    //
 //    app.get('/volume/:id', routes.old.volume)
-
-    app.all('*', routes.old.forward);
+    app.use(proxy(process.env.OLD_SERVER_IP));
+//    app.all('*', routes.old.forward);
 }
