@@ -17,8 +17,8 @@
         "routes" : ">= 0.1.0",
         "cookiejar": ">= 1.3.0",
         "moment": "~2.6.0",
-        "connect-mongo": "~0.4.1",
-        "connect-mongostore": "~0.1.4"
+        "express-http-proxy": "~0.3.0",
+        "connect-mongo": "~0.4.1"
     },
     "devDependencies": {
         "webkit-devtools-agent": "~0.3.1"
