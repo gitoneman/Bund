@@ -63,14 +63,14 @@ exports = module.exports = function(app) {
 
     app.get('/wx', routes.wx.index);
 
-    app.get('http://*', function(req, res) {
-        console.log('A get request not available');
-        res.json('false');
-    });
-    app.put('*', function(req, res) {
-        console.log('A put request not available');
-        res.json('false');
-    });
+//    app.get('http://*', function(req, res) {
+//        console.log('A get request not available');
+//        res.json('false');
+//    });
+//    app.put('*', function(req, res) {
+//        console.log('A put request not available');
+//        res.json('false');
+//    });
     // Authentication
 
     //Old Mobile Apps
