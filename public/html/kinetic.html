@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+        #slider {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        #slider2 {
+            position: absolute;
+            top: 20px;
+            left: 150px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<input id="slider" type="range" min="-1" max="1" step="0.05" value="0">
+<input id="slider2" type="range" min="0" max="40" step="1" value="20">
+<script src="/js/lib/kinetic-v5.1.0.min.js"></script>
+<script defer="defer">
+    var stage = new Kinetic.Stage({
+        container: 'container',
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+    window.onresize = function(event) {
+        stage.setWidth(window.innerWidth);
+        stage.setHeight(window.innerHeight);
+    }
+    function textLayer(stage) {
+        var staticLayer = new Kinetic.Layer();
+        var text = new Kinetic.Text({
+            x: 10,
+            y: 10,
+            text: 'Static Layer',
+            fontSize: '30',
+            fontFamily: 'Calibri',
+            fill: 'black'
+        });
+        var tooltip = new Kinetic.Label({
+            x: 170,
+            y: 75,
+            opacity: 0.75
+        });
+        tooltip.add(new Kinetic.Tag({
+            fill: 'black',
+            pointerDirection: 'down',
+            pointerWidth: 10,
+            pointerHeight: 10,
+            lineJoin: 'round',
+            shadowColor: 'black',
+            shadowBlur: 10,
+            shadowOffset: {x:10,y:20},
+            shadowOpacity: 0.5
+        }));
+        tooltip.add(new Kinetic.Text({
+            text: 'Tooltip pointing down',
+            fontFamily: 'Calibri',
+            fontSize: 18,
+            padding: 5,
+            fill: 'white'
+        }));
+        // label with left pointer
+        var labelLeft = new Kinetic.Label({
+            x: 195,
+            y: 130,
+            opacity: 0.75
+        });
+        labelLeft.add(new Kinetic.Tag({
+            fill: 'green',
+            pointerDirection: 'left',
+            pointerWidth: 20,
+            pointerHeight: 28,
+            lineJoin: 'round'
+        }));
+        labelLeft.add(new Kinetic.Text({
+            text: 'Label pointing left',
+            fontFamily: 'Calibri',
+            fontSize: 18,
+            padding: 5,
+            fill: 'white'
+        }));
+        // simple label
+        var simpleLabel = new Kinetic.Label({
+            x: 350,
+            y: 50,
+            opacity: 0.75
+        });
+        simpleLabel.add(new Kinetic.Tag({
+            fill: 'yellow'
+        }));
+        simpleLabel.add(new Kinetic.Text({
+            text: 'Simple label',
+            fontFamily: 'Calibri',
+            fontSize: 18,
+            padding: 5,
+            fill: 'black'
+        }));
+        var textpath = new Kinetic.TextPath({
+            x: 100,
+            y: 50,
+            fill: '#333',
+            fontSize: '24',
+            fontFamily: 'Arial',
+            text: 'All the world\'s a stage, and all the men and women merely players.',
+            data: 'M10,10 C0,0 10,150 100,100 S300,150 400,50'
+        });
+        staticLayer.add(text).add(tooltip).add(labelLeft).add(simpleLabel).add(textpath);
+        stage.add(staticLayer);
+    }
+    function animLayer() {
+        var rect = new Kinetic.Rect({
+            x: 289,
+            y: 100,
+            width: 200,
+            height: 20,
+            offset: {x:100, y:10},
+            fill: 'green',
+            stroke: 'black',
+            strokeWidth: 4
+        });
+        var blueHex = new Kinetic.RegularPolygon({
+            x: 100,
+            y: stage.height()/2,
+            sides: 6,
+            radius: 70,
+            fill: '#00D2FF',
+            stroke: 'black',
+            strokeWidth: 4,
+            draggable: true
+        });
+        var yellowHex = new Kinetic.RegularPolygon({
+            x: stage.width()/2,
+            y: stage.height()/2,
+            sides: 6,
+            radius: 70,
+            fill: 'yellow',
+            stroke: 'black',
+            strokeWidth: 4,
+            draggable: true
+        });
+        var redHex = new Kinetic.RegularPolygon({
+            x: 470,
+            y: stage.height()/2,
+            sides: 6,
+            radius: 70,
+            fill: 'red',
+            stroke: 'black',
+            strokeWidth: 4,
+            offset: {
+                x: 70,
+                y: 0
+            },
+            draggable: true
+        });
+        var animLayer = new Kinetic.Layer();
+        animLayer.add(blueHex);
+        animLayer.add(yellowHex);
+        animLayer.add(redHex);
+        animLayer.add(rect);
+        var period = 2000;
+        var anim = new Kinetic.Animation(function(frame) {
+            var scale = Math.sin(frame.time * 2 * Math.PI / period) + 0.001;
+            // scale x and y
+            blueHex.scale({x:scale, y:scale});
+            // scale only x
+            yellowHex.scale({x:1, y:scale});
+            // scale only y
+            redHex.scale({x:scale, y: 1});
+            rect.rotate(1);
+        }, animLayer);
+        anim.start();
+        return animLayer;
+    }
+    function imgLayer(stage) {
+        var imageObj = new Image();
+        imageObj.onload = function() {
+            var layer = new Kinetic.Layer();
+            darth = new Kinetic.Image({
+                x: 10,
+                y: 10,
+                image: imageObj,
+                draggable: true
+            });
+
+            layer.add(darth);
+            stage.add(layer);
+            darth.cache();
+//            darth.filters([Kinetic.Filters.Invert]);
+            layer.draw();
+//            darth.filters([Kinetic.Filters.Brighten]);
+//            var slider = document.getElementById('slider');
+//            slider.onchange = function() {
+//                darth.brightness(slider.value);
+//                layer.batchDraw();
+//            };
+//            darth.filters([Kinetic.Filters.Blur]);
+//            var slider2 = document.getElementById('slider2');
+//            slider2.onchange = function() {
+//                darth.blurRadius(slider2.value);
+//                layer.batchDraw();
+//            };
+        };
+        imageObj.src = '/images/other/omega/image 1.jpg';
+    }
+    textLayer(stage);
+    imgLayer(stage);
+
+    function loadImages(sources, callback) {
+        var images = {};
+        var loadedImages = 0;
+        var numImages = 0;
+        // get num of sources
+        for(var src in sources) {
+            numImages++;
+        }
+        for(var src in sources) {
+            images[src] = new Image();
+            images[src].onload = function() {
+                if(++loadedImages >= numImages) {
+                    callback(images);
+                }
+            };
+            images[src].src = sources[src];
+        }
+    }
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    var sources = {
+        darthVader: 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg',
+        yoda: 'http://www.html5canvastutorials.com/demos/assets/yoda.jpg'
+    };
+    loadImages(sources, function(images) {
+        context.drawImage(images.darthVader, 100, 30, 200, 137);
+        context.drawImage(images.yoda, 350, 55, 93, 104);
+    });
+//    stage.add(textLayer());
+//    stage.add(animLayer());
+
+//    stage.add(staticLayer).add(animLayer);
+
+//    stage.on('contentMousemove', function() {
+//        rect.rotate(10);
+//        layer.batchDraw();
+//    });
+</script>
+</body>
+</html>
