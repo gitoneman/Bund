@@ -8,17 +8,54 @@ block bhead
     script(src="/js/lib/html5shiv.js")
     script(src="/js/lib/respond.min.js")
     <![endif]-->
+    style.
+        .full {
+            max-width: 100%;
+            max-height: 100%;
+            height:auto;
+            width:auto;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            overflow: auto;
+            position: fixed;
+            right: 0;
+            top: 0;
+        }
 block bbody
     body(style="background-color:#ECECEC;overflow-x: hidden;")
-        div#3dimg
-            img#img(src="images/z3d/small/image 1.jpg")
+        div
+            img.full#img(src="/images/other/omega/image 1.jpg")
+    script(src='/js/lib/jquery/1.11.1.min.js')
     script.
-        function $(id) {
-            return document.getElementById(id);
-        }
+        var Count = 24;
+        var iCur = 1;
+        var numLoaded = 0;
+        var numError = 0;
+        var imgArr = new Array(Count);
+        var atimer;
         function nextImage() {
-
+            if (iCur < Count) iCur++;
+            else iCur = 1;
+            $("#img").attr("src",imgArr[iCur].src);
         }
-        window.onload=function () {
-            setInterval(nextImage, 500);
+        function loadImage(iCount) {
+            for(var i=1; i<=Count; i++) {
+                var img = new Image();
+                img.src='/images/other/omega/image '+i+'.jpg';
+                img.onload=function(){
+                    numLoaded++;
+                    if (numLoaded == Count) {
+                        atimer = setInterval(nextImage, 100);
+                    }
+                };
+                img.onerror=function(){
+                    numLoaded++;
+                    numError++;
+                }
+                imgArr[i] = img;
+            }
         }
+        $(function(){
+            loadImage(Count);
+        })

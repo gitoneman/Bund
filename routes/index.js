@@ -60,6 +60,7 @@ exports = module.exports = function(app) {
 
     // Other
     app.all('/landrover', routes.other.landrover);
+    app.all('/omega', routes.other.omega);
 
     app.get('/wx', routes.wx.index);
 
