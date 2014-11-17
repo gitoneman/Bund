@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script src="/js/lib/kinetic-v5.1.0.min.js"></script>
+<script defer="defer">
+    function bkgLayer1(stage,callback) {
+		console.log(stage.width);
+        var imageObj = new Image();
+        imageObj.onload = function() {
+            var layer = new Kinetic.Layer();
+            darth = new Kinetic.Image({
+                x: (stage.getWidth()-imageObj.width)/2,
+                y: (stage.getHeight()-imageObj.height)/2,
+                image: imageObj,
+                draggable: true
+            });
+            layer.add(darth);
+            stage.add(layer);
+            darth.cache();
+			darth.filters([Kinetic.Filters.Invert]);
+            layer.draw();
+			callback();
+        };
+        imageObj.src = '/images/other/omega/image 1.jpg';
+    }
+	function animLayer1(stage) {
+		var animLayer = new Kinetic.Layer();
+		var labelLeft = new Kinetic.Label({
+            x: stage.getWidth()/2 + 100,
+            y: stage.getHeight()/2 + 50,
+            opacity: 0.75
+        });
+        labelLeft.add(new Kinetic.Tag({
+            fill: 'green',
+            pointerDirection: 'left',
+            pointerWidth: 20,
+            pointerHeight: 28,
+            lineJoin: 'round'
+        }));
+		labelLeft.add(new Kinetic.Text({
+            text: '点击',
+            fontFamily: 'Calibri',
+            fontSize: 18,
+            padding: 5,
+            fill: 'white'
+        }));
+		animLayer.add(labelLeft);
+		stage.add(animLayer);
+		var period = 2000;
+		var anim = new Kinetic.Animation(function(frame) {
+        var scale = Math.sin(frame.time * 2 * Math.PI / period) + 0.001;
+        labelLeft.scale({x:scale, y: 1});
+      }, animLayer);
+      anim.start();
+	}
+	var kstage = new Kinetic.Stage({
+        container: 'container',
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+    bkgLayer1(kstage,function() {
+		animLayer1(kstage);
+	});
+
+</script>
+</body>
+</html>
