@@ -55,6 +55,7 @@ exports = module.exports = function(app) {
 
     // Json
     app.get('/get-carousel', routes.ajax.carousel);
+    app.get('/app-carousel', routes.ajax.carouselapp);
     app.post('/share', routes.ajax.share);
     app.get('/postpage', routes.ajax.postpage);
 

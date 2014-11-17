@@ -1,15 +1,15 @@
 var keystone = require('keystone'),
     Types = keystone.Field.Types;
 
-var Carousel = new keystone.List('Carousel', {
-    label: '轮播图',
-    singular: '轮播图',
-    plural: '轮播图',
+var CarouselApp = new keystone.List('CarouselApp', {
+    label: '手机轮播图',
+    singular: '手机轮播图',
+    plural: '手机轮播图',
     map: { name: '图名' },
     defaultSort: '-优先级'
 });
 
-Carousel.add({
+CarouselApp.add({
     '图名': { type: String, required: true},
     '文件': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
         format: function(item, file){
@@ -25,13 +25,17 @@ Carousel.add({
     '优先级': { type: Types.Number, default: '1', required: true}
 });
 
-Carousel.defaultColumns = '图名, 发布, 链接30%, 描述, 上传时间, 优先级, 链接';
+CarouselApp.defaultColumns = '图名, 发布, 链接30%, 描述, 上传时间, 优先级, 链接';
 
-Carousel.schema.pre('save', function(next) {
+CarouselApp.schema.pre('save', function(next) {
     if (this.isModified('文件')) {
         this.上传时间 = new Date();
     }
     next();
 });
 
-Carousel.register();
+//CarouselApp.schema.post('delete', function(next) {
+//
+//});
+
+CarouselApp.register();
