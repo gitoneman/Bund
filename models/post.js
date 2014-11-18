@@ -33,7 +33,9 @@ Post.add({
         更多: { type: Types.Html, wysiwyg: true, height: 500 }
     },
     '赞数': { type: Types.Number, default:0, noedit: true},
-    '分享数': { type: Types.Number, default:0, noedit: true}
+    '分享数': { type: Types.Number, default:0, noedit: true},
+    '出现统计': { type: Types.Url},
+    '点击统计': { type: Types.Url}
 });
 
 //function checkThumbUp() {

@@ -22,7 +22,9 @@ CarouselApp.add({
     '描述': String,
     '上传时间': { type: Date, default: Date.now, noedit:true},
     '链接': { type: String },
-    '优先级': { type: Types.Number, default: '1', required: true}
+    '优先级': { type: Types.Number, default: '1', required: true},
+    '出现统计': { type: Types.Url},
+    '点击统计': { type: Types.Url}
 });
 
 CarouselApp.defaultColumns = '图名, 发布, 链接30%, 描述, 上传时间, 优先级, 链接';
