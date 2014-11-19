@@ -98,7 +98,8 @@ function printAbstract(post) {
 //    console.log(post);
     var html = "<div class='col-sm-6 col-md-4 post'>"; //
     var imglink = post['图片链接']?post['图片链接']:((post['图片']&&post['图片'].url) ? post['图片'].url : '/images/test.png');
-    html += "<div class='abstract' style='display:none'><a href='/posts/post/"+post['_id']+"'>";
+    var link = post['链接']? post['链接']: "/posts/post/"+post['_id']
+    html += "<div class='abstract' style='display:none'><a href='"+link+"'>";
     html += "<img class='img-responsive' src='"+imglink+"'/>";
     html += "<div class='gradient'><div class='gradient-title'>";
     html += "<h3><small><font class='abstract-title'>"+post['标题']+"</font></small></h3>"
