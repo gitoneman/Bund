@@ -25,8 +25,8 @@ exports = module.exports = function(req, res) {
 				// Allow admins or the author to see draft posts
 				if (post['状态'] == '已发布' || (req.user && req.user.canAccessKeystone) ) {
 					locals.post = post;
+                    locals.page.title = post['标题'];
 					locals.post.populateRelated('评论[作者]', next);
-					locals.page.title = post['标题'];
 				} else {
 					return res.notfound('文章不存在');
 				}
