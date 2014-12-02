@@ -36,7 +36,12 @@ Post.add({
     '赞数': { type: Types.Number, default:0, noedit: true},
     '分享数': { type: Types.Number, default:0, noedit: true},
     '出现统计': { type: Types.Url},
-    '点击统计': { type: Types.Url}
+    '点击统计': { type: Types.Url},
+    '总点击数': {type: Types.Number, default:0, noedit: true},
+    '最近点击日': {type: Date, noedit: true},
+    '当日点击数': {type: Types.Number, default:0, noedit: true},
+    '最近点击周': {type: Date, noedit: true},
+    '当周点击数': {type: Types.Number, default:0, noedit: true}
 });
 
 //function checkThumbUp() {
