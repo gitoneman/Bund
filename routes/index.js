@@ -61,6 +61,7 @@ exports = module.exports = function(app) {
     app.get('/postpage', routes.ajax.postpage);
     app.get('/app-post', routes.ajax.postapp);
     app.get('/hots', routes.ajax.hots);
+    app.get('/comment', routes.ajax.comment);
 
     // Other
     app.all('/landrover', routes.other.landrover);

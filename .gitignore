@@ -30,3 +30,6 @@ node_modules
 
 #upload files
 public/upload
+
+#css files
+public/styles/*.css
