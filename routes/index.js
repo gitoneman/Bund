@@ -60,6 +60,7 @@ exports = module.exports = function(app) {
     app.post('/share', routes.ajax.share);
     app.get('/postpage', routes.ajax.postpage);
     app.get('/app-post', routes.ajax.postapp);
+    app.get('/hots', routes.ajax.hots);
 
     // Other
     app.all('/landrover', routes.other.landrover);

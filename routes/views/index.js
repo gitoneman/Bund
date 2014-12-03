@@ -23,7 +23,7 @@ exports = module.exports = function(req, res) {
     view.query('hots',
         Post.model.find()
             .where('状态', '已发布')
-            .sort('-发布时间')
+            .sort('-总点击数')
             .limit('10')
     );
 
