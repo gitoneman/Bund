@@ -11,9 +11,10 @@ var PostCategory = new keystone.List('PostCategory', {
 PostCategory.add({
     '名称': { type: String, required: true},
     '标识': { type: String, required: true, unique: true, initial: true},
+    '手机列表': { type: Types.Number},
     '描述': String
 });
 
-PostCategory.defaultColumns = '名称, 标识, 描述';
+PostCategory.defaultColumns = '名称, 标识, 手机列表, 描述';
 
 PostCategory.register();
