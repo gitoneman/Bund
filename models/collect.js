@@ -10,6 +10,7 @@ var Collect = new keystone.List('Collect', {
 
 Collect.add({
     '项目': { type: String, required: true},
+    '创建时间': { type: Date, default: Date.now},
     'A': { type: String },
     'B': { type: String },
     'C': { type: String },
@@ -38,6 +39,6 @@ Collect.add({
     'Z': { type: String }
 });
 
-Collect.defaultColumns = '项目, A, B, C, D, E, F, G, H, I';
+Collect.defaultColumns = '项目, 创建时间,A, B, C, D, E, F, G, H, I';
 
 Collect.register();
