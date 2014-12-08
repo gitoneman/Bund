@@ -83,19 +83,19 @@ function validate_form(thisform)
 {
     with (thisform)
     {
-        if (validate_required(name,"请填写姓名")==false) {
+        if (validate_required(B,"请填写姓名")==false) {
             name.focus();
             return false;
         }
-        if (validate_required(phone,"请填写联系电话")==false) {
+        if (validate_required(D,"请填写联系电话")==false) {
             phone.focus();
             return false;
         }
-        if (validate_required(email,"请填写电子邮箱")==false) {
+        if (validate_required(E,"请填写电子邮箱")==false) {
             email.focus();
             return false;
         }
-        if (validate_email(email,"请输入格式正确的邮箱地址")==false) {
+        if (validate_email(E,"请输入格式正确的邮箱地址")==false) {
             email.focus();
             return false;
         }

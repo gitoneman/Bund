@@ -24,30 +24,32 @@ block bbody
             h4 倾橙限量版 耀您私享
             p 成功提交个人信息之后，路虎将在第一时间为您奉上最新的专享礼遇、最新产品及试驾活动资讯。
             - var checkFormError = function(key) { return form.error && form.error.errors && form.error.errors[key] ? 'has-error' : null }
-            form(method='post' action='' onsubmit="return validate_form(this);" enctype='multipart/form-data' autocomplete='off' novalidate).form-horizontal
+            form(method='post' action='/collect' onsubmit="return validate_form(this);" enctype='multipart/form-data' autocomplete='off' novalidate).form-horizontal
                 h4 个人信息
+                input(type='text', name='url' value='http://www.landrover.com.cn/vehicles/range-rover-evoque/index.html').sr-only
+                input(type='text', name='project' value='路虎2014').sr-only
                 .form-group
                     label.col-sm-3.control-label 姓名:
-                    .col-sm-9: input(type='text', name='name' value='').form-control
+                    .col-sm-9: input(type='text', name='B' value='').form-control
                 .form-group
                     label.col-sm-3.control-label 性别:
                     .col-sm-9
                         label.radio-inline
-                            input(type="radio" name="gender" id="inlineRadio1" value="男" checked)
+                            input(type="radio" name="C" id="inlineRadio1" value="男" checked)
                             span 男
                         label.radio-inline
-                            input(type="radio" name="gender" id="inlineRadio2" value="女")
+                            input(type="radio" name="C" id="inlineRadio2" value="女")
                             span 女
                 .form-group
                     label.col-sm-3.control-label 联系电话:
-                    .col-sm-9: input(type='text', name='phone' value='').form-control
+                    .col-sm-9: input(type='text', name='D' value='').form-control
                 .form-group
                     label.col-sm-3.control-label 电子邮箱:
-                    .col-sm-9: input(type='email', name='email' value='').form-control
+                    .col-sm-9: input(type='email', name='E' value='').form-control
                 .form-group
                     label.col-sm-3.control-label 省:
                     .col-sm-4
-                        select(id="province" name='province' onchange="getCity()").form-control
+                        select(id="province" name='F' onchange="getCity()").form-control
                             option(value='北京') 北京
                             option(value='上海') 上海
                             option(value='天津') 天津
@@ -84,17 +86,17 @@ block bbody
                             option(value='台湾') 台湾
                     label.col-sm-1.control-label 市:
                     .col-sm-4
-                        select(id="city" name='city').form-control
+                        select(id="city" name='G').form-control
                 h4 购车计划
                 .form-group
                     label.col-sm-3.control-label 您感兴趣的车型:
                     .col-sm-9
-                        select(name='type').form-control
+                        select(name='H').form-control
                             option 路虎•揽胜极光•倾橙限量版
                 .form-group
                     label.col-sm-3.control-label 预计购车时间:
                     .col-sm-9
-                        select(name='time').form-control
+                        select(name='I').form-control
                             option 0～3个月
                             option 4～6个月
                             option 7～12个月
@@ -102,7 +104,7 @@ block bbody
                 .form-group
                     label.col-sm-3.control-label 购车预算:
                     .col-sm-9
-                        select(name='budget').form-control
+                        select(name='A').form-control
                             option 50万以下
                             option 50～99万
                             option 100～149万

@@ -10,17 +10,34 @@ var Collect = new keystone.List('Collect', {
 
 Collect.add({
     '项目': { type: String, required: true},
-    '姓名': { type: String },
-    '性别': { type: Types.Select, options: '男, 女'},
-    '电话': { type: String },
-    '邮箱': { type: String },
-    '省': {type: String },
-    '市': {type: String },
-    '车型': {type: String },
-    '购车时间': {type: String },
-    '预算': {type: String}
+    'A': { type: String },
+    'B': { type: String },
+    'C': { type: String },
+    'D': { type: String },
+    'E': { type: String },
+    'F': { type: String },
+    'G': { type: String },
+    'H': { type: String },
+    'I': { type: String },
+    'J': { type: String },
+    'K': { type: String },
+    'L': { type: String },
+    'M': { type: String },
+    'N': { type: String },
+    'O': { type: String },
+    'P': { type: String },
+    'Q': { type: String },
+    'R': { type: String },
+    'S': { type: String },
+    'T': { type: String },
+    'U': { type: String },
+    'V': { type: String },
+    'W': { type: String },
+    'X': { type: String },
+    'Y': { type: String },
+    'Z': { type: String }
 });
 
-Collect.defaultColumns = '项目, 姓名, 性别, 电话, 邮箱, 省, 市, 车型, 购车时间, 预算';
+Collect.defaultColumns = '项目, A, B, C, D, E, F, G, H, I';
 
 Collect.register();

@@ -67,8 +67,9 @@ exports = module.exports = function(app) {
     app.get('/search', routes.ajax.search);
 
     // Other
-    app.all('/landrover', routes.other.landrover);
-    app.all('/omega', routes.other.omega);
+    app.post('/collect', routes.ajax.collect);
+    app.get('/landrover', routes.other.landrover);
+    //app.all('/omega', routes.other.omega);
 
     app.get('/wx', routes.wx.index);
 
