@@ -111,7 +111,7 @@ var crawlpost = function (next) {
     var newPost = {
         '标题': title,
         '副标题': sub_title ? sub_title : '',
-        '分类': categoryStore[category],
+        '分类': [categoryStore[category]],
         '标签': label ? label : '',
         '状态': '已发布',
         '作者': cinfo ? cinfo : '',
