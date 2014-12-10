@@ -136,7 +136,7 @@ var crawlpost = function (next) {
                         '更多': content ? content : ''
                     }
                 };
-                postModel.update({ '原始链接': url.href }, newPost, {upsert: true}, function (err, numberAffected, raw) {
+                postModel.update({ '原始链接': url }, newPost, {upsert: true}, function (err, numberAffected, raw) {
                     if (err) console.log(err);
                     next();
                 });
@@ -165,7 +165,7 @@ var crawlpost = function (next) {
                 '更多': content ? content : ''
             }
         };
-        postModel.update({ '原始链接': url.href }, newPost, {upsert: true}, function (err, numberAffected, raw) {
+        postModel.update({ '原始链接': url }, newPost, {upsert: true}, function (err, numberAffected, raw) {
             if (err) console.log(err);
             next();
         });
