@@ -12,7 +12,23 @@ PostCategory.add({
     '名称': { type: String, required: true, unique: true},
     '标识': { type: String, required: true, unique: true, initial: true},
     '手机列表': { type: Types.Number},
-    '描述': String
+    '描述': String,
+    '图标': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
+        format: function(item, file){
+            return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
+        },
+        filename: function(item, filename) {
+            return 'a'+item._id+require('path').extname(filename);
+        }},
+    '焦点图': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
+        format: function(item, file){
+            return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
+        },
+        filename: function(item, filename) {
+            return 'b'+item._id+require('path').extname(filename);
+        }},
+    '焦点标题': String,
+    '链接': { type: Types.Url}
 });
 
 PostCategory.defaultColumns = '名称, 标识, 手机列表, 描述';
