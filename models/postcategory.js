@@ -28,7 +28,9 @@ PostCategory.add({
             return 'b'+item._id+require('path').extname(filename);
         }},
     '焦点标题': String,
-    '链接': { type: Types.Url}
+    '链接': { type: Types.Url},
+    '出现统计': { type: Types.Url},
+    '点击统计': { type: Types.Url}
 });
 
 PostCategory.defaultColumns = '名称, 标识, 手机列表, 描述';
