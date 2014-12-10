@@ -9,7 +9,8 @@ mongoose.connect(process.env.MONGO_URI);
 var postModel = mongoose.model('Post', {
     '标题': String,
     '副标题': String,
-    '分类': mongoose.Schema.Types.ObjectId,
+    '原始链接': String,
+    '分类': [mongoose.Schema.Types.ObjectId],
     '渠道': mongoose.Schema.Types.ObjectId,
     '标签': String,
     '状态': String,
@@ -67,6 +68,7 @@ var crawlpost = function (next) {
     if (this.fromCache) return;
     var $ = this.$;
     var url = this.spider.currentUrl;
+    //console.log(url);
     var title;
     $('div.cc h1:first').each(function () {
         title = this.childNodes[1].nodeValue;
@@ -108,25 +110,66 @@ var crawlpost = function (next) {
     })
     var ptime = period.split(' ', 2)[0].replace('年', '').replace('月', '').replace('日', '');
     var time = moment(ptime, 'YYYYMMDD').toDate();
-    var newPost = {
-        '标题': title,
-        '副标题': sub_title ? sub_title : '',
-        '分类': [categoryStore[category]],
-        '标签': label ? label : '',
-        '状态': '已发布',
-        '作者': cinfo ? cinfo : '',
-        '创建时间': time,
-        '发布时间': time,
-        '图片链接': pic ? pic : '',
-        '正文': {
-            '简介': intro ? intro : '',
-            '更多': content ? content : ''
+    if (label!=null&&label!=""&&!categoryStore[label]) {
+        var newCategory = new categoryModel({
+            '名称': label,
+            '标识': label,
+            '描述': ""
+        });
+        newCategory.save(function (err, data) {
+            if (err) console.log(err);
+            else {
+                categoryStore[label] = data._id;
+                var newPost = {
+                    '标题': title,
+                    '副标题': sub_title ? sub_title : '',
+                    '原始链接': url,
+                    '分类': [categoryStore[category],categoryStore[label]],
+                    '标签': label ? label : '',
+                    '状态': '已发布',
+                    '作者': cinfo ? cinfo : '',
+                    '创建时间': time,
+                    '发布时间': time,
+                    '图片链接': pic ? pic : '',
+                    '正文': {
+                        '简介': intro ? intro : '',
+                        '更多': content ? content : ''
+                    }
+                };
+                postModel.update({ '原始链接': url.href }, newPost, {upsert: true}, function (err, numberAffected, raw) {
+                    if (err) console.log(err);
+                    next();
+                });
+            }
+        });
+    } else {
+        var cate;
+        if (categoryStore[label]) {
+            cate = [categoryStore[category], categoryStore[label]];
+        } else {
+            cate = [categoryStore[category]];
         }
-    };
-    postModel.update({ '标题': title }, newPost, {upsert: true}, function (err, numberAffected, raw) {
-        if (err) console.log(err);
-        next();
-    });
+        var newPost = {
+            '标题': title,
+            '副标题': sub_title ? sub_title : '',
+            '原始链接': url,
+            '分类': cate,
+            '标签': label ? label : '',
+            '状态': '已发布',
+            '作者': cinfo ? cinfo : '',
+            '创建时间': time,
+            '发布时间': time,
+            '图片链接': pic ? pic : '',
+            '正文': {
+                '简介': intro ? intro : '',
+                '更多': content ? content : ''
+            }
+        };
+        postModel.update({ '原始链接': url.href }, newPost, {upsert: true}, function (err, numberAffected, raw) {
+            if (err) console.log(err);
+            next();
+        });
+    }
 }
 
 var doCrawl = function () {

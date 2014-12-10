@@ -12,6 +12,7 @@ var Post = new keystone.List('Post', {
 Post.add({
     '标题': { type: String, required: true },
     '副标题': { type: String },
+    '原始链接': {type: Types.Url},
     '链接': { type: Types.Url},
     '分类': { type: Types.Relationship, ref: 'PostCategory', many: true},
     '渠道': { type: Types.Relationship, ref: 'Distribution', many: true},

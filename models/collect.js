@@ -10,7 +10,7 @@ var Collect = new keystone.List('Collect', {
 
 Collect.add({
     '项目': { type: String, required: true},
-    '创建时间': { type: Date, default: Date.now},
+    '创建时间': { type: Date, default: Date.now, noedit: true},
     'A': { type: String },
     'B': { type: String },
     'C': { type: String },

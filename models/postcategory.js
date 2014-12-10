@@ -9,7 +9,7 @@ var PostCategory = new keystone.List('PostCategory', {
 });
 
 PostCategory.add({
-    '名称': { type: String, required: true},
+    '名称': { type: String, required: true, unique: true},
     '标识': { type: String, required: true, unique: true, initial: true},
     '手机列表': { type: Types.Number},
     '描述': String
