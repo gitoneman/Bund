@@ -20,4 +20,3 @@ exports = module.exports = function(req, res) {
         return res.redirect(url);
     });
 }
-//http://www.landrover.com.cn/vehicles/range-rover-evoque/index.html

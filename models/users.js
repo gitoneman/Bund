@@ -15,7 +15,9 @@ User.add({
     'password': { type: Types.Password, initial: true },
     'canAccessKeystone': { type: Boolean, initial: true },
     resetPasswordKey: { type: String, hidden: true },
-    'createtime': { type: Date, default: Date.now , noedit: true}
+    'createtime': { type: Date, default: Date.now , noedit: true},
+    'lastlogintime': { type: Date, default: Date.now , noedit: true},
+    'loginerrortimes': { type: Types.Number, default: 0 , noedit: true}
 }, 'Profile', {
     website: { type: Types.Url }
 });
