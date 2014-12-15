@@ -28,6 +28,8 @@ block body
             p &nbsp
             p &nbsp
             div.post-content!= post['正文']['更多']
+            div(style="display: block; clear: both;")
+            p &nbsp
         .comments
             form(method='post').comment-form.mt-5
                 h4.mb-1=post['赞数'] == 0 ? '还没有人赞这篇文章' : '有' + post['赞数'] + '个人赞了这篇文章'
