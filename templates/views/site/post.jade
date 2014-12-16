@@ -71,3 +71,10 @@ block body
                             textarea(placeholder='写下您的评论...', name='内容').form-control
                             .mv-1
                                 button(type='submit').btn.btn-success 提交
+block js
+    script.
+        $(function () {
+            $('.post-content img').each(function () {
+                this.style.setProperty('width', '100%', 'important');
+            });
+        });
