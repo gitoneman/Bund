@@ -49,6 +49,7 @@ block bbody
         if !post
             h1 文章不存在
         else
+            p &nbsp
             p.post-title= post['标题']
             - var author_label = post['作者'].split('标签');
             p.post-subtitle!= author_label[0]
