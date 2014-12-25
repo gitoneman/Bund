@@ -30,6 +30,12 @@ exports = module.exports = function(req, res) {
                     }
                     user['vcode'] = vcode;
                     user['lastvcodetime'] = now;
+                    user.save(function(err) {
+                        if (err) {
+                            return cb('3'); //3，新建手机用户失败。
+                        }
+                        return cb();
+                    });
                     return cb();
                 } else {
                     var userData = {
