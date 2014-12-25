@@ -13,7 +13,7 @@ exports = module.exports = function(req, res) {
     if (phoneno==null||phoneno==""||vcode==null||vcode==""||uname==null||uname==""||pwd==null||pwd=="") {
         return res.end("1"); //1 输入信息不完整
     }
-
+    var key = "TheBund2014";
     User.findOne({ phoneno: phoneno }).exec(function(err, user) {
         if (user) {
             if (user['password']) {
