@@ -37,7 +37,7 @@ exports = module.exports = function(req, res) {
                     var userToken = user.id + hash(user.password);
                     var userinfo = {};
                     userinfo['username'] = user['username'];
-                    userinfo['name'] = user['name'];
+                    //userinfo['name'] = user['name'];
                     userinfo['userToken'] = userToken;
                     res.json(userinfo);
                     return;
