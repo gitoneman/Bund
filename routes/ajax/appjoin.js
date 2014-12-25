@@ -24,15 +24,11 @@ exports = module.exports = function(req, res) {
             }
             var password = decrypt(pwd, key);
             var now = new Date();
-            var userData = {
-                username: uname,
-                password: password,
-                phoneno: phoneno,
-                createtime: now,
-                lastlogintime: now
-            };
-            var newUser = new User(userData);
-            newUser.save(function(err) {
+            user['username'] = uname;
+            user['password'] = password;
+            user['createtime'] = now;
+            user['lastlogintime'] = now;
+            user.save(function(err) {
                 if(err) {
                     return res.end('4'); //4新建用户失败
                 }
