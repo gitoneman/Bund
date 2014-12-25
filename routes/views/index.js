@@ -24,6 +24,7 @@ exports = module.exports = function(req, res) {
     thisweek.setHours(0,0,0,0);
     var day = thisweek.getDay();
     var diff = thisweek.getDate() - day + (day == 0 ? -6:1);
+    thisweek.setDate(diff);
     view.query('hots',
         Post.model.find()
             .where('状态', '已发布')
