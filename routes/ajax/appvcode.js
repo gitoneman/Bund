@@ -52,7 +52,7 @@ exports = module.exports = function(req, res) {
         function(cb) {
             var postData = {
                 mobile:phoneno,
-                message: '【外滩】'+vcode+'，请勿泄露此验证码。输入验证码注册帐号，时髦生活上外滩~'
+                message: vcode+'，请勿泄露此验证码。输入验证码注册帐号，时髦生活上外滩~【外滩】'
             };
 
             var content = querystring.stringify(postData);
