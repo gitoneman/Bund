@@ -5,10 +5,10 @@ var decrypt = require('../../lib/utils').decrypt;
 
 exports = module.exports = function(req, res) {
 
-    var phoneno = req.query.no;
-    var vcode = req.query.vcode;
-    var uname = req.query.uname;
-    var pwd = req.query.pwd;
+    var phoneno = req.body.no;
+    var vcode = req.body.vcode;
+    var uname = req.body.uname;
+    var pwd = req.body.pwd;
 
     if (phoneno==null||phoneno==""||vcode==null||vcode==""||uname==null||uname==""||pwd==null||pwd=="") {
         return res.end("1"); //1 输入信息不完整

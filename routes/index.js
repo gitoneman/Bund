@@ -67,7 +67,7 @@ exports = module.exports = function(app) {
     app.get('/search', routes.ajax.search);
     app.get('/app-vcode', routes.ajax.appvcode);
     app.get('/app-login', routes.ajax.applogin);
-    app.get('/app-join', routes.ajax.appjoin);
+    app.post('/app-join', routes.ajax.appjoin);
     app.post('/app-comment', routes.ajax.appcomment);
 
     // Other
