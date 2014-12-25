@@ -10,14 +10,17 @@ var User = new keystone.List('User', {
  
 User.add({
     'username': { type: String, required: true, initial: true, index: true },
+    'phoneno': { type: String, noedit: true},
     'name': { type: Types.Name, initial: true, index: true },
-    'email': { type: Types.Email, initial: true, required: true, index: true },
+    'email': { type: Types.Email, initial: true, index: true },
     'password': { type: Types.Password, initial: true },
     'canAccessKeystone': { type: Boolean, initial: true },
     resetPasswordKey: { type: String, hidden: true },
     'createtime': { type: Date, default: Date.now , noedit: true},
     'lastlogintime': { type: Date, default: Date.now , noedit: true},
-    'loginerrortimes': { type: Types.Number, default: 0 , noedit: true}
+    'loginerrortimes': { type: Types.Number, default: 0 , noedit: true},
+    'vcode': { type: String, noedit: true},
+    'lastvcodetime': {type: Date, noedit: true}
 }, 'Profile', {
     website: { type: Types.Url }
 });

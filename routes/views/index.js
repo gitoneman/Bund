@@ -20,10 +20,15 @@ exports = module.exports = function(req, res) {
 //    });
 
     // Load recent posts
+    var thisweek = new Date();
+    thisweek.setHours(0,0,0,0);
+    var day = thisweek.getDay();
+    var diff = thisweek.getDate() - day + (day == 0 ? -6:1);
     view.query('hots',
         Post.model.find()
             .where('状态', '已发布')
-            .sort('-总点击数')
+            .where('最近点击周', thisweek)
+            .sort('-当周点击数')
             .limit('10')
     );
 

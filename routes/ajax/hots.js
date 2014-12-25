@@ -10,7 +10,7 @@ exports = module.exports = function(req, res) {
     var q = Post.model.find().where('状态', '已发布').select('_id 标题 链接 图片 图片链接 分享数 赞数 出现统计 点击统计 发布时间 总点击数 当日点击数 当周点击数').limit(number);
     if (type == 1) {
         //today hots
-        var today = new Date()
+        var today = new Date();
         today.setHours(0,0,0,0);
         q.where('最近点击日', today).sort('-当日点击数');
     } else if (type == 2) {

@@ -3,7 +3,7 @@ var hash = require('../../lib/utils').hash;
 
 exports = module.exports = function(req, res) {
     var code = req.query.c;
-    console.log(code);
+    //console.log(code);
     //0 用户名密码不能为空
     if (code==null||code=="") {
         res.end("0");
@@ -17,7 +17,7 @@ exports = module.exports = function(req, res) {
     }
     var key = "TheBund2014";
 
-    var email = decrypt(data[0], key);
+    var phone = decrypt(data[0], key);
     var password = decrypt(data[1], key);
     //console.log(email);
     //console.log(password);
@@ -26,23 +26,27 @@ exports = module.exports = function(req, res) {
         user._.password.compare(password, function(err, isMatch) {
             if (!err && isMatch) {
                 user['loginerrortimes'] = 0;
-                console.log("uname:"+user.username);
-                console.log("email:"+user.email);
-                console.log("password:"+user.password);
+                //console.log("uname:"+user.username);
+                //console.log("email:"+user.email);
+                //console.log("password:"+user.password);
                 user.save(function(err) {
                     if (err) {
-                        console.log("error1:"+err);
+                        //console.log("error1:"+err);
                         return;
                     }
-                    var userToken = user.id + ':' + hash(user.password);
-                    res.end(userToken);
+                    var userToken = user.id + hash(user.password);
+                    var userinfo = {};
+                    userinfo['username'] = user['username'];
+                    userinfo['name'] = user['name'];
+                    userinfo['userToken'] = userToken;
+                    res.json(userinfo);
                     return;
                 });
             } else {
                 user['loginerrortimes']++;
                 user.save(function(err) {
                     if (err) {
-                        console.log("error2:"+err);
+                        //console.log("error2:"+err);
                         return;
                     }
                     res.end("2");//2 密码错误，请重试，3次失败将锁定5分钟。
@@ -52,7 +56,7 @@ exports = module.exports = function(req, res) {
         });
     };
 
-    keystone.list('User').model.findOne({ email: email }).exec(function(err, user) {
+    keystone.list('User').model.findOne({ phoneno: phone }).exec(function(err, user) {
         if (user) {
             if (user['loginerrortimes'] > 2) {
                 var lastTime = user['lastlogintime'];
