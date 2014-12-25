@@ -36,7 +36,6 @@ exports = module.exports = function(req, res) {
                         }
                         return cb();
                     });
-                    return cb();
                 } else {
                     var userData = {
                         username: phoneno,
