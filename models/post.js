@@ -14,6 +14,7 @@ Post.add({
     '副标题': { type: String },
     '原始链接': {type: Types.Url},
     '链接': { type: Types.Url},
+    '分类': { type: Types.Relationship, ref: 'PostSource' },
     '分类': { type: Types.Relationship, ref: 'PostCategory', many: true},
     '渠道': { type: Types.Relationship, ref: 'Distribution', many: true},
     '标签': { type: String},
