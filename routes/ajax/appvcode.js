@@ -3,6 +3,7 @@ var https = require('https');
 var querystring = require('querystring');
 var async = require('async');
 var User = keystone.list('User').model;
+var getRandom = require('../../lib/utils').getRandom;
 
 exports = module.exports = function(req, res) {
 
@@ -93,8 +94,4 @@ exports = module.exports = function(req, res) {
         res.end(err);
     });
 
-}
-
-function getRandom (low, high) {
-    return Math.round(Math.random() * (high - low) + low);
 }

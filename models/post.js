@@ -25,7 +25,14 @@ Post.add({
 //    image: { type: Types.CloudinaryImage },
 //    images: { type: Types.CloudinaryImages, wysiwyg: true },
 //    '标题图片': { type: Types.Relationship, ref: 'Picture', many: true},
-    '图片': { type: Types.CloudinaryImage, autoCleanup : true},
+//    '图片': { type: Types.CloudinaryImage, autoCleanup : true},
+    '缩略图': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
+        format: function(item, file){
+            return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
+        },
+        filename: function(item, filename) {
+            return 'a'+item._id+require('path').extname(filename);
+        }},
     '图片链接': { type: Types.Url},
 //    '图片': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
 //        format: function(item, file){

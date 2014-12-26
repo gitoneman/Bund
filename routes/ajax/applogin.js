@@ -1,24 +1,28 @@
 var keystone = require('keystone');
 var hash = require('../../lib/utils').hash;
+var decrypt = require('../../lib/utils').decrypt;
+//var getRandom = require('../../lib/utils').getRandom;
 
 exports = module.exports = function(req, res) {
-    var code = req.query.c;
+    var phone = req.query.no;
+    var pwd = req.query.pwd;
+    // /var code = req.query.c;
     //console.log(code);
     //0 用户名密码不能为空
-    if (code==null||code=="") {
+    if (phone==null||phone==""||pwd==null||pwd=="") {
         res.end("0");
         return;
     }
 
-    var data = code.split(".",2);
-    if (data[0]==null||data[0]==""||data[1]==null||data[1]=="") {
-        res.end("0");
-        return;
-    }
-    var key = "TheBund2014";
+    //var data = code.split(".",2);
+    //if (data[0]==null||data[0]==""||data[1]==null||data[1]=="") {
+    //    res.end("0");
+    //    return;
+    //}
 
-    var phone = decrypt(data[0], key);
-    var password = decrypt(data[1], key);
+    //var phone = decrypt(data[0], key);
+    //var password = decrypt(data[1], key);
+    var password = decrypt(pwd);
     //console.log(email);
     //console.log(password);
     var doSignin = function(user) {
@@ -107,32 +111,4 @@ exports = module.exports = function(req, res) {
     //}
     //
     //keystone.session.signin({ email: email, password: password }, req, res, onSuccess, onFail);
-}
-
-function decrypt(s,pw){
-    var myString='';
-    var a=0;
-    var pwLen=pw.length;
-    var textLen=s.length;
-    var i=0;
-    var myHolder="";
-    while(i<s.length-2)
-    {
-        myHolder=s.charAt(i)+s.charAt(i+1)+s.charAt(i+2);
-        if (s.charAt(i)=='0') {
-            myHolder=s.charAt(i+1)+s.charAt(i+2);
-        }
-        if ((s.charAt(i)=='0')&&(s.charAt(i+1)=='0')) {
-            myHolder=s.charAt(i+2);
-        }
-        a=parseInt(myHolder);
-        a=a^(pw.charCodeAt(i/3%pwLen));
-        myString+=String.fromCharCode(a);
-        i+=3;
-    }//end of while i
-    return myString;
-}
-
-function getRandom (low, high) {
-    return Math.round(Math.random() * (high - low) + low);
 }

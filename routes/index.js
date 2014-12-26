@@ -69,6 +69,7 @@ exports = module.exports = function(app) {
     app.get('/app-login', routes.ajax.applogin);
     app.post('/app-join', routes.ajax.appjoin);
     app.post('/app-comment', routes.ajax.appcomment);
+    app.post('/app-addfav', routes.ajax.appaddfav);
 
     // Other
     app.post('/collect', routes.ajax.collect);
