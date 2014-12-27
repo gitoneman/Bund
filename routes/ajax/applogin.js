@@ -90,7 +90,7 @@ exports = module.exports = function(req, res) {
             //    }
             //});
         } else {
-            res.end("0");
+            res.end("3"); // 3 手机账号不存在。
         }
     });
 
