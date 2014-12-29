@@ -22,7 +22,7 @@ CarouselApp.add({
     '描述': String,
     '上传时间': { type: Date, default: Date.now, noedit:true},
     '链接': { type: String },
-    '网页链接': { type: String, default: 'http://www.bundpic.com/'+this._id, noedit: true},
+    '网页链接': { type: String, noedit: true},
     '网页': { type: Types.Html, wysiwyg: true, height: 500},
     '优先级': { type: Types.Number, default: '1', required: true},
     '出现统计': { type: Types.Url},
@@ -32,6 +32,7 @@ CarouselApp.add({
 CarouselApp.defaultColumns = '图名, 发布, 链接30%, 描述, 上传时间, 优先级, 链接';
 
 CarouselApp.schema.pre('save', function(next) {
+    this.网页链接 =  'http://www.bundpic.com/mcarousel/'+this._id;
     if (this.isModified('文件')) {
         this.上传时间 = new Date();
     }
