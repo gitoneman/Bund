@@ -22,6 +22,7 @@ CarouselApp.add({
     '描述': String,
     '上传时间': { type: Date, default: Date.now, noedit:true},
     '链接': { type: String },
+    '网页链接': { type: String, default: 'http://www.bundpic.com/'+this._id, noedit: true},
     '网页': { type: Types.Html, wysiwyg: true, height: 500},
     '优先级': { type: Types.Number, default: '1', required: true},
     '出现统计': { type: Types.Url},

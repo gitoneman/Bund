@@ -24,3 +24,13 @@ block bbody
             h1 焦点图不存在
         else
             div.content!= carousel['网页']
+block btail
+    script.
+        function openonphone(obj) {
+            try {
+                webkit.messageHandlers.callbackHandler.postMessage(obj.getAttribute("href"));
+            } catch(err) {
+                console.log(err);
+            }
+            return false;
+        }
