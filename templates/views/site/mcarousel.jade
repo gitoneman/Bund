@@ -1,0 +1,26 @@
+extends ../../layouts/base
+
+block bhead
+    style.
+        body, p {
+            margin: 0px;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+        }
+        .container {
+            margin-right: auto;
+            margin-left: auto;
+            padding-left:  0px;
+            padding-right: 0px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+block bbody
+    div.container
+        if !carousel
+            h1 焦点图不存在
+        else
+            div.content!= carousel['网页']
