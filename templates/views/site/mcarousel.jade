@@ -30,7 +30,10 @@ block btail
             if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
                 window.location="yios:openUrl("+link+","+hideTitle+")";
             } else if (/Android/i.test(navigator.userAgent)) {
-
+                try {
+                    window.JSInterface.openUrl(link,hideTitle);
+                } catch (err) {
+                }
             }
             return false;
         }
