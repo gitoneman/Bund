@@ -26,11 +26,11 @@ block bbody
             div.content!= carousel['网页']
 block btail
     script.
-        function openonphone(link) {
-            try {
-                webkit.messageHandlers.callbackHandler.postMessage(link);
-            } catch(err) {
-                console.log(err);
+        function openonphone(link,hideTitle) {
+            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                window.location="yios:openUrl("+link+","+hideTitle+")";
+            } else if (/Android/i.test(navigator.userAgent)) {
+
             }
             return false;
         }
