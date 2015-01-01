@@ -71,6 +71,7 @@ exports = module.exports = function(app) {
     app.post('/app-join', routes.ajax.appjoin);
     app.post('/app-comment', routes.ajax.appcomment);
     app.post('/app-addfav', routes.ajax.appaddfav);
+    app.get('/app-postcategory', routes.ajax.postcategory);
 
     // Other
     app.post('/collect', routes.ajax.collect);
