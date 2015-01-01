@@ -53,8 +53,6 @@ block bbody
             p.post-title= post['标题']
             - var author_label = post['作者'].split('标签');
             p.post-subtitle!= author_label[0]
-            if author_label.length>1
-                p.post-subtitle!= '标签' + author_label[1].replace(/href=\"/g, 'href=\"/')
             p.post-time= post._['发布时间'].format('YYYY年MM月DD日')
             p &nbsp
             div.post-content!= post['正文']['更多']
