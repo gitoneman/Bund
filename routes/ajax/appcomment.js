@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var hash = require('../../lib/utils').hash;
+var repairkey = require('../../lib/utils').repairkey;
 
 exports = module.exports = function(req, res) {
 
@@ -19,7 +20,8 @@ exports = module.exports = function(req, res) {
     }
 
     var id = code.substring(0, 24);
-    var pwd = code.substring(24);
+    var pwd = repairkey(code.substring(24));
+
 
     keystone.list('User').model.findOne({ id: id }).exec(function(err, user) {
         if (user && (pwd == hash(user.password))) {

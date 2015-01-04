@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var hash = require('../../lib/utils').hash;
+var repairkey = require('../../lib/utils').repairkey;
 
 exports = module.exports = function(req, res) {
 
@@ -15,13 +16,20 @@ exports = module.exports = function(req, res) {
         res.end("2");
         return;
     }
-
+    console.log(code);
     var id = code.substring(0, 24);
-    var pwd = code.substring(24);
+    var pwd = repairkey(code.substring(24));
 
-    keystone.list('User').model.findOne({ id: id }).exec(function(err, user) {
+    console.log(id);
+    console.log(pwd);
+
+    keystone.list('User').model.findOne({ _id: id }).exec(function(err, user) {
+        console.log("err:"+err);
+        console.log(hash(user.password));
         if (user && (pwd == hash(user.password))) {
             keystone.list('UserFav').model.findOne({ '所有者': user.id }).exec(function(err, userFav) {
+                console.log(err);
+                console.log(userFav);
                 if (userFav) {
                     var posts = userFav['文章列表']
                     if (posts.indexOf(post_id) == -1) {

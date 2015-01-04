@@ -23,12 +23,15 @@ exports = module.exports = function(req, res) {
     //var phone = decrypt(data[0], key);
     //var password = decrypt(data[1], key);
     var password = decrypt(pwd);
-    //console.log(email);
+    //console.log(phone);
     //console.log(password);
     var doSignin = function(user) {
         user['lastlogintime'] = new Date();
         user._.password.compare(password, function(err, isMatch) {
-            if (!err && isMatch) {
+            if (err) {
+                return res.end("4");
+            }
+            if (isMatch) {
                 user['loginerrortimes'] = 0;
                 //console.log("uname:"+user.username);
                 //console.log("email:"+user.email);
@@ -36,7 +39,7 @@ exports = module.exports = function(req, res) {
                 user.save(function(err) {
                     if (err) {
                         //console.log("error1:"+err);
-                        return;
+                        return res.end("4");
                     }
                     var userToken = user.id + hash(user.password);
                     var userinfo = {};
@@ -51,7 +54,7 @@ exports = module.exports = function(req, res) {
                 user.save(function(err) {
                     if (err) {
                         //console.log("error2:"+err);
-                        return;
+                        return res.end("4");
                     }
                     res.end("2");//2 密码错误，请重试，3次失败将锁定5分钟。
                     return;

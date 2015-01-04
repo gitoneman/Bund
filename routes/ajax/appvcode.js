@@ -19,9 +19,9 @@ exports = module.exports = function(req, res) {
         function(cb) {
             User.findOne({ phoneno: phoneno }).exec(function(err, user) {
                 if (user) {
-                    if (user['password']) {
-                        return cb('2'); //2 此手机号已被注册
-                    }
+                    //if (user['password']) {
+                    //    return cb('2'); //2 此手机号已被注册
+                    //}
                     if(user['lastvcodetime']!=null) {
                         var timeDiff = now - user['lastvcodetime'];
                         var diffMins = Math.round(((timeDiff % 86400000) % 3600000) / 60000);

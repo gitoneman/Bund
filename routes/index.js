@@ -69,8 +69,9 @@ exports = module.exports = function(app) {
     app.get('/app-vcode', routes.ajax.appvcode);
     app.get('/app-login', routes.ajax.applogin);
     app.post('/app-join', routes.ajax.appjoin);
+    app.get('/app-resetpwd', routes.ajax.appresetpwd);
     app.post('/app-comment', routes.ajax.appcomment);
-    app.post('/app-addfav', routes.ajax.appaddfav);
+    app.get('/app-addfav', routes.ajax.appaddfav);
     app.get('/app-postcategory', routes.ajax.postcategory);
     app.get('/app-thumbup', routes.ajax.appthumbup);
 
