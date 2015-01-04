@@ -72,6 +72,7 @@ exports = module.exports = function(app) {
     app.post('/app-comment', routes.ajax.appcomment);
     app.post('/app-addfav', routes.ajax.appaddfav);
     app.get('/app-postcategory', routes.ajax.postcategory);
+    app.get('/app-thumbup', routes.ajax.appthumbup);
 
     // Other
     app.post('/collect', routes.ajax.collect);
