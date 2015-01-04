@@ -23,7 +23,7 @@ exports = module.exports = function(req, res) {
     var pwd = repairkey(code.substring(24));
 
 
-    keystone.list('User').model.findOne({ id: id }).exec(function(err, user) {
+    keystone.list('User').model.findOne({ _id: id }).exec(function(err, user) {
         if (user && (pwd == hash(user.password))) {
             var newPostComment = new keystone.list('PostComment').model({
                 '文章': post_id,

@@ -72,6 +72,7 @@ exports = module.exports = function(app) {
     app.get('/app-resetpwd', routes.ajax.appresetpwd);
     app.post('/app-comment', routes.ajax.appcomment);
     app.get('/app-addfav', routes.ajax.appaddfav);
+    app.get('/app-favlist', routes.ajax.appfavlist);
     app.get('/app-postcategory', routes.ajax.postcategory);
     app.get('/app-thumbup', routes.ajax.appthumbup);
 

@@ -57,4 +57,6 @@ User.schema.methods.resetPassword = function(callback) {
 
 }
 
+User.relationship({ ref: 'UserFav', refPath: '用户收藏', path: '所有者' });
+
 User.register();
