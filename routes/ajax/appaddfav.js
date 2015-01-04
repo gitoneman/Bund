@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var hash = require('../../lib/utils').hash;
 var repairkey = require('../../lib/utils').repairkey;
+var UserFav = keystone.list('UserFav');
 
 exports = module.exports = function(req, res) {
 
@@ -16,20 +17,20 @@ exports = module.exports = function(req, res) {
         res.end("2");
         return;
     }
-    console.log(code);
+    //console.log(code);
     var id = code.substring(0, 24);
     var pwd = repairkey(code.substring(24));
 
-    console.log(id);
-    console.log(pwd);
+    //console.log(id);
+    //console.log(pwd);
 
     keystone.list('User').model.findOne({ _id: id }).exec(function(err, user) {
-        console.log("err:"+err);
-        console.log(hash(user.password));
+        //console.log("err:"+err);
+        //console.log(hash(user.password));
         if (user && (pwd == hash(user.password))) {
-            keystone.list('UserFav').model.findOne({ '所有者': user.id }).exec(function(err, userFav) {
-                console.log(err);
-                console.log(userFav);
+            UserFav.model.findOne({ '所有者': user.id }).exec(function(err, userFav) {
+                //console.log(err);
+                //console.log(userFav);
                 if (userFav) {
                     var posts = userFav['文章列表']
                     if (posts.indexOf(post_id) == -1) {
@@ -46,7 +47,7 @@ exports = module.exports = function(req, res) {
                         res.end("5"); //已经收藏过
                     }
                 } else {
-                    var newFav = new keystone.list('UserFav').model({
+                    var newFav = new UserFav.model({
                         '所有者': user.id,
                         '文章列表': [post_id]
                     });
