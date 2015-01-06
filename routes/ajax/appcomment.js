@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var hash = require('../../lib/utils').hash;
 var repairkey = require('../../lib/utils').repairkey;
+var PostComment = keystone.list('PostComment');
 
 exports = module.exports = function(req, res) {
 
@@ -25,12 +26,13 @@ exports = module.exports = function(req, res) {
 
     keystone.list('User').model.findOne({ _id: id }).exec(function(err, user) {
         if (user && (pwd == hash(user.password))) {
-            var newPostComment = new keystone.list('PostComment').model({
+            var newPostComment = new PostComment.model({
                 '文章': post_id,
                 '作者': user.id,
                 '时间': new Date(),
-                '内容': comment
+                '内容': {'md':comment}
             });
+            console.log(newPostComment);
             newPostComment.save(function(err) {
                 if (err != null) {
                     res.end("3"); //提交不成功，稍后再试
