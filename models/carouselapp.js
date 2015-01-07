@@ -36,6 +36,9 @@ CarouselApp.schema.pre('save', function(next) {
     if (this.isModified('文件')) {
         this.上传时间 = new Date();
     }
+    if (this.isModified('链接')) {
+        this.网页 = "<p><a href=\"javascript:openonphone('"+this.链接+"');\"><img src=\"../../upload/"+this.文件.filename+"\"/></a></p>"
+    }
     next();
 });
 
