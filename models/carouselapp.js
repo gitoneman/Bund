@@ -36,7 +36,7 @@ CarouselApp.schema.pre('save', function(next) {
     if (this.isModified('文件')) {
         this.上传时间 = new Date();
     }
-    if (this.isModified('链接')) {
+    if (this.isModified('链接') || this.isModified('描述') || this.isModified('文件')) {
         this.网页 = "<p><a href=\"javascript:openonphone('"+this.链接+"');\"><img src=\"../../upload/"+this.文件.filename+"\"/></a></p><div class=\"gradient\" style=\"position:absolute;left:0px;top:0px;width:100%;height:100%;background:url('http://www.bundpic.com/images/gradient.png') bottom repeat-x;\"><h3 class=\"gradient-title\" style=\"margin:30px 0px 30px;padding:0 20px 0;position:absolute;bottom:0px;color:rgb(255,255,255);font-size:24px;font-weight:500;font-family:\"黑体\";\">"+this.描述+"</h3></div>"
     }
     next();
