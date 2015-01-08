@@ -76,6 +76,7 @@ exports = module.exports = function(app) {
     app.get('/app-favlist', routes.ajax.appfavlist);
     app.get('/app-postcategory', routes.ajax.postcategory);
     app.get('/app-thumbup', routes.ajax.appthumbup);
+    app.get('/app-launch', routes.ajax.applaunch);
 
     // Other
     app.post('/collect', routes.ajax.collect);
