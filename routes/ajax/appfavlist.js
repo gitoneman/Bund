@@ -28,7 +28,7 @@ exports = module.exports = function(req, res) {
                 if(userFav&&userFav["文章列表"]) {
                     return res.json(userFav["文章列表"]);
                 } else {
-                    return res.json("[]");
+                    return res.json([]);
                 }
                 //console.log(userFav);
 
