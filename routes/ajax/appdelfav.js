@@ -31,6 +31,8 @@ exports = module.exports = function(req, res) {
                     var posts = userFav['文章列表']
                     var index = posts.indexOf(post_id);
                     if (index == -1) {
+                        res.end("5"); //已经收藏过
+                    } else {
                         posts.splice(index, 1);
                         userFav.save(function(err) {
                             if (err != null) {
@@ -40,8 +42,6 @@ exports = module.exports = function(req, res) {
                             res.end("0"); //提交成功
                             return;
                         });
-                    } else {
-                        res.end("5"); //已经收藏过
                     }
                 } else {
                     return res.end("5") //文章没有收藏过
