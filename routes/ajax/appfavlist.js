@@ -23,10 +23,18 @@ exports = module.exports = function(req, res) {
         //console.log(hash(user.password));
         if (user && (pwd == hash(user.password))) {
             //user.getRelated("用户收藏");
-            keystone.list('UserFav').model.findOne({ '所有者': id }).populate("文章列表", '_id 标题 链接 缩略图 图片链接 分享数 赞数 出现统计 点击统计 发布时间 来源').populate('来源', '名称').exec(function(err, userFav) {
+            keystone.list('UserFav').model.findOne({ '所有者': id }).populate("文章列表", '_id 标题 链接 缩略图 图片链接 分享数 赞数 出现统计 点击统计 发布时间 来源').exec(function(err, userFav) {
                 if (err) return res.end("1");
                 if(userFav&&userFav["文章列表"]) {
-                    return res.json(userFav["文章列表"]);
+                    var options = {
+                        path: '文章列表.来源',
+                        model: keystone.list('PostSource').model
+                    };
+                    keystone.list('UserFav').model.populate(userFav, options, function (err, results) {
+                        if (err) return res.end("1");
+                        console.log(results);
+                        return res.json(userFav["文章列表"]);
+                    });
                 } else {
                     return res.json([]);
                 }
