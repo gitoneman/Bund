@@ -19,7 +19,7 @@ Post.add({
     '渠道': { type: Types.Relationship, ref: 'Distribution', many: true},
     '标签': { type: String},
     '状态': { type: Types.Select, options: '草稿, 已发布, 存档', default: '草稿' },
-    'APP': { type: Boolean, initial: true },
+    'APP': { type: Boolean, initial: true, default: true },
     '作者': String,
     '创建时间': { type: Date, default: Date.now, noedit: true },
     '发布时间': { type: Types.Datetime, default: Date.now},
