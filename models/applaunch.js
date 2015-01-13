@@ -20,9 +20,35 @@ AppLaunch.add({
         }},
     '出现统计': { type: Types.Url},
     '点击统计': { type: Types.Url},
-    '发布': { type: Boolean, initial: false }
+    '发布': { type: Boolean, default: false},
+    '宽带链接': { type: String},
+    '窄带链接': { type: String},
+    '网页图': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
+        format: function(item, file){
+            return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
+        },
+        filename: function(item, filename) {
+            return 'b'+item._id+require('path').extname(filename);
+        }},
+    '宽带网页': { type: Types.Html, wysiwyg: true, height: 500},
+    '窄带网页': { type: Types.Html, wysiwyg: true, height: 500},
+    '显示时长': { type: Types.Number, default:5 }
 });
 
 AppLaunch.defaultColumns = '名称, 链接';
+
+AppLaunch.schema.pre('save', function(next) {
+    if(this.isModified('宽带网页')) {
+        this.宽带链接 = 'http://www.bundpic.com/mlaunch/a'+this._id
+    }
+    if(this.isModified('窄带网页')) {
+        this.窄带链接 = 'http://www.bundpic.com/mlaunch/b'+this._id
+    }
+    if(this.isModified('网页图')) {
+        this.宽带网页 = "<a href=\"javascript:openonphone('"+this.链接+"');\"><p><img src=\"../../upload/"+this.网页图.filename+"\"/></p></a>";
+        this.窄带网页 = "<a href=\"javascript:openonphone('"+this.链接+"');\"><p><img src=\"../../upload/"+this.网页图.filename+"\"/></p></a>";
+    }
+    next();
+});
 
 AppLaunch.register();
