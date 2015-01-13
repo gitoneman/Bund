@@ -1,5 +1,5 @@
 var keystone = require('keystone');
-var CarouselApp = keystone.list('CarouselApp');
+var AppLaunch = keystone.list('AppLaunch');
 
 exports = module.exports = function(req, res) {
     var view = new keystone.View(req, res);
@@ -10,7 +10,7 @@ exports = module.exports = function(req, res) {
     };
 
     view.on('init', function(next) {
-        CarouselApp.model.findOne()
+        AppLaunch.model.findOne()
             .where('_id', locals.filters.launch)
             .exec(function(err, launch) {
                 if (err) return res.err(err);
