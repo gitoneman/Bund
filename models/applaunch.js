@@ -39,10 +39,10 @@ AppLaunch.defaultColumns = '名称, 链接';
 
 AppLaunch.schema.pre('save', function(next) {
     if(this.isModified('宽带网页')) {
-        this.宽带链接 = 'http://www.bundpic.com/mlaunch/a'+this._id
+        this.宽带链接 = 'http://www.bundpic.com/mlaunchw/'+this._id
     }
     if(this.isModified('窄带网页')) {
-        this.窄带链接 = 'http://www.bundpic.com/mlaunch/b'+this._id
+        this.窄带链接 = 'http://www.bundpic.com/mlaunchn/'+this._id
     }
     if(this.isModified('网页图')) {
         this.宽带网页 = "<a href=\"javascript:openonphone('"+this.链接+"');\"><p><img src=\"../../upload/"+this.网页图.filename+"\"/></p></a>";

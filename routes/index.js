@@ -41,7 +41,8 @@ exports = module.exports = function(app) {
     app.all('/posts/post/:post', routes.views.post);
     app.get('/mpost/:post', routes.views.mpost);
     app.get('/mcarousel/:id', routes.views.mcarousel);
-    app.get('/mcarousel/:id', routes.views.mlaunch);
+    app.get('/mlaunchw/:id', routes.views.mlaunchw);
+    app.get('/mlaunchn/:id', routes.views.mlaunchn);
 
     // Session
     app.all('/join', routes.views.session.join);

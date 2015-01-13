@@ -15,7 +15,7 @@ exports = module.exports = function(req, res) {
             .exec(function(err, launch) {
                 if (err) return res.err(err);
                 if (!launch) return res.notfound('开机图不存在');
-                locals.launch = launch;
+                locals.launch_content = launch['窄带网页'];
                 next()
             });
     });
