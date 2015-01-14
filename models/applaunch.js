@@ -44,7 +44,7 @@ AppLaunch.schema.pre('save', function(next) {
     if(this.isModified('窄带网页')) {
         this.窄带链接 = 'http://www.bundpic.com/mlaunchn/'+this._id
     }
-    if(this.isModified('网页图')) {
+    if(this.isModified('网页图') || this.isModified('链接') ) {
         this.宽带网页 = "<p><a href=\"javascript:openonphone('"+this.链接+"');\"><img src=\"../../upload/"+this.网页图.filename+"\"/></a></p>";
         this.窄带网页 = "<p><a href=\"javascript:openonphone('"+this.链接+"');\"><img src=\"../../upload/"+this.网页图.filename+"\"/></a></p>";
     }
