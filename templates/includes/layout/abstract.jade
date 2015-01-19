@@ -1,5 +1,5 @@
 mixin abstract(post)
-    - var imglink = post['图片链接']?post['图片链接']:((post['图片'].filename) ? '/upload/' + post['图片'].filename : '/images/test.png');
+    - var imglink = post['图片链接']?post['图片链接']:((post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
     div.abstract
         a(href='/posts/post/' + post['_id'])
             img.img-responsive(src=imglink)

@@ -95,9 +95,9 @@ function placePosts() {
 }
 
 function printAbstract(post) {
-//    console.log(post);
+    //console.log(post);
     var html = "<div class='col-sm-6 col-md-4 post'>"; //
-    var imglink = post['图片链接']?post['图片链接']:((post['图片']&&post['图片'].url) ? post['图片'].url : '/images/test.png');
+    var imglink = post['图片链接']?post['图片链接']:((post['缩略图']&&post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
     var link = post['链接']? post['链接']: "/posts/post/"+post['_id']
     html += "<div class='abstract' style='display:none'><a href='"+link+"'>";
     html += "<img class='img-responsive' src='"+imglink+"'/>";
