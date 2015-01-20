@@ -37,7 +37,11 @@ CarouselApp.schema.pre('save', function(next) {
         this.上传时间 = new Date();
     }
     if (this.isModified('链接') || this.isModified('描述') || this.isModified('文件')) {
-        this.网页 = "<div><a href=\"javascript:openonphone('"+this.链接+"');\"><div><img src=\"../../upload/"+this.文件.filename+"\"/><div class=\"gradient\" style=\"position:absolute;left:0px;top:0px;width:100%;height:100%;background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(60,60,60,0.5) 100%);\"><h3 class=\"gradient-title\" style=\"margin:30px 0px 30px;padding:0 20px 0;position:absolute;bottom:0px;color:rgb(255,255,255);font-size:24px;font-weight:500;font-family:\"黑体\";\">"+this.描述+"</h3></div></div></a><div>"
+        var link = ""
+        if (this.链接) {
+            link = "\"javascript:openonphone('"+this.链接+"');\"";
+        }
+        this.网页 = "<div><a href="+link+"><div><img src=\"../../upload/"+this.文件.filename+"\"/><div class=\"gradient\" style=\"position:absolute;left:0px;top:0px;width:100%;height:100%;background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(60,60,60,0.5) 100%);\"><h3 class=\"gradient-title\" style=\"margin:30px 0px 30px;padding:0 20px 0;position:absolute;bottom:0px;color:rgb(255,255,255);font-size:18px;font-weight:500;font-family:\"黑体\";\">"+this.描述+"</h3></div></div></a><div>"
     }
     next();
 });

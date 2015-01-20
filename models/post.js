@@ -16,11 +16,17 @@ Post.add({
     '链接': { type: Types.Url},
     '来源': { type: Types.Relationship, default:'549d24707f6f4b5822e47b52', ref: 'PostSource' },
     '分类': { type: Types.Relationship, ref: 'PostCategory', many: true},
+    '手机分类': { type: Types.Relationship, ref: 'PostCategory', many: true},
     '渠道': { type: Types.Relationship, ref: 'Distribution', many: true},
     '标签': { type: String},
     '状态': { type: Types.Select, options: '草稿, 已发布, 存档', default: '草稿' },
     'APP': { type: Boolean, default: false },
-    'AD': { type: Boolean, default: false },
+    '锁定': {
+        '开关': { type: Boolean, default: false },
+        '页号': { type: Types.Number },
+        '行号': { type: Types.Number },
+        '分类': { type: Types.Relationship, ref: 'PostCategory'}
+    },
     '作者': String,
     '创建时间': { type: Date, default: Date.now, noedit: true },
     '发布时间': { type: Types.Datetime, default: Date.now},

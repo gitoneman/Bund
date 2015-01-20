@@ -5,19 +5,36 @@ exports = module.exports = function(req, res) {
     var page = (req.query.p)?req.query.p:1;
     var number = (req.query.n)?req.query.n:12;
     var category = req.query.c;
-    var q = Post.model.find().where('APP', true).where('AD').ne(true).where("发布时间").lt(new Date()).select('_id 标题 链接 缩略图 图片链接 分享数 赞数 出现统计 点击统计 发布时间 来源').populate('来源', '名称').sort('-发布时间').skip((page-1)*number).limit(number);
+    var q = Post.model.find().where('APP', true).where('锁定.开关').ne(true).where("发布时间").lt(new Date()).select('_id 标题 链接 缩略图 图片链接 分享数 赞数 出现统计 点击统计 发布时间 来源').populate('来源', '名称').sort('-发布时间').skip((page-1)*number).limit(number);
+    var q2 = Post.model.find().where('APP', true).where('锁定.开关', true).where('锁定.页号', page).select('_id 标题 链接 缩略图 图片链接 分享数 赞数 出现统计 点击统计 发布时间 来源 锁定').populate('来源', '名称').sort('锁定.行号').limit(number);
     if(category&&category!='') {
         keystone.list('PostCategory').model.findOne({ '标识': category }).exec(function(err, result) {
             if(result) {
                 q.where('分类').in([result]);
             }
             q.exec(function(err, results) {
-                res.json(results);
+                q2.where('锁定.分类')in([result]);
+                q2.exec(function(err, results2) {
+                    for(var i=0;i<results2.length;++i) {
+                        var pos = results2['锁定']['行号'];
+                        results.splice(pos, 0, results2[i]);
+                    }
+                    res.json(results);
+                });
             });
         });
     } else {
         q.exec(function(err, results) {
-            res.json(results);
+            console.log(results);
+            q2.exec(function(err, results2) {
+                console.log("res2")
+                console.log(results2);
+                for(var i=0;i<results2.length;++i) {
+                    var pos = results2[i]['锁定']['行号'];
+                    results.splice(pos-1, 0, results2[i]);
+                }
+                res.json(results);
+            });
         });
     }
 }
