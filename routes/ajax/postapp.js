@@ -25,10 +25,7 @@ exports = module.exports = function(req, res) {
         });
     } else {
         q.exec(function(err, results) {
-            console.log(results);
             q2.exec(function(err, results2) {
-                console.log("res2")
-                console.log(results2);
                 for(var i=0;i<results2.length;++i) {
                     var pos = results2[i]['锁定']['行号'];
                     results.splice(pos-1, 0, results2[i]);
