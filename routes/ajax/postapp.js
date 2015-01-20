@@ -16,7 +16,7 @@ exports = module.exports = function(req, res) {
                 q2.where('锁定.分类')in([result]);
                 q2.exec(function(err, results2) {
                     for(var i=0;i<results2.length;++i) {
-                        var pos = results2['锁定']['行号'];
+                        var pos = results2[i]['锁定']['行号'];
                         results.splice(pos, 0, results2[i]);
                     }
                     res.json(results);
