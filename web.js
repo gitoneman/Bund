@@ -9,6 +9,7 @@ keystone.init({
     'favicon': 'public/favicon.ico',
     'less': 'public',
     'static': 'public',
+    'static options': { maxAge: 86400000 },
 
     'views': 'templates/views',
     'view engine': 'jade',
