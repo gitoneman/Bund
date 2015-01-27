@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>APP下载</title>
+    <style>
+        body {
+            background-image: url(./res/bkg.png);
+            background-repeat: no-repeat;
+            background-clip: border-box;
+            background-size: auto;
+            background-origin: padding-box;
+            background-position: 50% 42px;
+            background-size: auto;
+            background-color: rgb(244, 93, 90);
+        }
+        #container {
+            width: 850px;
+            margin: 160px auto 0;
+            overflow: auto;
+        }
+        #left {
+            float: left;
+            width: 500px;
+        }
+        #right {
+            float: right;
+        }
+        #down {
+            width: 300px;
+            height: 200px;
+            margin-top: 120px;
+        }
+        #iphoneBtn {
+            display:block;
+            width: 200px;
+            height: 56px;
+            background-image: url(./res/iphoneBtn.png);
+            cursor: pointer;
+        }
+        #iphoneBtn:hover {
+            background-image: url(./res/iphoneBtn2.png);
+        }
+        #androidBtn {
+            display:block;
+            width: 200px;
+            height: 56px;
+            background-image: url(./res/androidBtn.png);
+            cursor: pointer;
+            margin-top: 40px;
+        }
+        #androidBtn:hover {
+            background-image: url(./res/androidBtn2.png);
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="left">
+            <img alt="phone" src="./res/phone.png" style="width: 500px">
+        </div>
+        <div id="right">
+            <div id="top">
+                <img alt="slogan" src="./res/logo.png">
+            </div>
+            <div id="down">
+                <a id="iphoneBtn" href="https://itunes.apple.com/us/app/wai-tan-shi-mao-sheng-huo/id957420282">&nbsp</a>
+                <a id="androidBtn" href="">&nbsp</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
