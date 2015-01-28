@@ -43,6 +43,7 @@ exports = module.exports = function(app) {
     app.get('/mcarousel/:id', routes.views.mcarousel);
     app.get('/mlaunchw/:id', routes.views.mlaunchw);
     app.get('/mlaunchn/:id', routes.views.mlaunchn);
+    app.get('/app/phone', routes.views.download);
 
     // Session
     app.all('/join', routes.views.session.join);
