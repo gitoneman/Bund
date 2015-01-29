@@ -29,6 +29,7 @@ exports = module.exports = function(req, res) {
         Post.model.find()
             .where('状态', '已发布')
             .where('最近点击周', thisweek)
+            .select('标题 链接')
             .sort('-当周点击数')
             .limit('10')
     );
