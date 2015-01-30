@@ -105,6 +105,9 @@ Post.schema.pre('save', function(next) {
     if (this.isModified('状态') && this.isPublished() && !this.发布时间) {
         this.发布时间 = new Date();
     }
+    if (this.isModified('正文.更多')) {
+        this.正文.更多 = this.正文.更多.replace(/\?tp=webp/g, '');
+    }
     next();
 });
 
