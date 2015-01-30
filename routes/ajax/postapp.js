@@ -10,7 +10,7 @@ exports = module.exports = function(req, res) {
     if(category&&category!='') {
         keystone.list('PostCategory').model.findOne({ '标识': category }).exec(function(err, result) {
             if(result) {
-                q.where('分类').in([result]);
+                q.where('手机分类').in([result]);
             }
             q.exec(function(err, results) {
                 q2.where('锁定.分类')in([result]);
