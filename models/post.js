@@ -34,7 +34,7 @@ Post.add({
 //    images: { type: Types.CloudinaryImages, wysiwyg: true },
 //    '标题图片': { type: Types.Relationship, ref: 'Picture', many: true},
 //    '图片': { type: Types.CloudinaryImage, autoCleanup : true},
-    '缩略图': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload', allowedTypes: ['image/jpg', 'image/png', 'image/bmp'],
+    '缩略图': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload', allowedTypes: ['image/jpeg', 'image/png', 'image/bmp'],
         format: function(item, file){
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
@@ -46,7 +46,7 @@ Post.add({
 //        format: function(item, file){
 //            return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
 //        }},
-    '内容图': { type: Types.LocalFiles, dest: 'public/upload/', prefix:'/upload', allowedTypes: ['image/jpg', 'image/png', 'image/bmp'],
+    '内容图': { type: Types.LocalFiles, dest: 'public/upload/', prefix:'/upload', allowedTypes: ['image/jpeg', 'image/png', 'image/bmp'],
         filename: function(item, filename) {
             return 'b'+item._id+filename;
         },
