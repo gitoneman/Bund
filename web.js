@@ -45,7 +45,7 @@ keystone.init({
     'wysiwyg skin': 'lightgray',
     'wysiwyg additional buttons': 'forecolor backcolor formatselect blockquote fontselect fontsizeselect removeformat media preview',
     'wysiwyg additional plugins': 'textcolor, media, preview',
-    'wysiwyg cloudinary images': true,
+    //'wysiwyg cloudinary images': true,
     'wysiwyg images': true,
 //    'wysiwyg additional buttons': 'searchreplace visualchars,'
 //        + ' charmap pagebreak paste, forecolor backcolor,'
