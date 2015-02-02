@@ -41,8 +41,9 @@ CarouselApp.schema.pre('save', function(next) {
         if (this.链接) {
             link = "\"javascript:openonphone('"+this.链接+"');\"";
         }
-        this.网页 = "<div><a href="+link+"><div><img src=\"../../upload/"+this.文件.filename+"\"/><div class=\"gradient\" style=\"position:absolute;left:0px;top:0px;width:100%;height:100%;background: repeating-linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,255,255,0) 50%, rgba(100,100,100,0.5) 100%);\"><h3 class=\"gradient-title\" style=\"margin:30px 0px 30px;padding:0 10px 0;position:absolute;bottom:0px;color:rgb(255,255,255);font-size:18px;font-weight:500;font-family:\"黑体\";\">"+this.描述+"</h3></div></div></a><div>"
+        this.网页 = "<div><a href="+link+"><div><img src=\"../../upload/"+this.文件.filename+"\"/><div class=\"gradient\" style=\"position:absolute;left:0px;top:0px;width:100%;height:100%;background: repeating-linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,255,255,0) 50%, rgba(100,100,100,0.5) 100%);\"><h3 class=\"gradient-title\" style=\"margin:30px 0px 30px;padding:0 10px 0;position:absolute;bottom:0px;color:rgb(255,255,255);font-size:18px;font-weight:500;font-family:\"黑体\";\">"+this.描述+"</h3></div></div></a></div>"
     }
+    console.log(this.网页);
     next();
 });
 
