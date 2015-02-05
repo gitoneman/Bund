@@ -20,6 +20,7 @@ PostCategory.add({
         filename: function(item, filename) {
             return 'a'+item._id+require('path').extname(filename);
         }},
+    '显示图标': {type: Boolean, default: true},
     '焦点图': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
         format: function(item, file){
             return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
