@@ -16,7 +16,7 @@ Carousel.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
         },
         filename: function(item, filename) {
-            return item._id+require('path').extname(filename);
+            return item._id+filename;
         }},
     '发布': { type: Types.Boolean, default: 'false' },
     '描述': String,

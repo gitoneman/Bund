@@ -18,7 +18,7 @@ PostCategory.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
         },
         filename: function(item, filename) {
-            return 'a'+item._id+require('path').extname(filename);
+            return 'a'+item._id+filename;
         }},
     '显示图标': {type: Boolean, default: true},
     '焦点图': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
@@ -26,7 +26,7 @@ PostCategory.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
         },
         filename: function(item, filename) {
-            return 'b'+item._id+require('path').extname(filename);
+            return 'b'+item._id+filename;
         }},
     '焦点标题': String,
     '链接': { type: Types.Url},

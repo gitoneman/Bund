@@ -16,7 +16,7 @@ AppLaunch.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
         filename: function(item, filename) {
-            return 'a'+item._id+require('path').extname(filename);
+            return 'a'+item._id+filename;
         }},
     '出现统计': { type: Types.Url},
     '点击统计': { type: Types.Url},
@@ -28,7 +28,7 @@ AppLaunch.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
         filename: function(item, filename) {
-            return 'b'+item._id+require('path').extname(filename);
+            return 'b'+item._id+filename;
         }},
     '宽带网页': { type: Types.Html, wysiwyg: true, height: 500},
     '窄带网页': { type: Types.Html, wysiwyg: true, height: 500},

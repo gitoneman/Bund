@@ -16,7 +16,7 @@ PostSource.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
         filename: function(item, filename) {
-            return 'a'+item._id+require('path').extname(filename);
+            return 'a'+item._id+filename;
         }}
 });
 
