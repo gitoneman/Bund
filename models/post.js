@@ -28,7 +28,7 @@ Post.add({
         '分类': { type: Types.Relationship, ref: 'PostCategory'}
     },
     '作者': String,
-    '创建时间': { type: Date, default: Date.now, noedit: true },
+    '创建时间': { type: Date, default: Date.now, noedit: true, index: true },
     '发布时间': { type: Types.Datetime, default: Date.now},
 //    image: { type: Types.CloudinaryImage },
 //    images: { type: Types.CloudinaryImages, wysiwyg: true },
