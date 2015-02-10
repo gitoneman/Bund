@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
     Types = keystone.Field.Types;
+var getRandom = require('../lib/utils').getRandom;
 
 var PostSource = new keystone.List('PostSource', {
     label: '文章来源',
@@ -16,7 +17,7 @@ PostSource.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
         filename: function(item, filename) {
-            return 'a'+item._id+filename;
+            return 'a'+item._id+getRandom(1000,9999)+require('path').extname(filename);
         }}
 });
 

@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
     Types = keystone.Field.Types;
+var getRandom = require('../lib/utils').getRandom;
 
 var AppLaunch = new keystone.List('AppLaunch', {
     label: '手机开机',
@@ -16,7 +17,7 @@ AppLaunch.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
         filename: function(item, filename) {
-            return 'a'+item._id+filename;
+            return 'a'+item._id+getRandom(1000,9999)+require('path').extname(filename);
         }},
     '出现统计': { type: Types.Url},
     '点击统计': { type: Types.Url},
@@ -28,11 +29,12 @@ AppLaunch.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
         filename: function(item, filename) {
-            return 'b'+item._id+filename;
+            return 'b'+item._id+getRandom(1000,9999)+require('path').extname(filename);
         }},
     '宽带网页': { type: Types.Html, wysiwyg: true, height: 500},
     '窄带网页': { type: Types.Html, wysiwyg: true, height: 500},
-    '显示时长': { type: Types.Number, default:5 }
+    '显示时长': { type: Types.Number, default:5 },
+    '显示底栏': { type: Types.Boolean, default: 'true'}
 });
 
 AppLaunch.defaultColumns = '名称, 链接';

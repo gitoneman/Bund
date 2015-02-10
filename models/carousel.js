@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
     Types = keystone.Field.Types;
+var getRandom = require('../lib/utils').getRandom;
 
 var Carousel = new keystone.List('Carousel', {
     label: '轮播图',
@@ -16,7 +17,7 @@ Carousel.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
         },
         filename: function(item, filename) {
-            return item._id+filename;
+            return item._id+getRandom(1000,9999)+require('path').extname(filename);
         }},
     '发布': { type: Types.Boolean, default: 'false' },
     '描述': String,

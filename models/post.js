@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
     Types = keystone.Field.Types;
+var getRandom = require('../lib/utils').getRandom;
 
 var Post = new keystone.List('Post', {
     label: '文章',
@@ -39,7 +40,7 @@ Post.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
         filename: function(item, filename) {
-            return 'a'+item._id+filename;
+            return 'a'+item._id+getRandom(1000,9999)+require('path').extname(filename);
         }},
     '图片链接': { type: Types.Url},
 //    '图片': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
@@ -48,7 +49,7 @@ Post.add({
 //        }},
     '内容图': { type: Types.LocalFiles, dest: 'public/upload/', prefix:'/upload', allowedTypes: ['image/jpeg', 'image/png', 'image/bmp'],
         filename: function(item, filename) {
-            return 'b'+item._id+filename;
+            return 'b'+item._id+getRandom(1000,9999)+require('path').extname(filename);
         },
         format: function(item, file){
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">';

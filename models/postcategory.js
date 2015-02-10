@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
     Types = keystone.Field.Types;
+var getRandom = require('../lib/utils').getRandom;
 
 var PostCategory = new keystone.List('PostCategory', {
     label: '文章类别',
@@ -18,7 +19,7 @@ PostCategory.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
         },
         filename: function(item, filename) {
-            return 'a'+item._id+filename;
+            return 'a'+item._id+getRandom(1000,9999)+require('path').extname(filename);
         }},
     '显示图标': {type: Boolean, default: true},
     '焦点图': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
@@ -26,7 +27,7 @@ PostCategory.add({
             return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
         },
         filename: function(item, filename) {
-            return 'b'+item._id+filename;
+            return 'b'+item._id+getRandom(1000,9999)+require('path').extname(filename);
         }},
     '焦点标题': String,
     '链接': { type: Types.Url},
