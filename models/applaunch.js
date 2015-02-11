@@ -34,7 +34,8 @@ AppLaunch.add({
     '宽带网页': { type: Types.Html, wysiwyg: true, height: 500},
     '窄带网页': { type: Types.Html, wysiwyg: true, height: 500},
     '显示时长': { type: Types.Number, default:5 },
-    '显示底栏': { type: Types.Boolean, default: 'true'}
+    '显示底栏': { type: Types.Boolean, default: 'true'},
+    '标识码': { type: Types.Number, default: 0}
 });
 
 AppLaunch.defaultColumns = '名称, 链接';

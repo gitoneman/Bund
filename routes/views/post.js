@@ -26,7 +26,7 @@ exports = module.exports = function(req, res) {
 				if (post['状态'] == '已发布' || (req.user && req.user.canAccessKeystone) ) {
                     //统计
                     post['总点击数']++;
-                    var today = new Date()
+                    var today = new Date();
                     today.setHours(0,0,0,0);
                     if(post['最近点击日']==null||post['最近点击日']<today) {
                         post['最近点击日'] = today

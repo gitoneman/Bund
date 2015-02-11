@@ -19,9 +19,11 @@ CarouselApp.add({
         filename: function(item, filename) {
             return item._id+getRandom(1000,9999)+require('path').extname(filename);
         }},
-    '发布': { type: Types.Boolean, default: 'false' },
+    //'发布': { type: Types.Boolean, default: 'false' },
     '描述': String,
     '上传时间': { type: Date, default: Date.now, noedit:true},
+    '生效时间': { type: Date, default: Date.now},
+    '失效时间': { type: Date, default: Date.now},
     '链接': { type: String },
     '网页链接': { type: String, noedit: true},
     '网页': { type: Types.Html, wysiwyg: true, height: 500},
