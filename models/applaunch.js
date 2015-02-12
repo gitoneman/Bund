@@ -59,9 +59,13 @@ AppLaunch.schema.pre('save', function(next) {
     if(this.isModified('网页图') || this.isModified('链接') ) {
         this.宽带网页 = "<p><a href=\'javascript:openonphone('" + this.链接 + "');\'><img src=\'../../upload/" + this.网页图.filename + "\'/></a></p>";
         this.窄带网页 = "<p><a href=\'javascript:openonphone('" + this.链接 + "');\'><img src=\'../../upload/" + this.网页图.filename + "\'/></a></p>";
-        if (this.exists("网页小图")) {
+        console.log(this.网页小图);
+        if (this.网页小图 && this.网页小图!= null && this.网页小图 != "" && this.网页小图.path != "") {
             this.宽带小网页 = "<p><a href=\'javascript:openonphone('" + this.链接 + "');\'><img src=\'../../upload/" + this.网页小图.filename + "\'/></a></p>";
             this.窄带小网页 = "<p><a href=\'javascript:openonphone('" + this.链接 + "');\'><img src=\'../../upload/" + this.网页小图.filename + "\'/></a></p>";
+        } else {
+            this.宽带小网页 = "";
+            this.窄带小网页 = "";
         }
     }
     next();
