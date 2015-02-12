@@ -15,7 +15,7 @@ block bhead
             color: white;
         }
 
-        .container {
+        #container {
             margin-right: auto;
             margin-left: auto;
             padding-left: 0px;
@@ -25,13 +25,28 @@ block bhead
             box-sizing: border-box;
         }
 block bbody
-    div.container
-        if !launch_content
-            h1 焦点图不存在
-        else
-            div.content!= launch_content
+    div#container
+
 block btail
     script.
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var container = document.getElementById("container");
+            var launch_content = "!{launch_content}";
+            var launch_content_s = "!{launch_content_s}";
+            if (!launch_content) {
+                var error = document.createElement('h1');
+                error.innerText = "焦点图不存在";
+                container.appendChild(error);
+            } else {
+                var content = document.createElement('div');
+                if (window.screen.height < 481 && launch_content_s != "") {
+                    content.innerHTML = launch_content_s
+                } else {
+                    content.innerHTML = launch_content
+                }
+                container.appendChild(content);
+            }
+        });
         function openonphone(link, hideTitle) {
             if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
                 window.location = "yios:openUrl(" + link + "," + hideTitle + ")";
