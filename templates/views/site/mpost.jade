@@ -53,7 +53,6 @@ block bbody
         if !post
             h1 文章不存在
         else
-            p &nbsp
             p.post-title= post['标题']
             p.post-subtitle
                 span.post-from!= post['来源']['名称']
