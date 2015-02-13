@@ -56,7 +56,8 @@ block bbody
             p &nbsp
             p.post-title= post['标题']
             p.post-subtitle
-                span.post-from!= post['来源']['名称']
-                span.post-pub &nbsp发表于&nbsp
+                if post['来源'] && post['来源']['名称']
+                    span.post-from!= post['来源']['名称']&nbsp
+                span.post-pub 发表于&nbsp
                 span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
             div.post-content!= post['正文']['更多']
