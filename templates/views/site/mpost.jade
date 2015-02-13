@@ -53,10 +53,10 @@ block bbody
         if !post
             h1 文章不存在
         else
+            p &nbsp
             p.post-title= post['标题']
             p.post-subtitle
                 span.post-from!= post['来源']['名称']
                 span.post-pub &nbsp发表于&nbsp
                 span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
-            p &nbsp
             div.post-content!= post['正文']['更多']
