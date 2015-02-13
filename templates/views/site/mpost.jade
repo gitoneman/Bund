@@ -17,14 +17,18 @@ block bhead
             margin: 0 0 28px;
         }
         .post-subtitle {
-            font-size: 16px;
+            font-size: 14px;
             color: #424242;
             margin: 0 0 27px;
         }
+        .post-from {
+            color: #00D7C5;
+        }
         .post-time {
-            font-size: 12px;
+            color: #0099FF;
+        }
+        .post-pub {
             color: #9b9b9b;
-            margin: 0 0 27px;
         }
         .post-content {
             font-size: 16px;
@@ -49,10 +53,12 @@ block bbody
         if !post
             h1 文章不存在
         else
+            p= post
             p &nbsp
             p.post-title= post['标题']
-            - var author_label = post['作者'].split('标签');
-            p.post-subtitle!= author_label[0]
-            p.post-time= post._['发布时间'].format('YYYY年MM月DD日')
+            p.post-subtitle
+                span.post-from!= post['来源']['名称']
+                span.post-pub &nbsp发表于&nbsp
+                span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
             p &nbsp
             div.post-content!= post['正文']['更多']
