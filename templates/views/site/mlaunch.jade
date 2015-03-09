@@ -31,8 +31,8 @@ block btail
     script.
         document.addEventListener("DOMContentLoaded", function (event) {
             var container = document.getElementById("container");
-            var launch_content = "!{launch_content}";
-            var launch_content_s = "!{launch_content_s}";
+            var launch_content = "#{launch_content}";
+            var launch_content_s = "#{launch_content_s}";
             if (!launch_content) {
                 var error = document.createElement('h1');
                 error.innerText = "焦点图不存在";
@@ -40,9 +40,9 @@ block btail
             } else {
                 var content = document.createElement('div');
                 if (window.screen.height < 481 && launch_content_s != "") {
-                    content.innerHTML = launch_content_s
+                    content.innerHTML = htmlUnescape(launch_content_s);
                 } else {
-                    content.innerHTML = launch_content
+                    content.innerHTML = htmlUnescape(launch_content);
                 }
                 container.appendChild(content);
             }
@@ -57,4 +57,12 @@ block btail
                 }
             }
             return false;
+        }
+        function htmlUnescape(str) {
+            return String(str)
+                    .replace(/&amp;/g, '\&')
+                    .replace(/&quot;/g, '\"')
+                    .replace(/&#39;/g, '\'')
+                    .replace(/&lt;/g, '\<')
+                    .replace(/&gt;/g, '\>');
         }
