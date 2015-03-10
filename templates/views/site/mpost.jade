@@ -30,12 +30,19 @@ block bhead
         .post-pub {
             color: #9b9b9b;
         }
+        .post-brief {
+            font-size: 16px;
+            color: #9b9b9b;
+            font-style: normal;
+            font-weight: normal;
+            border-top:1px solid #9b9b9b;
+        }
         .post-content {
             font-size: 16px;
             color: #424242;
             font-style: normal;
             font-weight: normal;
-            border-top:1px solid #CCCCCC;
+            border-top:1px solid #9b9b9b;
         }
         .post-content p {
             line-height: 32px;
@@ -64,5 +71,5 @@ block bbody
             p.post-subtitle
                 span.post-pub= post['作者']
             if post['正文']['简介']
-                div.post-content!= post['正文']['简介']
+                div.post-brief!= post['正文']['简介']
             div.post-content!= post['正文']['更多']
