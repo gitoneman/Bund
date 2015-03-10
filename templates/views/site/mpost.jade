@@ -35,6 +35,7 @@ block bhead
             color: #424242;
             font-style: normal;
             font-weight: normal;
+            border-top:1px solid #CCCCCC;
         }
         .post-content p {
             line-height: 32px;
@@ -56,8 +57,12 @@ block bbody
             p &nbsp
             p.post-title= post['标题']
             p.post-subtitle
+                span.post-pub 来源：
                 if post['来源'] && post['来源']['名称']
-                    span.post-from!= post['来源']['名称']&nbsp
-                span.post-pub 发表于&nbsp
+                    span.post-from!= post['来源']['名称'] + '&nbsp&nbsp'
                 span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
+            p.post-subtitle
+                span.post-pub= post['作者']
+            if post['正文']['简介']
+                div.post-content!= post['正文']['简介']
             div.post-content!= post['正文']['更多']
