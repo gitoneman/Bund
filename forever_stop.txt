@@ -1,1 +1,0 @@
-sudo forever stop web.js
