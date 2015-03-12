@@ -192,7 +192,7 @@ var doCrawl = function () {
             }
             next();
         })
-        .route(old_ip, '/travel.php', function (next) {
+        .route(old_ip, '/travel.php*', function (next) {
             var url = this.spider.currentUrl;
             if (this.fromCache) return;
             var $ = this.$;
