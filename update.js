@@ -192,6 +192,21 @@ var doCrawl = function () {
             }
             next();
         })
+        .route(old_ip, '/travel.php', function (next) {
+            var url = this.spider.currentUrl;
+            if (this.fromCache) return;
+            var $ = this.$;
+            console.log("Fetching page: " + url);
+            $('div.txt h3 a').each(function () {
+                spiderworkder.spider($(this).attr('href'));
+            })
+            if(!isUpdate) {
+                $('img[src="images/page_next.png"]').closest('a').each(function () {
+                    spiderworkder.spider($(this).attr('href'));
+                })
+            }
+            next();
+        })
         .route(old_ip, '/*.php', function (next) {
             var $ = this.$;
             if (this.fromCache) return;
@@ -208,7 +223,7 @@ var doCrawl = function () {
             });
             next();
         })
-        .log('debug')
+        .log('info')
         .get('http://'+old_ip+'/');
 //        .get('http://112.124.97.208/2007/12/1646.shtml', function() {
 //            console.log('ALL Done!==================================================');
