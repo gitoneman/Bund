@@ -18,16 +18,16 @@ PostCategory.add({
         format: function(item, file){
             return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
         },
-        filename: function(item, filename) {
-            return 'a'+item._id+getRandom(1000,9999)+require('path').extname(filename);
+        filename: function(item, file) {
+            return 'a'+item._id+getRandom(1000,9999)+'.'+file.extension;
         }},
     '显示图标': {type: Boolean, default: true},
     '焦点图': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
         format: function(item, file){
             return '<img src="/upload/'+file.filename+'" style="max-width: 300px">'
         },
-        filename: function(item, filename) {
-            return 'b'+item._id+getRandom(1000,9999)+require('path').extname(filename);
+        filename: function(item, file) {
+            return 'b'+item._id+getRandom(1000,9999)+'.'+file.extension;
         }},
     '焦点标题': String,
     '链接': { type: Types.Url},

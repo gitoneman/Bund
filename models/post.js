@@ -39,8 +39,8 @@ Post.add({
         format: function(item, file){
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
-        filename: function(item, filename) {
-            return 'a'+item._id+getRandom(1000,9999)+require('path').extname(filename);
+        filename: function(item, file) {
+            return 'a'+item._id+getRandom(1000,9999)+'.'+file.extension;
         }},
     '图片链接': { type: Types.Url},
 //    '图片': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
@@ -103,7 +103,7 @@ Post.add({
 //        console.log(err);
 //    });
 
-Post.defaultColumns = '标题, 分类, 状态|20%, 作者, 发布时间|15%, 渠道';
+Post.defaultColumns = '标题, 分类, 状态|20%, 作者, 发布时间|15%, 总点击数';
 
 Post.schema.methods.isPublished = function() {
     return this.状态 == '已发布';

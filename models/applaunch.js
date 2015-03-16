@@ -14,10 +14,12 @@ AppLaunch.add({
     '链接': { type: Types.Url},
     '图片': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
         format: function(item, file){
+            console.log(file);
+            console.log(item);
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
-        filename: function(item, filename) {
-            return 'a'+item._id+getRandom(1000,9999)+require('path').extname(filename);
+        filename: function(item, file) {
+            return 'a'+item._id+getRandom(1000,9999)+'.'+file.extension;
         }},
     '出现统计': { type: Types.Url},
     '点击统计': { type: Types.Url},
@@ -28,15 +30,15 @@ AppLaunch.add({
         format: function(item, file){
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
-        filename: function(item, filename) {
-            return 'b'+item._id+getRandom(1000,9999)+require('path').extname(filename);
+        filename: function(item, file) {
+            return 'b'+item._id+getRandom(1000,9999)+'.'+file.extension;
         }},
     '网页小图': { type: Types.LocalFile, dest:'public/upload/', prefix:'/upload',
         format: function(item, file){
             return '<img src="/upload/'+file.filename+'" style="max-width: 200px">'
         },
-        filename: function(item, filename) {
-            return 'c'+item._id+getRandom(1000,9999)+require('path').extname(filename);
+        filename: function(item, file) {
+            return 'c'+item._id+getRandom(1000,9999)+'.'+file.extension;
         }},
     '宽带网页': { type: Types.Html, wysiwyg: true, height: 500},
     '窄带网页': { type: Types.Html, wysiwyg: true, height: 500},
