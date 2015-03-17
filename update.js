@@ -274,7 +274,7 @@ var Update_From_Old = function () {
     ]);
 };
 
-var last_moment;
+//var last_moment;
 console.log(new Date());
 var job = new CronJob({
     //Seconds: 0-59
@@ -288,13 +288,13 @@ var job = new CronJob({
     //Steps. E.g. */2
     cronTime: process.env.UPDATE_MIN,
     onTick: function() {
-        var now = moment();
-//            console.log("ticking:"+now.format("hh:mm:ss"));
-        if(!last_moment||moment.duration(now.diff(last_moment)).asSeconds()>100) {
-            last_moment = now;
+        //var now = moment();
+        //console.log("ticking:"+now.format("hh:mm:ss"));
+        //if(!last_moment||moment.duration(now.diff(last_moment)).asSeconds()>100) {
+        //    last_moment = now;
             console.log("ticking:"+new Date());
             Update_From_Old();
-        }
+        //}
     },
     start: false
 });
