@@ -13,6 +13,7 @@ Shop.add({
     '店名': { type: String, required: true},
     '电话': { type: String },
     '地址': { type: String },
+    '时间': { type: String },
     '图片': { type: Types.LocalFiles, dest: 'public/upload/', prefix:'/upload', allowedTypes: ['image/jpeg', 'image/png', 'image/bmp'],
         filename: function(item, filename) {
             return item._id+getRandom(1000,9999)+require('path').extname(filename);
