@@ -19,12 +19,9 @@ exports = module.exports = function(req, res) {
     var q = Post.model.find().where('状态', '已发布').select('_id 标题 发布时间 正文').limit(10);
     var today = new Date();
     today.setHours(0,0,0,0);
-    q.where('最近点击日', today).sort('-当日点击数');
+    q.where('发布时间').lte(today).sort('-总点击数');
     q.exec(function(err, results) {
         for(var i=0; i< results.length;++i) {
-            console.log(results[i].发布时间);
-            console.log(results[i].正文.简介);
-            console.log(results[i].正文.更多);
             feed.item({
                 title: results[i].标题,
                 url: 'http://www.bundpic.com/posts/post/'+results[i]._id,
@@ -35,6 +32,7 @@ exports = module.exports = function(req, res) {
                     {'content': results[i].正文.更多}]
             });
         }
+        res.set('Content-Type', 'text/xml'); 
         res.send(feed.xml({indent: true}));
     });
 
