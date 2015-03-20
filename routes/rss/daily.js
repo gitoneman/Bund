@@ -11,7 +11,7 @@ exports = module.exports = function(req, res) {
         description: '外滩daily',
         language: 'zh-cn',
         webMaster: 'yinz@me.com',
-        copyright: '2015 外滩传媒'
+        copyright: '2015 外滩传媒',
         pubDate: new Date(),
         generator: '上海外滩画报传媒有限公司'
     });
