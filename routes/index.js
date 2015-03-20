@@ -30,7 +30,8 @@ var routes = {
     wx: importRoutes('./wx'),
     ajax: importRoutes('./ajax'),
     old: importRoutes('./old'),
-    other: importRoutes('./other')
+    other: importRoutes('./other'),
+    rss: importRoutes('./rss')
 };
  
 // Bind Routes
@@ -87,6 +88,8 @@ exports = module.exports = function(app) {
     //app.all('/omega', routes.other.omega);
 
     app.get('/wx', routes.wx.index);
+
+    app.get('/rss/daily.xml', routes.rss.daily);
 
 //    app.get('http://*', function(req, res) {
 //        console.log('A get request not available');
