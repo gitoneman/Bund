@@ -26,8 +26,11 @@ Post.add({
         '开关': { type: Boolean, default: false },
         '页号': { type: Types.Number },
         '行号': { type: Types.Number },
-        '分类': { type: Types.Relationship, ref: 'PostCategory'}
+        '首页': { type: Boolean, default: false },
+        '分类': { type: Types.Relationship, ref: 'PostCategory', many: true}
     },
+    '锁定当日热门': { type: Types.Number },
+    '锁定当周热门': { type: Types.Number },
     '作者': String,
     '创建时间': { type: Date, default: Date.now, noedit: true, index: true },
     '发布时间': { type: Types.Datetime, default: Date.now},

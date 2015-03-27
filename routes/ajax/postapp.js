@@ -15,15 +15,16 @@ exports = module.exports = function(req, res) {
     }
     if(category&&category!='') {
         keystone.list('PostCategory').model.findOne({ '标识': category }).exec(function(err, result) {
+            console.log(result);
             if(result) {
                 q.where('手机分类').in([result]);
             }
             q.exec(function(err, results) {
-                q2.where('锁定.分类')in([result]);
+                q2.find({'锁定.分类': result});
                 q2.exec(function(err, results2) {
                     for(var i=0;i<results2.length;++i) {
                         var pos = results2[i]['锁定']['行号'];
-                        results.splice(pos, 0, results2[i]);
+                        results.splice(pos-1, 0, results2[i]);
                     }
                     res.json(results);
                 });
@@ -31,6 +32,7 @@ exports = module.exports = function(req, res) {
         });
     } else {
         q.exec(function(err, results) {
+            q2.find().where('锁定.首页', true);
             q2.exec(function(err, results2) {
                 for(var i=0;i<results2.length;++i) {
                     var pos = results2[i]['锁定']['行号'];
