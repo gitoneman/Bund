@@ -19,7 +19,7 @@ exports = module.exports = function(req, res) {
     var q = Post.model.find().where('状态', '已发布').select('_id 标题 发布时间 正文').limit(10);
     var today = new Date();
     today.setHours(0,0,0,0);
-    q.where('发布时间').lte(today).sort('-总点击数');
+    q.where('发布时间').gte(today).sort('-总点击数');
     q.exec(function(err, results) {
         for(var i=0; i< results.length;++i) {
             feed.item({
@@ -32,7 +32,7 @@ exports = module.exports = function(req, res) {
                     {'content': results[i].正文.更多}]
             });
         }
-        res.set('Content-Type', 'text/xml'); 
+        res.set('Content-Type', 'text/xml');
         res.send(feed.xml({indent: true}));
     });
 
