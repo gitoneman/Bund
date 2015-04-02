@@ -26,7 +26,7 @@ exports = module.exports = function(req, res) {
         res.json("[]");
     }
     //console.log("keyword" + keyword);
-    var q = Post.model.find({'标题' : new RegExp(keyword, 'i')}).where('状态', '已发布').select('_id 标题 链接 图片 图片链接 分享数 赞数 出现统计 点击统计 发布时间').skip((page-1)*number).limit(number);
+    var q = Post.model.find({'标题' : new RegExp(keyword, 'i')}).where('状态', '已发布').select('_id 标题 链接 图片 图片链接 缩略图 分享数 赞数 出现统计 点击统计 发布时间').skip((page-1)*number).limit(number);
     q.exec(function(err, results) {
         res.json(results);
     });
