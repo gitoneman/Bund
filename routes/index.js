@@ -38,6 +38,7 @@ var routes = {
 exports = module.exports = function(app) {
     // Website
     app.get('/', routes.views.index);
+    app.post('/searchresult', routes.views.search);
     app.get('/posts/:category?', routes.views.posts);
     app.all('/posts/post/:post', routes.views.post);
     app.get('/mpost/:post', routes.views.mpost);

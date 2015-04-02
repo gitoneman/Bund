@@ -60,20 +60,20 @@ exports = module.exports = function(req, res) {
 //    });
 
     // Load the posts
-    view.on('init', function(next) {
+    // view.on('init', function(next) {
 
-        var q = keystone.list('Post').model.find().where('状态', '已发布').sort('-发布时间').limit('9');
+    //     var q = keystone.list('Post').model.find().where('状态', '已发布').sort('-发布时间').limit('9');
 
-        if (locals.data.category) {
-            q.where('分类').in([locals.data.category]);
-        }
+    //     if (locals.data.category) {
+    //         q.where('分类').in([locals.data.category]);
+    //     }
 
-        q.exec(function(err, results) {
-            locals.data.posts = results;
-            next(err);
-        });
+    //     q.exec(function(err, results) {
+    //         locals.data.posts = results;
+    //         next(err);
+    //     });
 
-    });
+    // });
 
     // Render the view
     view.render('site/posts');

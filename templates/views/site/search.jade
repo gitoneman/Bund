@@ -1,0 +1,13 @@
+extends ../../layouts/pc
+include ../../includes/layout/abstract
+block head
+    link(href="/styles/site/posts.min.css", rel="stylesheet")
+//- BODY
+block body
+    .container(style='position:relative')
+        .row#posts(s=filters.keyword)
+        img.center-block.loading(src='/images/loading.gif' width='50' style='display:none')
+block js
+    script(src='/js/lib/jquery/imagesloaded.min.js')
+    script(src='/js/lib/jquery/ias.min.js')
+    script(src='/js/ias.js')

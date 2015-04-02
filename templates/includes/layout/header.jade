@@ -13,17 +13,20 @@ header(role='banner')
                             include /public/images/daily.svg
                     div(class="collapse navbar-collapse")
                         ul(class="nav navbar-nav")
-                            li: a(href="/index.php") 切换旧版
+                            //li: a(href="/index.php") 切换旧版
                             each link in navLinks
                                 li(class=(section == link.key ? 'active' : '')): a(href=link.href)= link.label
+                        form.navbar-form.navbar-left(method='post', action='/searchresult', autocomplete='off', novalidate)
+                            .form-group
+                                input(type="text" class="form-control" name='keyword' placeholder="搜索文章名...")
                         ul.nav.navbar-nav.navbar-right
                             if user
                                 //li: a(href='/me').user.hidden-xs
                                 //    img(src=(user.photo.exists ? user._.photo.thumbnail(27,27) : user.avatarUrl || '/images/avatar.png'), width=27).img-circle
                                 //    =user.name.first
                                 li: a(href='/me').user.hidden-xs
-                                    //span: include /public/images/avatar.svg
-                                    img(src="/images/avatar.png", width=36).img-circle
+                                    //img(src="/images/avatar.png", width=36).img-circle
+                                    img(src=(user.photo.exists ? user._.photo.thumbnail(36,36) : user.avatarUrl || '/images/avatar.png'), width=36).img-circle
                                     = user.username
                                 li: a(href='/signout')
                                     span 退出

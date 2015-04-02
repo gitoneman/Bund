@@ -33,13 +33,17 @@ block body
                 //    .col-sm-10
                 //        textarea(name='bio', rows=5).form-control=user.bio.md
                 //
-                //.form-group
-                //    label.col-sm-2.control-label 头像
-                //    .col-sm-10
-                //        if user.photo.exists
-                //            .row
-                //                .col-sm-3: img(src=user._.photo.thumbnail(120,120)).img-responsive
-                //                .col-sm-9: input(type='file', name='photo_upload')
+                .form-group
+                    label.col-sm-2.control-label 头像
+                        br
+                        .text-muted (120x120像素,方形,小于100k)
+                    .col-sm-10
+                        if user.photo.exists
+                            .row
+                                .col-sm-3: img(src=user._.photo.thumbnail(120,120)).img-responsive
+                                .col-sm-9: input(type='file', name='photo_upload')
+                        else
+                            input(type='file', name='photo_upload')
                 hr.mv-2
                 button(type='submit', data-loading-text="保存中...").btn.btn-primary 保存信息
         .ui-reveal

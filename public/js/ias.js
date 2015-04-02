@@ -3,43 +3,61 @@ $(function() {
     var loading = false;
     var lastTime;
     var c = $('#posts').attr('c');
+    var s = $('#posts').attr('s');
     function getNextPage() {
-        $.ajax({
-            type:"GET",
-            url:'/postpage?n=12&p='+nextPage+'&c='+c,
-            dataType:'json',
-            beforeSend:function(){
-                $('.loading').show() //显示加载时候的提示
-            },
-            success:function(res){
-                if(res.length==0) return;
-                var html = '';
-                for(var i=0; i<res.length; ++i) {
-                    html += printAbstract(res[i]);
+        if (s != null) {
+            $.ajax({
+                type:"POST",
+                url:'/search',
+                data:{p:nextPage, wd:s, n:12},
+                dataType:'json',
+                beforeSend:function(){
+                    $('.loading').show() //显示加载时候的提示
+                },
+                success:function(res){
+                    if(res.length==0) return;
+                    var html = '';
+                    for(var i=0; i<res.length; ++i) {
+                        html += printAbstract(res[i]);
+                    }
+                    $('#posts').append(html);
+                    nextPage++;
+                    $('#posts').imagesLoaded( function() {
+                        placePosts();
+                        $('.loading').hide() //请求成功,隐藏加载提示
+                    });
+                },
+                complete:function(jqXHR, textStatus) {
+                    loading = false;
                 }
-                $('#posts').append(html);
-                nextPage++;
-                $('#posts').imagesLoaded( function() {
-                    placePosts();
-                    $('.loading').hide() //请求成功,隐藏加载提示
-                });
-            },
-            complete:function(jqXHR, textStatus) {
-                loading = false;
-            }
-        })
-//        $.getJSON('postpage?n=12&p='+nextPage,function(res){
-//            var html = '';
-//            for(var i=0; i<res.length; ++i) {
-//                html += printAbstract(res[i]);
-//            }
-//            $('#posts').append(html);
-////        var imgLoad = imagesLoaded( document.querySelector('#posts') );
-////        imgLoad.on( 'always', onAlways );
-//            $('#posts').imagesLoaded( function() {
-//                placePosts();
-//            });
-//        });
+            })
+        } else {
+            $.ajax({
+                type:"GET",
+                url:'/postpage?n=12&p='+nextPage+'&c='+c,
+                dataType:'json',
+                beforeSend:function(){
+                    $('.loading').show() //显示加载时候的提示
+                },
+                success:function(res){
+                    if(res.length==0) return;
+                    var html = '';
+                    for(var i=0; i<res.length; ++i) {
+                        html += printAbstract(res[i]);
+                    }
+                    $('#posts').append(html);
+                    nextPage++;
+                    $('#posts').imagesLoaded( function() {
+                        placePosts();
+                        $('.loading').hide() //请求成功,隐藏加载提示
+                    });
+                },
+                complete:function(jqXHR, textStatus) {
+                    loading = false;
+                }
+            })
+        }
+        
     }
     getNextPage();
 

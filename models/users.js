@@ -22,6 +22,7 @@ User.add({
     'vcode': { type: String, noedit: true},
     'lastvcodetime': {type: Date, noedit: true}
 }, 'Profile', {
+    photo: { type: Types.CloudinaryImage, folder: 'users', autoCleanup : true },
     website: { type: Types.Url }
 });
 

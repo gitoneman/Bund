@@ -51,8 +51,8 @@ block body
                 if comment['作者']
                     .comment.media
                         .pull-left
-                            img(src="/images/avatar.png", width=36).media-object.img-circle
-                            //img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=comment.author.name.full, width=40, height=40).media-object.img-circle
+                            //img(src="/images/avatar.png", width=36).media-object.img-circle
+                            img(src=comment.author.photo.exists ? comment.author._.photo.thumbnail(36,36) : '/images/avatar.png', alt=comment.author.name.full, width=36, height=36).media-object.img-circle
                         .media-body
                             h6.mt-0
                                 =comment['作者'].name.full
@@ -64,9 +64,8 @@ block body
                     input(type='hidden', name='action', value='create-comment')
                     .media
                         .pull-left
-                            //span 口
-                            img(src="/images/avatar.png", width=36).media-object.img-circle
-                            //img(src=user.photo.exists ? user._.photo.thumbnail(60,60) : '/images/placeholders/user-60x60.jpg', alt=user.name.full, width=40, height=40).img-responsive.img-circle
+                            //img(src="/images/avatar.png", width=36).media-object.img-circle
+                            img(src=user.photo.exists ? user._.photo.thumbnail(36,36) : '/images/avatar.png', alt=user.name.full, width=36, height=36).img-responsive.img-circle
                         .media-body
                             textarea(placeholder='写下您的评论...', name='内容').form-control
                             .mv-1
