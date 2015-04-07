@@ -27,9 +27,9 @@ exports = module.exports = function(req, res) {
                 url: 'http://www.bundpic.com/posts/post/'+results[i]._id,
                 guid: 'http://www.bundpic.com/posts/post/'+results[i]._id,
                 date: results[i].发布时间,
-                description: results[i].正文.简介,
-                custom_elements: [
-                    {'content': results[i].正文.更多}]
+                description: results[i].正文.更多
+                //custom_elements: [
+                 //   {'content': results[i].正文.更多}]
             });
         }
         res.set('Content-Type', 'text/xml');
