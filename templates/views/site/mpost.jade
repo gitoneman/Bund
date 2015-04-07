@@ -69,7 +69,7 @@ block bbody
                     span.post-from!= post['来源']['名称'] + '&nbsp&nbsp'
                 span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
             p.post-subtitle
-                span.post-pub= post['作者']
+                span.post-pub!= post['作者']
             if post['正文']['简介']
                 div.post-brief!= post['正文']['简介']
             div.post-content!= post['正文']['更多']
