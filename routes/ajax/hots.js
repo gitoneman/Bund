@@ -19,7 +19,6 @@ exports = module.exports = function(req, res) {
             q2.exec(function(err, results2) {
                 for(var i=0;i<results2.length;++i) {
                     var pos = results2[i]['锁定当日热门'];
-                    console.log(pos);
                     results.splice(pos-1, 0, results2[i]);
                 }
                 res.json(results);

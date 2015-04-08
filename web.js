@@ -45,6 +45,7 @@ keystone.init({
     'wysiwyg skin': 'lightgray',
     'wysiwyg additional buttons': 'forecolor backcolor formatselect blockquote fontselect fontsizeselect removeformat media preview',
     'wysiwyg additional plugins': 'textcolor, media, preview',
+    //'wysiwyg additional options': { cleanup: false },
     //'wysiwyg cloudinary images': true,
     'wysiwyg images': true,
 //    'wysiwyg additional buttons': 'searchreplace visualchars,'
@@ -68,6 +69,17 @@ keystone.init({
 keystone.set('locals', {
     utils: keystone.utils
 });
+
+keystone.set('email locals', {
+    utils: keystone.utils,
+    host: (function() {
+        if (keystone.get('env') === 'staging') return 'http://localhost';
+        if (keystone.get('env') === 'production') return 'http://www.bundpic.com';
+        return (keystone.get('host') || 'http://localhost:') + (keystone.get('port') || '3000');
+    })()
+});
+
+keystone.set('cloudinary folders', true);
 
 //keystone.set('s3 config', { bucket: 'bundtest', key: 'AKIAIKCBVRCVBMACKZEQ', secret: '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' });
 
