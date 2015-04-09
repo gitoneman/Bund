@@ -3,6 +3,5 @@ exports = module.exports = function(req, res) {
 	locals.filters = {
         keyword: req.body.keyword
     };
-    console.log(req.body.keyword);
 	res.render('site/search');
 }
