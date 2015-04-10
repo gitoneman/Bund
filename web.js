@@ -91,7 +91,7 @@ keystone.import('models');
 keystone.set('routes', require('./routes'));
 keystone.set('nav', {
     '用户': 'User',
-    '网站': ['Post', 'PostComment', 'Carousel','CarouselApp', 'Picture', 'PostCategory', 'Distribution', 'Periodical', 'Volume'],
+    '网站': ['Post', 'PostComment', 'Carousel','CarouselApp', 'CarouselAdApp', 'Picture', 'PostCategory', 'Distribution', 'Periodical', 'Volume'],
     '广告': 'AD',
     '微信': ['Wxacc', 'Wxreply', 'Wxmenu'],
     '项目': ['Track'],

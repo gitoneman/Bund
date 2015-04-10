@@ -43,6 +43,7 @@ exports = module.exports = function(app) {
     app.all('/posts/post/:post', routes.views.post);
     app.get('/mpost/:post', routes.views.mpost);
     app.get('/mcarousel/:id', routes.views.mcarousel);
+    app.get('/mcarouselad/:id', routes.views.mcarouselad);
     app.get('/mlaunchw/:id', routes.views.mlaunchw);
     app.get('/mlaunchn/:id', routes.views.mlaunchn);
     app.get('/app/phone', routes.views.download);

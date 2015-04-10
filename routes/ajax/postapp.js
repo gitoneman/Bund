@@ -15,7 +15,7 @@ exports = module.exports = function(req, res) {
     }
     if(category&&category!='') {
         keystone.list('PostCategory').model.findOne({ '标识': category }).exec(function(err, result) {
-            console.log(result);
+            //console.log(result);
             if(result) {
                 q.where('手机分类').in([result]);
             }
