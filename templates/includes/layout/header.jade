@@ -18,7 +18,7 @@ header(role='banner')
                                 li(class=(section == link.key ? 'active' : '')): a(href=link.href)= link.label
                         form.navbar-form.navbar-left(method='post', action='/searchresult', autocomplete='off', novalidate)
                             .form-group
-                                input(type="text" class="form-control" name='keyword' placeholder="搜索文章名...")
+                                input(type="text" class="form-control" name='keyword' placeholder="搜索文章名或作者...")
                         ul.nav.navbar-nav.navbar-right
                             if user
                                 //li: a(href='/me').user.hidden-xs
