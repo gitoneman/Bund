@@ -117,7 +117,7 @@ Post.schema.pre('save', function(next) {
         this.发布时间 = new Date();
     }
     if (this.isModified('正文.更多')) {
-        this.正文.更多 = this.正文.更多.replace(/\?tp=webp/g, '');
+        this.正文.更多 = this.正文.更多.replace(/\tp=webp/g, '');
     }
     next();
 });
