@@ -1,9 +1,26 @@
 mixin sidemenu(posts)
     div(class="col-xs-8 col-sm-4 col-md-3 sidebar-offcanvas hidden-xs" id="sidebar" role="navigation")
-        div.list-group(style='background-color:white')
-            a.list-group-item.disabled 热门
-            if posts!=null
-                each post in posts
-                    a(href='/posts/post/' + post['_id']).list-group-item
-                        h4.list-group-item-heading= post['标题']
-            img(src="/images/qcode-daily.jpg" width="160").center-block
+        ul.nav.nav-tabs.bundred
+            li.active(role="presentation"): a(href="#today" aria-controls="today" role="tab" data-toggle="tab") 今日
+            li(role="presentation"): a(href="#week" aria-controls="week" role="tab" data-toggle="tab") 本周
+            li(role="presentation"): a(href="#all" aria-controls="all" role="tab" data-toggle="tab") 全部
+        .tab-content
+            .tab-pane.active(role="tabpanel" id="today")
+                .list-group(style='background-color:white')
+                    if hots_today!=null
+                        each post in hots_today
+                            a(href='/posts/post/' + post['_id']).list-group-item
+                                h4.list-group-item-heading= post['标题']
+            .tab-pane(role="tabpanel" id="week")
+                .list-group(style='background-color:white')
+                    if hots_week!=null
+                        each post in hots_week
+                            a(href='/posts/post/' + post['_id']).list-group-item
+                                h4.list-group-item-heading= post['标题']
+            .tab-pane(role="tabpanel" id="all")
+                .list-group(style='background-color:white')
+                    if hots_all!=null
+                        each post in hots_all
+                            a(href='/posts/post/' + post['_id']).list-group-item
+                                h4.list-group-item-heading= post['标题']
+        img(src="/images/qcode-daily.jpg" width="160").center-block
