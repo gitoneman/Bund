@@ -21,7 +21,7 @@ exports.initLocals = function(req, res, next) {
     locals.basedir = keystone.get('basedir');
 
     locals.page = {
-        title: '外滩Daily',
+        title: '外滩',
         path: req.url.split("?")[0] // strip the query - handy for redirecting back to the page
     };
     
