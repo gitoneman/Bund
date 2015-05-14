@@ -85,6 +85,7 @@ exports = module.exports = function(app) {
     app.get('/app-launch', routes.ajax.applaunch);
 
     // Other
+    app.get('/adjump', routes.other.adjump);
     app.post('/collect', routes.ajax.collect);
     app.get('/landrover', routes.other.landrover);
     //app.all('/omega', routes.other.omega);

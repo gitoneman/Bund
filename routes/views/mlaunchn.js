@@ -17,7 +17,7 @@ exports = module.exports = function(req, res) {
                 if (!launch) return res.notfound('开机图不存在');
                 locals.launch_content = launch['窄带网页'];
                 locals.launch_content_s = launch['窄带小网页'];
-                next()
+                next();
             });
     });
 
