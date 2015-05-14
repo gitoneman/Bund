@@ -1,4 +1,4 @@
 exports = module.exports = function(req, res) {
-	var url = req.params.url;
+	var url = req.query.url;
 	return res.redirect(url);
 }
