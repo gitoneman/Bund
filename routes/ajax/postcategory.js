@@ -14,7 +14,7 @@ exports = module.exports = function(req, res) {
                 res.end("1"); //没有此文章
             }
             if (post) {
-                console.log(post);
+                //console.log(post);
                 res.json(post['分类']);
             } else {
                 res.end("1"); //没有此文章
