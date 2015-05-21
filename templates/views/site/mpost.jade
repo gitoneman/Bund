@@ -1,75 +1,76 @@
 extends ../../layouts/base
 
 block bhead
-    style.
-        .container {
-            margin-right: auto;
-            margin-left: auto;
-            padding-left:  15px;
-            padding-right: 15px;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            max-width: 800px;
-        }
-        .post-title {
-            font-size: 24px;
-            margin: 0 0 28px;
-        }
-        .post-subtitle {
-            font-size: 14px;
-            color: #424242;
-            margin: 0 0 27px;
-        }
-        .post-from {
-            color: #00D7C5;
-        }
-        .post-time {
-            color: #0099FF;
-        }
-        .post-pub {
-            color: #9b9b9b;
-        }
-        .post-brief {
-            font-size: 16px;
-            color: #9b9b9b;
-            font-style: normal;
-            font-weight: normal;
-            border-top:1px solid #9b9b9b;
-        }
-        .post-content {
-            font-size: 16px;
-            color: #424242;
-            font-style: normal;
-            font-weight: normal;
-            border-top:1px solid #9b9b9b;
-        }
-        .post-content p {
-            line-height: 32px;
-        }
-        .post-content img {
-            max-width: 100%;
-            height: auto!important;
-            display: block;
-            position: static!important;
-        }
-        #list_image_div {
-            height: auto!important;
-        }
+    link(href="/styles/mobile.min.css", rel="stylesheet")
 block bbody
-    div.container
-        if !post
-            h1 文章不存在
-        else
-            p &nbsp
-            p.post-title= post['标题']
-            p.post-subtitle
-                span.post-pub 来源：
-                if post['来源'] && post['来源']['名称']
-                    span.post-from!= post['来源']['名称'] + '&nbsp&nbsp'
-                span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
-            p.post-subtitle
-                span.post-pub!= post['作者']
-            if post['正文']['简介']
-                div.post-brief!= post['正文']['简介']
-            div.post-content!= post['正文']['更多']
+    body
+        
+        p &nbsp
+        p.post-title= post['标题']
+        p.post-subtitle
+            span.post-pub 来源：
+            if post['来源'] && post['来源']['名称']
+                span.post-from!= post['来源']['名称'] + '&nbsp&nbsp'
+            span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
+        p.post-subtitle
+            span.post-pub!= post['作者']
+        if post['正文']['简介']
+            div.post-brief!= post['正文']['简介']
+        div.post-content!= post['正文']['更多']
+
+
+        //- div.top_info
+        //-     if !post
+        //-         h1 文章不存在
+        //-     else                
+        //-         div.top_info_title
+        //-             h4= post['标题']
+        //-             p 来源：
+        //-                 if post['来源'] && post['来源']['名称']
+        //-                 span.top_info_from!= post['来源']['名称']
+        //-                 span.top_info_publish_time= post._['发布时间'].format('YYYY年MM月DD日')
+        //-             p
+        //-                 span!= post['作者']                       
+        //-         div.top_info_content
+        //-             p!= post['正文']['简介']
+        //- div.middle_info
+        //-     p.middle_info_content!= post['正文']['更多']
+        //- div.detail_comment
+        //-     form(method='post').comment-form.mt-5
+        //-         h4.mb-1=post['赞数'] == 0 ? '还没有人赞这篇文章' : '有' + post['赞数'] + '个人赞了这篇文章'
+        //-             if user
+        //-                 if thumbup
+        //-                     input(type='hidden', name='action', value='thumb-up', id='thumb')
+        //-                     button(type='submit').btn.btn-success#thumbbtn 点赞
+        //-                 else
+        //-                     input(type='hidden', name='action', value='thumb-down', id='thumb')
+        //-                     button(type='submit').btn.btn-info#thumbbtn 取消赞
+        //-             //if user in post['赞']
+        //-     if !user
+        //-         h4.mb-1
+        //-             a(href='/signin', data-from=page.path, data-initial='signin').js-auth-trigger 登录
+        //-             span= post['评论'].length == 0 ? '后，第一个发表评论' : '后，发表评论，已有'+post['评论'].length+'条'
+        //-     else
+        //-         h4.mb-1=post['评论'].length == 0 ? '第一个发表评论' : '已有'+post['评论'].length + '条评论'
+            
+        //-     div.com_con
+        //-         ul
+        //-             for comment in post['评论']
+        //-                 if comment['作者']
+        //-                     li
+        //-                         .com_con_left                                    
+        //-                             img(src=comment['作者'].photo.exists ? comment['作者']._.photo.thumbnail(36,36) : '/images/avatar.png', alt=comment['作者'].name.full, width=31, height=31).media-object.img-circle
+        //-                         .com_con_right!= comment['内容'].html
+        //-                             span.com_con_time= comment._['时间'].format('MM-DD HH:mm')
+        //-     if user
+        //-         //- Reply form
+        //-         form(method='post').comment-form.mt-5
+        //-             input(type='hidden', name='action', value='create-comment')
+        //-             .media
+        //-                 .pull-left
+        //-                     //img(src="/images/avatar.png", width=36).media-object.img-circle
+        //-                     img(src=user.photo.exists ? user._.photo.thumbnail(36,36) : '/images/avatar.png', alt=user.name.full, width=36, height=36).img-responsive.img-circle
+        //-                 .media-body
+        //-                     textarea(placeholder='写下您的评论...', name='内容').form-control
+        //-                     .mv-1
+        //-                         button(type='submit').btn.btn-success 提交

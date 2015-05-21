@@ -58,6 +58,7 @@ block body
                                 =comment['作者'].name.full
                                 //span.text-muted  &middot; #{moment(comment.publishedOn).fromNow()}
                             !=comment['内容'].html
+                            span.pull-left.publish_time= comment._['时间'].format('MM-DD HH:mm')
             if user
                 //- Reply form
                 form(method='post').comment-form.mt-5
