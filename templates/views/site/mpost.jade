@@ -4,19 +4,22 @@ block bhead
     link(href="/styles/mobile.min.css", rel="stylesheet")
 block bbody
     body
-        
-        p &nbsp
-        p.post-title= post['标题']
-        p.post-subtitle
-            span.post-pub 来源：
-            if post['来源'] && post['来源']['名称']
-                span.post-from!= post['来源']['名称'] + '&nbsp&nbsp'
-            span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
-        p.post-subtitle
-            span.post-pub!= post['作者']
-        if post['正文']['简介']
-            div.post-brief!= post['正文']['简介']
-        div.post-content!= post['正文']['更多']
+        div.container
+            if !post
+                h1 文章不存在
+            else
+                p &nbsp
+                p.post-title= post['标题']
+                p.post-subtitle
+                    span.post-pub 来源：
+                    if post['来源'] && post['来源']['名称']
+                        span.post-from!= post['来源']['名称'] + '&nbsp&nbsp'
+                    span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
+                p.post-subtitle
+                    span.post-pub!= post['作者']
+                if post['正文']['简介']
+                    div.post-brief!= post['正文']['简介']
+                div.post-content!= post['正文']['更多']
 
 
         //- div.top_info
