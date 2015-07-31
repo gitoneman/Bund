@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 
 exports = module.exports = function(req, res) {
+    var from = req.params.post;
     var ua = req.headers['user-agent'];
     console.log(ua);
     if (/iPhone|iPad|iPod/i.test(ua)) {

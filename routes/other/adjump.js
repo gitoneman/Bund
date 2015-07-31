@@ -1,4 +1,5 @@
 exports = module.exports = function(req, res) {
+	console.log(req.params.url);
 	return res.redirect(req.params.url);
 	// if (req.query.url == "1") {
 	// 	return res.redirect("http://www.omegawatches.cn/baselworld-2015/cn/?mz_ca=2006684&mz_sp=6tLax&mz_sb=1#!constellation-pluma");

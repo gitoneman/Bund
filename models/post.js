@@ -61,8 +61,8 @@ Post.add({
         简介: { type: Types.Html, wysiwyg: true, height: 150 },
         更多: { type: Types.Html, wysiwyg: true, height: 500 }
     },
-    '赞数': { type: Types.Number, default:0, noedit: true},
-    '分享数': { type: Types.Number, default:0, noedit: true},
+    '赞数': { type: Types.Number, default:0},
+    '分享数': { type: Types.Number, default:0},
     '出现统计': { type: Types.Url},
     '点击统计': { type: Types.Url},
     '总点击数': {type: Types.Number, default:0, noedit: true},

@@ -83,6 +83,7 @@ exports = module.exports = function(app) {
     app.get('/app-postcategory', routes.ajax.postcategory);
     app.get('/app-thumbup', routes.ajax.appthumbup);
     app.get('/app-launch', routes.ajax.applaunch);
+    app.get('/count', routes.ajax.count);
 
     // Other
     app.get('/adjump/:url', routes.other.adjump);
