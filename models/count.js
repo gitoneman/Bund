@@ -10,9 +10,10 @@ var Count = new keystone.List('Count', {
 
 Count.add({
     'name': { type: String, required: true, label: '名称'},
+    'desc': { type: String, label: '注释' },
     'count': {type: Types.Number, default:0, noedit: true, label: '计数'}
 });
 
-Count.defaultColumns = 'name, count';
+Count.defaultColumns = 'name, desc, count';
 
 Count.register();

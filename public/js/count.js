@@ -24,4 +24,6 @@ $(function() {
 		$.get( "/count?name=sam-"+b+"-"+c, function( data ) {
 		});
 	});
+	$.get( "/count?name=sam-visit", function( data ) {
+	});
 });
