@@ -1,0 +1,11 @@
+<ion-view view-title="commmentDetail">
+	<ion-content scroll="true">
+		<div class="list commentList">
+		</div>
+		<ion-infinite-scroll
+		    immediate-check="true"
+		    spinner="bubbles"
+		    on-infinite="getComment()"
+		    distance="1%"></ion-infinite-scroll>
+	</ion-content>
+</ion-view>
