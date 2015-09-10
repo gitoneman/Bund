@@ -3,7 +3,7 @@
 angular.module('app', ['ionic', 'controllers'])
 
 .run(function($rootScope, $http, $ionicModal, $timeout, $location, $window, localstorage){
-
+  
     var url = $location.url();
     var bootScreenTime = '';
     var adTime = '';

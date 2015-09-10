@@ -2,7 +2,7 @@
 angular.module('controllers', ['tabSlideBox'])
 
 
-.controller("mainController", function($scope, $ionicModal, $timeout ,$http, localstorage){
+.controller("mainController", function($scope, $ionicModal, $timeout ,$http, localstorage, formDataObject){
 
   // Form data for the login modal
   $scope.loginData = {};
@@ -196,33 +196,6 @@ angular.module('controllers', ['tabSlideBox'])
     };
     $scope.getCarousel();
 
-    var localCategories = localstorage.getObject('localCategories');
-    $scope.getCategories = function(){
-
-      if(Object.getOwnPropertyNames(localCategories).length > 0){
-        setCategories(localCategories);
-      }else{
-        $http.get("http://www.bundpic.com/app-category")
-          .success(function(data){
-            localstorage.setObject('localCategories',data);
-            setCategories(data);
-            $scope.loadMore(0);
-          });
-      }
-      function setCategories (cata){
-        for (var i = 0; i < cata.length; i++) {
-          $scope.data.categories[i] = cata[i]['名称'];
-          $scope.data.cateName[i]= cata[i]['标识'];
-          $scope.data.carousels[i+1] = [];
-          $scope.data.carousels[i+1][0] = cata[i]['焦点图']['filename'];
-        };
-        $scope.data.categories.unshift('推荐');
-        $scope.data.cateName.unshift('');
-        $ionicSlideBoxDelegate.update();
-      }
-    };
-    $scope.getCategories();
-
     $scope.loadMore = function(cTabs){
       if($scope.data.cateName.length==0) return;
       if(cTabs != tab) return;
@@ -237,6 +210,37 @@ angular.module('controllers', ['tabSlideBox'])
           $scope.$broadcast('scroll.infiniteScrollComplete');
         })
     };
+
+    var localCategories = localstorage.getObject('localCategories');
+    $scope.getCategories = function(){
+
+      if(Object.getOwnPropertyNames(localCategories).length > 0){
+        setCategories(localCategories);
+      }else{
+        $http.get("http://www.bundpic.com/app-category")
+          .success(function(data){
+            try{
+              localstorage.setObject('localCategories',data);
+            }catch (e) { 
+              alert("您处于无痕浏览，无法为您保存数据"); 
+            }
+            setCategories(data);
+          });
+      }
+      function setCategories (cata){
+        for (var i = 0; i < cata.length; i++) {
+          $scope.data.categories[i] = cata[i]['名称'];
+          $scope.data.cateName[i]= cata[i]['标识'];
+          $scope.data.carousels[i+1] = [];
+          $scope.data.carousels[i+1][0] = cata[i]['焦点图']['filename'];
+        };
+        $scope.data.categories.unshift('推荐');
+        $scope.data.cateName.unshift('');
+        $ionicSlideBoxDelegate.update();
+        $scope.loadMore(0);
+      }
+    };
+    $scope.getCategories();
 
     $scope.onSlideMove = function(data) {
       tab = data.index;

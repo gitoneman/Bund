@@ -2,7 +2,6 @@
 	<ion-content scroll="true">
 		<ng-include class="viewDetail" src="viewDetail" onload="showDetail();"></ng-include>
 		<!-- <iframe ng-src="{{viewDetail}}" frameborder="0"></iframe> -->
-		<!-- <div ng-include="viewDetail"></div>-->
 	</ion-content>
 
 	<div class="tabs tabs-icon-left">
@@ -23,9 +22,8 @@
 	</div>
 
 	<script id="my-popover.html" type="text/ng-template">
-	<style>.popover { height:200px; width:97%; }</style>
 	  <ion-popover-view>
-	    <ion-content>
+	    <ion-content scroll="false">
 	    	<form ng-submit="doComment();">
 		      	<textarea type="text" class="editComent" placeholder="comment ..." ng-model="comment.data" maxlength="140" required></textarea>
 		      	<button class="button button-assertive" type="submit">submit</button>
