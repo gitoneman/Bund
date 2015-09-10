@@ -38,7 +38,7 @@ angular.module('controllers', ['tabSlideBox'])
     }
     postLoginData.pwd = pwdEncode(postLoginData.pwd);
 
-    $http.get("http://www.bundpic.com/app-login?no="+postLoginData.no+"&pwd="+postLoginData.pwd)
+    $http.get("/app-login?no="+postLoginData.no+"&pwd="+postLoginData.pwd)
       .success(function(data){
        
         if (data == 0) {
@@ -111,7 +111,7 @@ angular.module('controllers', ['tabSlideBox'])
 
       $http({
         method: 'POST',
-        url: 'http://www.bundpic.com/app-join',
+        url: '/app-join',
         headers: {
           'Content-Type': undefined
         },
@@ -136,7 +136,7 @@ angular.module('controllers', ['tabSlideBox'])
   };
 
   $scope.getVcode = function(){
-    $http.get("http://www.bundpic.com/app-vcode?no="+$scope.registrationData.phonenumber)
+    $http.get("/app-vcode?no="+$scope.registrationData.phonenumber)
       .success(function(data){
         console.log(data)
       });
@@ -185,7 +185,7 @@ angular.module('controllers', ['tabSlideBox'])
     var posts = document.getElementsByClassName('posts');
 
     $scope.getCarousel = function(){
-      $http.get("http://www.bundpic.com/app-carousel")
+      $http.get("/app-carousel")
         .success(function(data){
           $scope.data.carousels[0] = [];
           for (var i = 0; i < data.length; i++) {
@@ -199,7 +199,7 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.loadMore = function(cTabs){
       if($scope.data.cateName.length==0) return;
       if(cTabs != tab) return;
-      $http.get("http://www.bundpic.com/app-post?p="+p+"&n=8&c="+$scope.data.cateName[cTabs])
+      $http.get("/app-post?p="+p+"&n=8&c="+$scope.data.cateName[cTabs])
         .success(function(data,$document){
           var html = '';
           for (var i = 0; i < data.length ; i++) {
@@ -217,7 +217,7 @@ angular.module('controllers', ['tabSlideBox'])
       if(Object.getOwnPropertyNames(localCategories).length > 0){
         setCategories(localCategories);
       }else{
-        $http.get("http://www.bundpic.com/app-category")
+        $http.get("/app-category")
           .success(function(data){
             try{
               localstorage.setObject('localCategories',data);
@@ -253,7 +253,7 @@ angular.module('controllers', ['tabSlideBox'])
 
 .controller('detail', function($scope, $stateParams, $http, $timeout, $ionicPopover, localstorage, formDataObject) {
   // allow ng-include load different page from below by id
-  $scope.viewDetail = "http://www.bundpic.com/mpost/"+$stateParams.id;
+  $scope.viewDetail = "/mpost/"+$stateParams.id;
 
   $scope.showDetail = function(){
     var viewDetail= document.getElementsByClassName('viewDetail');
@@ -285,7 +285,7 @@ angular.module('controllers', ['tabSlideBox'])
     
     $http({
       method: 'POST',
-      url: 'http://www.bundpic.com/app-comment',
+      url: '/app-comment',
       headers: {
         'Content-Type': undefined
       },
@@ -314,7 +314,7 @@ angular.module('controllers', ['tabSlideBox'])
   var commentList = document.getElementsByClassName('commentList');
   var p=1;
   $scope.getComment = function(){
-    $http.get("http://www.bundpic.com/comment?id="+$stateParams.id+"&p="+p+"&n=5")
+    $http.get("/comment?id="+$stateParams.id+"&p="+p+"&n=5")
       .success(function(data) {
         var html = '';
         for (var i = 0; i < data.length ; i++) {
@@ -337,7 +337,7 @@ angular.module('controllers', ['tabSlideBox'])
 
 
   $scope.getCommentCount = function(){
-    $http.get("http://www.bundpic.com/comment-count?id="+$stateParams.id)
+    $http.get("/comment-count?id="+$stateParams.id)
       .success(function(data) {
         $scope.commentCount = data;
       });
@@ -350,7 +350,7 @@ angular.module('controllers', ['tabSlideBox'])
     var addFav = document.getElementsByClassName('addFav');
     if(!favorite){
       angular.element(addFav).css('color', '#ef473a');;
-      $http.get("http://www.bundpic.com/app-addfav?p="+$stateParams.id+"&c="+userToken)
+      $http.get("/app-addfav?p="+$stateParams.id+"&c="+userToken)
         .success(function(data) {
           if (data == 0) {
             console.log('收藏成功');
@@ -369,7 +369,7 @@ angular.module('controllers', ['tabSlideBox'])
       favorite = true;
     }else if(favorite){
       angular.element(addFav).css('color', 'hsl(0, 0%, 27%)');;
-      $http.get("http://www.bundpic.com/app-delfav?p="+$stateParams.id+"&c="+userToken)
+      $http.get("/app-delfav?p="+$stateParams.id+"&c="+userToken)
         .success(function(data) {
           if (data == 0) {
             console.log('删除成功');
@@ -423,7 +423,7 @@ angular.module('controllers', ['tabSlideBox'])
   var favList = document.getElementsByClassName('favList');
 
   $scope.getFavorite = function() {
-    $http.get("http://www.bundpic.com/app-favlist?&c="+userToken)
+    $http.get("/app-favlist?&c="+userToken)
       .success(function(data) {
         if (data == 1) {
           console.log('服务器处理错误');
@@ -472,7 +472,7 @@ angular.module('controllers', ['tabSlideBox'])
 .factory('printAbstract', function() {
   return function(post) {
     html = "<div class='post' >";
-    var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? 'http://www.bundpic.com/upload/' + post['缩略图'].filename : '/images/test.png');
+    var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
     var link = post['链接'] ? "#/app/news/outlink/"+encodeURIComponent(encodeURIComponent(post['链接'])): "#/app/news/detail/" + post['_id'];
     html += "<div class='detail_recommend'><div class='re_con'>";
     html += "<a href=" + link + ">"

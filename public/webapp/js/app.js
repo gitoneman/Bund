@@ -9,7 +9,7 @@ angular.module('app', ['ionic', 'controllers'])
     var adTime = '';
 
     if(url == "/app/news"){
-      $http.get("http://www.bundpic.com/app-launch")
+      $http.get("/app-launch")
         .success(function(data){
           if(data == null){
             return;
