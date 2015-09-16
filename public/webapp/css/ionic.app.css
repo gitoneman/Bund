@@ -9260,18 +9260,39 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.sideMenuIcon {
+  padding-left: 71px !important;
+  padding-top: 34px;
+  padding-bottom: 35px; }
+
+.sideMenuIcon-i {
+  left: 21px !important; }
+
+.sideMenuRedDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50px;
+  background: #fe5f49;
+  display: inline-block;
+  float: right;
+  margin-right: 5px;
+  margin-top: 2px; }
+
 .avaterCircle {
-  text-align: center; }
+  text-align: center;
+  background: #e3e4e5;
+  height: 200px; }
   .avaterCircle img {
     border-radius: 50%;
-    width: 50px;
-    height: 50px; }
+    width: 100px;
+    height: 100px; }
 
 .bar-assertive {
-  background-color: #e93542 !important; }
+  background-color: #fe5f49 !important; }
 
 .titleImg {
-  width: 43px; }
+  width: 50px;
+  margin-top: 4px; }
 
 #useAd {
   display: none; }
@@ -9307,6 +9328,10 @@ a.button {
 .viewDetail {
   display: none; }
 
+.moreCategories {
+  width: 50%;
+  height: 34px; }
+
 .tabbed-slidebox .slider {
   height: 100%; }
   .tabbed-slidebox .slider .slider-slides {
@@ -9321,7 +9346,7 @@ a.button {
 
 .tabbed-slidebox .tsb-icons {
   text-align: center;
-  margin: 10px 0;
+  margin: 10px 0 0 0;
   position: relative;
   background-color: #fff; }
   .tabbed-slidebox .tsb-icons .tsb-ic-wrp {
@@ -9337,12 +9362,9 @@ a.button {
     display: inline-block;
     width: 54px;
     font-size: 2.5em;
-    color: rgba(0, 0, 0, 0.3);
-    -webkit-transform: translate3d(0, 8px, 0); }
+    color: black; }
   .tabbed-slidebox .tsb-icons a.active {
-    color: black;
-    font-size: 3.5em;
-    -webkit-transform: translate3d(0, 0, 0); }
+    color: #e42112; }
 
 .tsb-hscroll.scroll-view {
   white-space: nowrap;
@@ -9362,42 +9384,37 @@ a.button {
   border-bottom: 3px solid transparent; }
 
 .tabbed-slidebox .tsb-icons .scroll a.active {
-  font-size: 1.8em;
-  border-bottom: 3px solid #ccc; }
+  border-bottom: 3px solid #e42112; }
 
 .detail_recommend .re_con {
-  margin: 0px 15px;
-  padding-bottom: 5px;
-  padding-top: 5px;
-  border-bottom: 1px solid #cacaca;
+  margin: 4.8vw 3.33vw;
   overflow: hidden;
   position: relative; }
-  .detail_recommend .re_con .re_con_left {
-    float: left;
-    max-width: 70%;
-    line-height: 23px;
-    font-size: 14px;
+  .detail_recommend .re_con .re_con_right {
+    max-width: 84%;
     color: #4a4a4a;
     font-weight: normal;
     position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
+    top: 0%;
+    left: 32.52%;
     text-align: left; }
-    .detail_recommend .re_con .re_con_left .ellipsis {
+    .detail_recommend .re_con .re_con_right .ellipsis {
       display: block;
       /* Fallback for non-webkit */
       display: -webkit-box;
       max-width: 400px;
       margin: 0 auto;
-      font-size: 14px;
+      font-size: 4vw;
+      font-weight: bold;
       line-height: 1.4;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis; }
-    .detail_recommend .re_con .re_con_left .re_from {
-      font-size: 10px;
-      color: #4A90E2;
+    .detail_recommend .re_con .re_con_right .re_from {
+      font-size: 2.13vw;
+      line-height: 5vw;
+      color: #fe5f49;
       margin-right: 8px;
       max-width: 64%;
       overflow: hidden;
@@ -9405,31 +9422,110 @@ a.button {
       white-space: nowrap;
       display: inline-block;
       float: left; }
-    .detail_recommend .re_con .re_con_left .publish_ch {
+    .detail_recommend .re_con .re_con_right .publish_ch {
       font-size: 10px;
       color: #979797;
       margin-right: 8px; }
-    .detail_recommend .re_con .re_con_left .publish_time {
+    .detail_recommend .re_con .re_con_right .publish_time {
       font-size: 10px;
       color: #979797;
       margin-right: 8px;
       display: inline-block;
       float: left; }
-  .detail_recommend .re_con .re_con_right {
-    width: 25%;
+    .detail_recommend .re_con .re_con_right .re_brief {
+      font-size: 2.67vw;
+      line-height: 4vw;
+      margin-top: 3.33vw; }
+  .detail_recommend .re_con .re_con_left {
+    width: 28.53%;
     height: 0;
-    padding-bottom: 25%;
+    padding-bottom: 21.4%;
     position: relative;
-    color: #ffffff;
-    float: right; }
-    .detail_recommend .re_con .re_con_right .imgbox {
+    color: #ffffff; }
+    .detail_recommend .re_con .re_con_left .imgbox {
       position: absolute;
       top: 0;
       bottom: 0;
       left: 0;
       right: 0; }
-      .detail_recommend .re_con .re_con_right .imgbox img {
+      .detail_recommend .re_con .re_con_left .imgbox img {
         width: 100% !important;
         height: 100% !important;
         -o-object-fit: cover !important;
            object-fit: cover !important; }
+
+.blackCover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: black;
+  opacity: 0.08; }
+
+.postBig {
+  width: 100%;
+  height: 0;
+  padding-bottom: 66.67%;
+  margin: 36px 0;
+  position: relative;
+  color: #ffffff; }
+  .postBig .postBig_bgimg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0; }
+    .postBig .postBig_bgimg img {
+      width: 100% !important;
+      height: 100% !important;
+      -o-object-fit: cover !important;
+      object-fit: cover !important; }
+    .postBig .postBig_bgimg .postBig_content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      text-align: left;
+      color: #fff; }
+      .postBig .postBig_bgimg .postBig_content .postBig_title {
+        width: 85%;
+        padding-top: 9.33%;
+        padding-left: 5%;
+        font-size: 20px;
+        line-height: 30px; }
+      .postBig .postBig_bgimg .postBig_content .postBig_icon {
+        padding-left: 5%; }
+        .postBig .postBig_bgimg .postBig_content .postBig_icon span {
+          margin-right: 5px; }
+      .postBig .postBig_bgimg .postBig_content .postBig_brief {
+        position: absolute;
+        bottom: 0;
+        margin: 0;
+        width: 85%;
+        padding-bottom: 9.33%;
+        padding-left: 5%;
+        font-size: 12px;
+        line-height: 18px; }
+
+.login {
+  background: #dfe0e1; }
+
+.loginItem {
+  background: #fff; }
+
+.loginPadding {
+  background: #dfe0e1;
+  padding: 0 10px; }
+
+.loginSubmit {
+  background: #dfe0e1;
+  padding: 0 10px;
+  margin-top: 30px; }
+  .loginSubmit button {
+    padding: 10px 0; }
+
+.vcodeBotton {
+  padding: 9px 20px;
+  margin-left: 2px !important; }

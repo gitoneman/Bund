@@ -1,6 +1,6 @@
 <ion-view>
     <ion-nav-title>
-        <img src="./img/logo.jpg" class="titleImg"></ion-nav-title>
+        <img src="./img/logo.png" class="titleImg"></ion-nav-title>
     <ion-content scroll="false">
         <tab-slide-box tab="0" tabs-position="bottom">
             <div class="tsb-icons">
@@ -8,6 +8,13 @@
                     <ion-scroll direction="x" class="tsb-hscroll sl" delegate-handle="slide1Scroll">
                         <a href="javascript:;" ng-repeat="tab in data.categories" on-finish-render>{{tab}}</a>
                     </ion-scroll>
+                    
+                    <div class="moreCategories">
+                        <a href="javascript:;">
+                          <i class="icon ion-more"></i>
+                        </a>
+                    </div>
+
                 </div>
             </div>
             <ion-slide-box show-pager="false" class="sl" on-slide-changed="slideHasChanged($index)" delegate-handle="slide1Scroll">
@@ -21,6 +28,7 @@
                             <ion-slide ng-repeat="carousel in data.carousels[$index]">
                                 <div>
                                     <img ng-src="http://www.bundpic.com/upload/{{carousel}}" width="100%" alt="">
+                                    <div class="blackCover"></div>
                                 </div>
                             </ion-slide>
                         </ion-slide-box>

@@ -12,30 +12,40 @@
   </ion-side-menu-content>
 
   <ion-side-menu side="left">
-    <ion-header-bar class="bar-assertive">
-      <h1 class="title">Left</h1>
-    </ion-header-bar>
     <ion-content>
-      <ion-list>
-        <ion-item menu-close  class="avaterCircle" href="#">
-            <img src="./img/logo.jpg">
-        </ion-item>
-        <ion-item menu-close href="#/app/favorite">
-          favorite
-        </ion-item>
-        <ion-item menu-close href="#/app/news">
-          news
-        </ion-item>
-        <ion-item menu-close ng-click="login()" ng-hide="checkLogin()">
-          login
-        </ion-item>
-        <ion-item menu-close ng-click="logout()" ng-hide="checkLogout()">
-          logout
-        </ion-item>
-        <ion-item menu-close ng-click="registration()" ng-hide="checkLogin()"> 
-          registration
-        </ion-item>
-      </ion-list>
+      <div class="list">
+        
+        <a menu-close class="item avaterCircle" href="#">
+          <img src="./img/user.png">
+          <p class="sideMenuUserName">{{username}}</p>
+        </a>
+
+        <a menu-close class="item item-icon-left sideMenuIcon" href="#/app/favorite">
+          <i class="icon sideMenuIcon-i ion-ios-heart-outline"></i>
+          收藏
+        </a>
+
+        <a menu-close class="item item-icon-left sideMenuIcon" href="#/app/news">
+          <i class="icon sideMenuIcon-i ion-ios-email-outline"></i>
+          消息
+          <span class="sideMenuRedDot"></span>
+        </a>
+
+        <a menu-close class="item item-icon-left sideMenuIcon" ng-click="registration()" ng-hide="checkLogin()">
+          <i class="icon sideMenuIcon-i ion-ios-compose-outline"></i>
+          注册
+        </a>
+
+        <a menu-close class="item item-icon-left sideMenuIcon" ng-click="login()" ng-hide="checkLogin()">
+          <i class="icon sideMenuIcon-i ion-ios-unlocked-outline"></i>
+          登陆
+        </a>
+
+        <a menu-close class="item item-icon-left sideMenuIcon" ng-click="logout()" ng-hide="checkLogout()">
+          <i class="icon sideMenuIcon-i ion-ios-upload-outline"></i>
+          退出
+        </a>
+      </div>
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>
