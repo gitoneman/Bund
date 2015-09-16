@@ -14,8 +14,7 @@ angular.module('app', ['ionic', 'controllers'])
           if(data == null){
             return;
           }else{
-            $rootScope.frameUrl = 'http://www.qunar.com';
-            // $rootScope.frameUrl =data['宽带链接'];
+            $rootScope.frameUrl =data['宽带链接'];
             adTime = data['显示时长']+'000';
           }
 
