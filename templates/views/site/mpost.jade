@@ -8,18 +8,27 @@ block bbody
             if !post
                 h1 文章不存在
             else
-                p &nbsp
+                if post['缩略图']
+                    img.coverImg(src='/upload/'+post['缩略图']['filename'])
                 p.post-title= post['标题']
+                if post['正文']['简介']
+                    div.post-brief!= post['正文']['简介']
                 p.post-subtitle
-                    span.post-pub 来源：
+                    span.post-pub!= post['作者']
+                p.post-subtitle
+                    if post['来源']['图标']
+                        img(src='/upload/'+post['来源']['图标']['filename'])
+                    span 来源：
                     if post['来源'] && post['来源']['名称']
                         span.post-from!= post['来源']['名称'] + '&nbsp&nbsp'
                     span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
-                p.post-subtitle
-                    span.post-pub!= post['作者']
-                if post['正文']['简介']
-                    div.post-brief!= post['正文']['简介']
                 div.post-content!= post['正文']['更多']
+                p.provide
+                    span 由外滩画报提供 &nbsp&nbsp
+                    span 查看原网页
+                div.copyright
+                    p 版权声明
+                    p 内容由三十几授权于外滩画报，如有任何合作意向和疑问，请直接与外滩画报或内容提供方联系。
 
 
         //- div.top_info

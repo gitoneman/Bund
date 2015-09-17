@@ -13,7 +13,7 @@ exports = module.exports = function(req, res) {
 
         Post.model.findOne()
             .where('_id', locals.filters.post)
-            .populate('来源', '名称')
+            .populate('来源', '名称 图标')
             .exec(function(err, post) {
                 if (err) return res.err(err);
                 if (!post) return res.notfound('文章不存在');
