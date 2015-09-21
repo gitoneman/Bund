@@ -11,18 +11,20 @@ block bbody
                 if post['缩略图']
                     img.coverImg(src='http://www.bundpic.com/upload/'+post['缩略图']['filename'])
                 p.post-title= post['标题']
-                if post['正文']['简介']
+                if post['正文'] && post['正文']['简介']
                     div.post-brief!= post['正文']['简介']
                 p.post-subtitle
                     span.post-pub!= post['作者']
-                p.post-subtitle
-                    if post['来源']['图标']
-                        img(src='http://www.bundpic.com/upload/'+post['来源']['图标']['filename'])
-                    span 来源：
-                    if post['来源'] && post['来源']['名称']
-                        span.post-from!= post['来源']['名称'] + '&nbsp&nbsp'
-                    span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
-                div.post-content!= post['正文']['更多']
+                if post['来源']
+                    p.post-subtitle
+                        if post['来源']['图标']
+                            img(src='http://www.bundpic.com/upload/'+post['来源']['图标']['filename'])
+                        span 来源：
+                        if post['来源']['名称']
+                            span.post-from!= post['来源']['名称'] + '&nbsp&nbsp'
+                        span.post-time= post._['发布时间'].format('YYYY年MM月DD日')
+                if post['正文']
+                    div.post-content!= post['正文']['更多']
                 p.provide
                     span 由外滩画报提供 &nbsp&nbsp
                     span 查看原网页
