@@ -12,20 +12,22 @@ angular.module('app', ['ionic', 'controllers'])
         return /app/.test(window.location.search);
         return /bundapp/.test(navigator.userAgent);
     }
-    console.log(window.location.search);
+    
 
     var bundWebApp = document.getElementById('bundWebApp');
+    var d='';
     if(isNativeApp()){
       angular.element(bundWebApp).addClass('platform-webview platform-cordova');
-      console.log('webview')
+      d +='webview';
     }
     if (ionic.Platform.isIOS()) {
       angular.element(bundWebApp).addClass('platform-ios');
-      console.log('ios')
+      d += 'ios';
 
     }else if(ionic.Platform.isAndroid()){
       angular.element(bundWebApp).addClass('platform-android');
     }
+    alert(window.location.search+ d);
   });
 
   var url = $location.url();
