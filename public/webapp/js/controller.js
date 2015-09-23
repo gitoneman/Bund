@@ -5,11 +5,8 @@ angular.module('controllers', ['tabSlideBox'])
 .controller("mainController", function($scope, $ionicModal, $timeout ,$http, localstorage, formDataObject){
 
   var userinfo = localstorage.getObject('userinfo');
+  $scope.userToken = userinfo.userToken;
   $scope.username = userinfo.username;
-
-  $scope.datShow = function(){
-
-  }
 
   // Form data for the login modal
   $scope.loginData = {};
@@ -38,16 +35,13 @@ angular.module('controllers', ['tabSlideBox'])
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-
     var postLoginData = {
       no:($scope.loginData.phonenumber?$scope.loginData.phonenumber:""),
       pwd:($scope.loginData.password?$scope.loginData.password:"")
     }
     postLoginData.pwd = pwdEncode(postLoginData.pwd);
-
     $http.get("/app-login?no="+postLoginData.no+"&pwd="+postLoginData.pwd)
       .success(function(data){
-       
         if (data == 0) {
           alert('用户名或密码为空');
         } else if (data == 1) {
@@ -59,26 +53,23 @@ angular.module('controllers', ['tabSlideBox'])
         } else if (data == 4) {
           alert('服务器错误');
         } else {
-
           localstorage.setObject('userinfo',data);
           var userinfo = localstorage.getObject('userinfo');
-
+          $scope.username = userinfo.username;
+          $scope.userToken = userinfo.userToken;
           $timeout(function() {
             $scope.closeLogin();
           }, 1000);
         }
-
       });
   };
-
   $scope.logout = function(){
     //emove/clean all the values from local storage than use
     // localStorage.clear();
     // remove the specific item from local storage than use the following code
     localStorage.removeItem('userinfo');
-
+    $scope.username = '';
   };
-
   $scope.checkLogout = function () {
     if (Object.getOwnPropertyNames(localstorage.getObject('userinfo')).length == 0) return true;
     else return false;
@@ -113,9 +104,7 @@ angular.module('controllers', ['tabSlideBox'])
         pwd:($scope.registrationData.password?$scope.registrationData.password:""),
         vcode:($scope.registrationData.vcode?$scope.registrationData.vcode:"")
       };
-
       postRegistrationData.pwd = pwdEncode(postRegistrationData.pwd);
-
       $http({
         method: 'POST',
         url: '/app-join',
@@ -169,8 +158,204 @@ angular.module('controllers', ['tabSlideBox'])
 
 })
 
-.controller('news', function($scope,$http,$ionicSlideBoxDelegate,$stateParams,localstorage,printAbstract,printAbstractBig) {
+.controller('news', function($scope,$http,$window,$ionicSlideBoxDelegate,$compile,$stateParams,$ionicModal,localstorage,formDataObject,printAbstract,printAbstractBig,printComment) {
 
+// detail content 
+    // Triggered in the detail modal to close it
+    $scope.closeDetail = function() {
+      $scope.detailModal.hide();
+      $scope.detailModal.remove();
+    };
+
+    // Open the detail modal
+    $scope.showDetail = function(cLink,cid) {
+      $scope.cid = cid;
+      $scope.viewLink = '';
+      $ionicModal.fromTemplateUrl('templates/detail.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.detailModal = modal;
+        $scope.detailModal.show();
+        setTimeout(function(){
+          $scope.viewLink = decodeURIComponent(cLink);
+        }, 100);
+        $scope.getCommentCount();
+      });
+    };
+
+//weixin image show
+    var viewLink= document.getElementsByClassName('viewLink');
+    var loadSpinner= document.getElementsByClassName('loadSpinner');
+    $scope.getWXImage = function(){
+      var imgs = angular.element(viewLink).contents().find('img');
+      var csm = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=';
+      for(var i=0;i<imgs.length;i++) {
+        if(angular.element(imgs[i]).attr("data-src") != undefined){
+           var dataSrc = angular.element(imgs[i]).attr("data-src");
+           angular.element(imgs[i]).attr('src', csm+dataSrc);
+        }
+      }
+      angular.element(loadSpinner).css('display', 'none');
+      angular.element(viewLink).css('display', 'block');
+    };
+
+//getCommentCount 
+    $scope.getCommentCount = function(){
+      $http.get("/comment-count?id="+$scope.cid)
+        .success(function(data) {
+          $scope.commentCount = data;
+        });
+    };
+
+
+// add to favorite 
+    var favorite = false;
+    $scope.toggleFavorite = function(){
+      var userToken = localstorage.getObject('userinfo').userToken;
+      var addFav = document.getElementsByClassName('addFav');
+      if(userToken == undefined){
+        alert('登陆后收藏');
+        return
+      }
+      if(!favorite){
+        angular.element(addFav).css('color', '#ef473a');
+        $http.get("/app-addfav?p="+$scope.cid+"&c="+userToken)
+          .success(function(data) {
+            if (data == 0) {
+              console.log('收藏成功');
+            } else if (data == 1) {
+              console.log('缺少key');
+            } else if (data == 2) {
+              console.log('缺少文章id');
+            } else if (data == 3) {
+              console.log('服务器处理失败');
+            } else if (data == 4) {
+              console.log('key无效');
+            } else if (data == 5) {
+              console.log('已经收藏过');
+            }
+          });
+        favorite = true;
+      }else if(favorite){
+        angular.element(addFav).css('color', 'white');
+        $http.get("/app-delfav?p="+$scope.cid+"&c="+userToken)
+          .success(function(data) {
+            if (data == 0) {
+              console.log('删除成功');
+            } else if (data == 1) {
+              console.log('缺少key');
+            } else if (data == 2) {
+              console.log('缺少文章id');
+            } else if (data == 3) {
+              console.log('服务器处理失败');
+            } else if (data == 4) {
+              console.log('key无效');
+            } else if (data == 5) {
+              console.log('没有收藏过');
+            }
+          });
+        favorite = false;
+      }
+    };
+
+//showCommentDetail modal
+    $scope.showCommentDetail = function() {
+      $ionicModal.fromTemplateUrl('templates/commentDetail.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.commentDetailModal = modal;
+        $scope.commentDetailModal.show();
+        // setTimeout(function(){
+        //   $scope.getComment();
+        // }, 100);
+      });
+    };
+
+    $scope.closeCommentDetail = function() {
+      $scope.commentDetailModal.hide();
+      $scope.commentDetailModal.remove();
+    };
+
+// doComment 
+    $scope.comment = {};
+    $scope.doComment = function() {
+      var userToken = localstorage.getObject('userinfo').userToken;
+      var postComment = {
+        c:userToken,
+        p:$scope.cid,
+        content:($scope.comment.data?$scope.comment.data:"")
+      };
+
+      function appendComment(postComment){
+        var commentList = document.getElementsByClassName('commentList');
+        var username = localstorage.getObject('userinfo').username;
+        var html = '';
+        html = "<a class='item item-avatar itemMargin'>"
+        var imglink = 'http://ionicframework.com/img/docs/venkman.jpg';
+        html+= "<img src="+imglink+">";
+        html+= "<h2>"+username+"</h2>"
+        html+= "<p class='showAllComment'>"+$scope.comment.data+"</p></a>"
+        angular.element(commentList).prepend(html);
+      }
+
+      $http({
+        method: 'POST',
+        url: '/app-comment',
+        headers: {
+          'Content-Type': undefined
+        },
+        data:postComment,
+        transformRequest: formDataObject
+      }).success(function(data) {
+        if (data == 0) {
+          console.log('成功');
+          appendComment();
+        } else if (data == 1) {
+          console.log('key格式不正确');
+        } else if (data == 2) {
+          console.log('文章id不正确');
+        } else if (data == 3) {
+          console.log('提交不成功');
+        } else if (data == 4) {
+          console.log('key无效');
+        }
+        $scope.comment.data = '';
+      });
+    }
+
+//  insert comments to commentList
+    var commentList = document.getElementsByClassName('commentList');
+    var spinner = document.getElementsByClassName('spinner');
+    var commentp=1;
+    $scope.getComment = function(){
+      $http.get("/comment?id="+$scope.cid+"&p="+commentp+"&n=5")
+        .success(function(data) {
+          // $scope.noMoreData = true;
+          if(data != ''){
+            var html = '';
+            for (var i = 0; i < data.length ; i++) {
+              html += printComment(data[i]);
+            };
+            commentp++;
+            angular.element(commentList).append(html);
+            angular.element(spinner).css('display', 'none');
+            // function printComment(post){
+            //   html = "<a class='item item-avatar' ng-click='getComment();'>"
+            //   var imglink = 'http://ionicframework.com/img/docs/venkman.jpg';
+            //   html+= "<img src="+imglink+">";
+            //   html+= "<h2>"+post['作者']['username']+"</h2>"
+            //   html+= "<p class='showAllComment'>"+post['内容']['md']+"</p></a>"
+            //   return html;
+            // }
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+          }
+        });
+    };
+
+
+// pull to refresh
     $scope.doRefresh = function() {
       $http.get('')
        .success(function(data) {
@@ -182,9 +367,10 @@ angular.module('controllers', ['tabSlideBox'])
        });
     };
 
-    var p = new Array();
+// get cagegories and news
+    var newsP = new Array();
     for(var j=0; j < 13; j++){
-      p[j] = 1;
+      newsP[j] = 1;
     }
 
     var tab = 0;
@@ -209,7 +395,7 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.loadMore = function(cTabs){
       if($scope.data.cateName.length==0) return;
       if(cTabs != tab) return;
-      $http.get("/app-post?p="+p[cTabs]+"&n=8&c="+$scope.data.cateName[cTabs])
+      $http.get("/app-post?p="+newsP[cTabs]+"&n=8&c="+$scope.data.cateName[cTabs])
         .success(function(data,$document){
           var html = '';
           for (var i = 1; i <= data.length ; i++) {
@@ -219,15 +405,15 @@ angular.module('controllers', ['tabSlideBox'])
               html += printAbstractBig(data[i-1]);
             }
           };
-          p[cTabs]++;
-          angular.element(posts[cTabs]).append(html);
+          newsP[cTabs]++;
+          var compiledHtml = $compile(html)($scope);
+          angular.element(posts[cTabs]).append(compiledHtml);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         })
     };
 
     var localCategories = localstorage.getObject('localCategories');
     $scope.getCategories = function(){
-
       if(Object.getOwnPropertyNames(localCategories).length > 0){
         setCategories(localCategories);
       }else{
@@ -256,7 +442,6 @@ angular.module('controllers', ['tabSlideBox'])
       }
     };
     $scope.getCategories();
-
     $scope.onSlideMove = function(data) {
       tab = data.index;
       if(angular.element(posts[data.index]).html() === ''){
@@ -267,89 +452,7 @@ angular.module('controllers', ['tabSlideBox'])
 
 .controller('detail', function($scope, $stateParams, $http, $timeout, $ionicPopover, localstorage, formDataObject) {
   // allow ng-include load different page from below by id
-  $scope.viewDetail = "/mpost/"+$stateParams.id;
-
-  $scope.showDetail = function(){
-    var viewDetail= document.getElementsByClassName('viewDetail');
-    angular.element(viewDetail).css('display', 'block');
-  };
-
-  $scope.detailId = $stateParams.id;
-
-  $scope.comment = {};
-  var userinfo = localstorage.getObject('userinfo');
-  var userToken = userinfo.userToken;
-  // .fromTemplateUrl() method
-  $ionicPopover.fromTemplateUrl('my-popover.html', {
-    scope: $scope,
-    focusFirstInput: true
-  }).then(function(popover) {
-    $scope.popover = popover;
-  });
-
-  $scope.openPopover = function($event) {
-    $scope.popover.show($event);
-  };
-  $scope.doComment = function() {
-    var postComment = {
-      c:userToken,
-      p:$stateParams.id,
-      content:($scope.comment.data?$scope.comment.data:"")
-    };
-    
-    $http({
-      method: 'POST',
-      url: '/app-comment',
-      headers: {
-        'Content-Type': undefined
-      },
-      data:postComment,
-      transformRequest: formDataObject
-    }).success(function(data) {
-      console.log(data);
-      if (data == 0) {
-        console.log('成功');
-      } else if (data == 1) {
-        console.log('key格式不正确');
-      } else if (data == 2) {
-        console.log('文章id不正确');
-      } else if (data == 3) {
-        console.log('提交不成功');
-      } else if (data == 4) {
-        console.log('key无效');
-      }
-    });
-
-    $timeout(function() {
-      $scope.popover.hide();
-    }, 1000);
-  };
-
-  var commentList = document.getElementsByClassName('commentList');
-  var p=1;
-  $scope.getComment = function(){
-    $http.get("/comment?id="+$stateParams.id+"&p="+p+"&n=5")
-      .success(function(data) {
-        var html = '';
-        for (var i = 0; i < data.length ; i++) {
-          html += printComment(data[i]);
-        };
-        p++;
-        angular.element(commentList).append(html);
-        
-        function printComment(post){
-          html = "<a class='item item-avatar' ng-click='getComment();'>"
-          var imglink = 'http://ionicframework.com/img/docs/venkman.jpg';
-          html+= "<img src="+imglink+">";
-          html+= "<h2>"+post['作者']['username']+"</h2>"
-          html+= "<p class='showAllComment'>"+post['内容']['md']+"</p></a>"
-          return html;
-        }     
-        $scope.$broadcast('scroll.infiniteScrollComplete');
-      });
-  };
-
-
+  
   $scope.getCommentCount = function(){
     $http.get("/comment-count?id="+$stateParams.id)
       .success(function(data) {
@@ -358,77 +461,17 @@ angular.module('controllers', ['tabSlideBox'])
   };
   $scope.getCommentCount();
 
-
-  var favorite = false;
-  $scope.toggleFavorite = function(){
-    var addFav = document.getElementsByClassName('addFav');
-    if(!favorite){
-      angular.element(addFav).css('color', '#ef473a');;
-      $http.get("/app-addfav?p="+$stateParams.id+"&c="+userToken)
-        .success(function(data) {
-          if (data == 0) {
-            console.log('收藏成功');
-          } else if (data == 1) {
-            console.log('缺少key');
-          } else if (data == 2) {
-            console.log('缺少文章id');
-          } else if (data == 3) {
-            console.log('服务器处理失败');
-          } else if (data == 4) {
-            console.log('key无效');
-          } else if (data == 5) {
-            console.log('已经收藏过');
-          }
-        });
-      favorite = true;
-    }else if(favorite){
-      angular.element(addFav).css('color', 'hsl(0, 0%, 27%)');;
-      $http.get("/app-delfav?p="+$stateParams.id+"&c="+userToken)
-        .success(function(data) {
-          if (data == 0) {
-            console.log('删除成功');
-          } else if (data == 1) {
-            console.log('缺少key');
-          } else if (data == 2) {
-            console.log('缺少文章id');
-          } else if (data == 3) {
-            console.log('服务器处理失败');
-          } else if (data == 4) {
-            console.log('key无效');
-          } else if (data == 5) {
-            console.log('没有收藏过');
-          }
-        });
-        favorite = false;
-    }
-  };
-  //Cleanup the popover when we're done with it!
-  $scope.$on('$destroy', function() {
-    $scope.popover.remove();
-  });
-
 })
 
-.controller('outlink', function($scope, $stateParams) {
-  // allow ng-include load different page from below by id
-  // $stateParams.id has been encodeURIComponent for twice, so should decodeURIComponent it here
-  $scope.viewOutlink = decodeURIComponent($stateParams.id);;
-  var viewOutlink= document.getElementsByClassName('viewOutlink');
-  
-  $scope.getWXImage = function(){
-    var imgs = angular.element(viewOutlink).contents().find('img');
-    var csm = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=';
+// .controller('outlink', function($scope, $stateParams, $state, $ionicViewSwitcher) {
 
-    for(var i=0;i<imgs.length;i++) {
-      if(angular.element(imgs[i]).attr("data-src") != undefined){
-         var dataSrc = angular.element(imgs[i]).attr("data-src");
-         angular.element(imgs[i]).attr('src', csm+dataSrc);
-      }
-    }
+//   $scope.goBack = function(){
+//     console.log('1');
+//     $ionicViewSwitcher.nextTransition('none');
+//     $state.go('app.news');
+//   }
 
-    angular.element(viewOutlink).css('display', 'block');
-  };
-})
+// })
 
 .controller('favorite', function($scope, $http, localstorage, printAbstract) {
   var userinfo = localstorage.getObject('userinfo');
@@ -445,7 +488,7 @@ angular.module('controllers', ['tabSlideBox'])
           console.log('用户key无效');
         } else {
           var html = '';
-          for (var i = 0; i < data.length ; i++) {
+          for (var i = data.length - 1; 0 <= i ; i--) {
             html += printAbstract(data[i]);
           };
           angular.element(favList).append(html);
@@ -487,16 +530,15 @@ angular.module('controllers', ['tabSlideBox'])
   return function(post) {
     html = "<div class='post' >";
     var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
-    var link = post['链接'] ? "#/app/news/outlink/"+encodeURIComponent(encodeURIComponent(post['链接'])): "#/app/news/detail/" + post['_id'];
+    var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
     html += "<div class='detail_recommend'><div class='re_con'>";
-    html += "<a href=" + link + ">"
+    html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
     html += "<div class='re_con_left'><div class='imgbox'><img src='" + imglink + "'><div class='blackCover'></div></div></div>"
     html += "<div class='re_con_right'><div class='ellipsis'>" + post['标题'] + "</div>"
     html += "<div class='re_brief'>" + post['标题'] + "</div>"
     html += "<span class='re_from'>" + (post['来源'] ? post['来源']['名称'] : '') + "</span>"
     // var ctime = new Date(post['发布时间']);
     // html += "<span class='publish_time'>" + ctime.getFullYear() + "-" + (ctime.getMonth() + 1) + "-" + ctime.getDate() + "</span>"
-    
     html += "</div></a></div></div></div>"
     return html;
   };
@@ -506,15 +548,27 @@ angular.module('controllers', ['tabSlideBox'])
   return function(post) {
     html = "<div class='postBig' >";
     var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
-    var link = post['链接'] ? "#/app/news/outlink/"+encodeURIComponent(encodeURIComponent(post['链接'])): "#/app/news/detail/" + post['_id'];
+    // var link = post['链接'] ? "#/app/news/outlink/"+encodeURIComponent(encodeURIComponent(post['链接'])): "#/app/news/detail/" + post['_id'];
+    var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
     html += "<div class='postBig_bgimg'>";
-    html += "<a href=" + link + ">"
+    html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
     html += "<div class='postBig_bgimg'>"
     html += "<img src='" + imglink + "' /><div class='blackCover'></div>"
     html += "<div class='postBig_content'><div class='postBig_title'>" + post['标题'] + "</div>"
     html += "<span class='postBig_icon'>" + (post['来源'] ? post['来源']['名称'] : '') + "</span>"
-    html += "<div class='postBig_brief'>testkkkkktest</div>"
+    html += "<div class='postBig_brief'>"+post['标题']+"</div>"
     html += "</div></div></a></div></div>"
+    return html;
+  };
+})
+
+.factory('printComment', function(){
+  return function(post){
+    html = "<a class='item item-avatar itemMargin'>"
+    var imglink = './img/user.png';
+    html+= "<img src="+imglink+" class='avaterComment'>";
+    html+= "<h2>"+post['作者']['username']+"</h2>"
+    html+= "<p class='showAllComment'>"+post['内容']['md']+"</p></a>"
     return html;
   };
 })

@@ -8,13 +8,6 @@
                     <ion-scroll direction="x" class="tsb-hscroll sl" delegate-handle="slide1Scroll">
                         <a href="javascript:;" ng-repeat="tab in data.categories" on-finish-render>{{tab}}</a>
                     </ion-scroll>
-                    
-                    <div class="moreCategories">
-                        <a href="javascript:;">
-                          <i class="icon ion-more"></i>
-                        </a>
-                    </div>
-
                 </div>
             </div>
             <ion-slide-box show-pager="false" class="sl" on-slide-changed="slideHasChanged($index)" delegate-handle="slide1Scroll">

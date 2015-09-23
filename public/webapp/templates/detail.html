@@ -1,35 +1,24 @@
-<ion-view view-title="">
-	<ion-content scroll="true">
-		<ng-include class="viewDetail" src="viewDetail" onload="showDetail();"></ng-include>
-		<!-- <iframe ng-src="{{viewDetail}}" frameborder="0"></iframe> -->
+<ion-modal-view>
+	<ion-content>
+		<div class="contentWrapper">
+			<ion-spinner class="loadSpinner"></ion-spinner>
+			<ng-include class="viewLink" src="viewLink" onload="getWXImage();"></ng-include>
+		</div>
 	</ion-content>
 
-	<div class="tabs tabs-icon-left">
-		<a class="tab-item" ng-click="openPopover($event)"> 
-			<i class="icon ion-edit"></i>
-			写评论
+	<div class="tabBlack">
+		<a class=" itemBlack firstIcon" ng-click="closeDetail();"> <i class="icon ion-ios-play-outline"></i>
 		</a>
-		<a class="tab-item addFav" ng-click="toggleFavorite();"> 
-			<i class="icon ion-heart"></i>
+		<a class=" itemBlack nextIcon" ng-click="showCommentDetail();"> 
+			<i class="icon ion-ios-chatbubble-outline"></i>
+			<span class="badge badge-assertive badgeCount">{{commentCount}}</span>
 		</a>
-		<a class="tab-item">
-			<i class="icon ion-share"></i>
+		<a class=" itemBlack nextIcon">
+			<i class="icon ion-ios-upload-outline"></i>
 		</a>
-		<a class="tab-item" href="#/app/news/detail/{{detailId}}/commentDetail">
-			<i class="icon ion-chatbubble-working"></i>
-			<span class="badge badge-assertive commentNumber">{{commentCount}}</span>
+		<a class=" addFav itemBlack nextIcon" ng-click="toggleFavorite();">
+			<i class="icon ion-ios-heart-outline"></i>
 		</a>
 	</div>
+</ion-modal-view>
 
-	<script id="my-popover.html" type="text/ng-template">
-	  <ion-popover-view>
-	    <ion-content scroll="false">
-	    	<form ng-submit="doComment();">
-		      	<textarea type="text" class="editComent" placeholder="comment ..." ng-model="comment.data" maxlength="140" required></textarea>
-		      	<button class="button button-assertive" type="submit">submit</button>
-	      	</form>
-	    </ion-content>
-	  </ion-popover-view>
-	</script>
-
-</ion-view>

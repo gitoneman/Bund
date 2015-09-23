@@ -14,10 +14,9 @@
   <ion-side-menu side="left">
     <ion-content>
       <div class="list">
-        
         <a menu-close class="item avaterCircle" href="#">
           <img src="./img/user.png">
-          <p class="sideMenuUserName">{{username}}</p>
+          <p class="sideMenuUserName" ng-bind="username"></p>
         </a>
 
         <a menu-close class="item item-icon-left sideMenuIcon" href="#/app/favorite">
@@ -28,7 +27,7 @@
         <a menu-close class="item item-icon-left sideMenuIcon" href="#/app/news">
           <i class="icon sideMenuIcon-i ion-ios-email-outline"></i>
           消息
-          <span class="sideMenuRedDot"></span>
+          <!-- <span class="sideMenuRedDot"></span> -->
         </a>
 
         <a menu-close class="item item-icon-left sideMenuIcon" ng-click="registration()" ng-hide="checkLogin()">

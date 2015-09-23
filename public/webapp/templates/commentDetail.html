@@ -1,11 +1,30 @@
-<ion-view view-title="commmentDetail">
-	<ion-content scroll="true">
-		<div class="list commentList">
+<ion-modal-view>
+	<ion-header-bar class="bundBackground">
+		<div class="buttons">
+			<button class="button button-clear commentBackButtonWhite" ng-click="closeCommentDetail()"> <i class="icon ion-ios-arrow-left"></i>
+			</button>
 		</div>
+		<h1 class="title">
+			<img src="./img/logo.png" class="titleImg">
+		</h1>
+		
+	</ion-header-bar>
+	<ion-content>
+		<div class="list commentList"></div>
 		<ion-infinite-scroll
-		    immediate-check="true"
-		    spinner="bubbles"
-		    on-infinite="getComment()"
-		    distance="1%"></ion-infinite-scroll>
+		   immediate-check="true"
+		   on-infinite="getComment()"
+		   distance="1%"></ion-infinite-scroll>
 	</ion-content>
-</ion-view>
+	<form id="commentForm" ng-submit="doComment()">
+		<div class="list greyBackground ">
+			<div class="item item-input-inset commentInput">
+				<label class="item-input-wrapper commentLabel">
+					<input type="text" placeholder="回复" required maxlength="140" ng-model="comment.data"></label>
+				<button class="button button-clear commentButton" type="submit">
+					<i class="icon ion-ios-compose-outline"></i>
+				</button>
+			</div>
+		</div>
+	</form>
+</ion-modal-view>
