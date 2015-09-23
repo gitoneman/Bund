@@ -9,10 +9,12 @@ angular.module('app', ['ionic', 'controllers'])
     //will execute when device is ready, or immediately if the device is already ready.
     var bundWebApp = document.getElementById('bundWebApp');
     if(ionic.Platform.isWebView()){
-      angular.element(bundWebApp).addClass('platform-webview');
+      angular.element(bundWebApp).addClass('platform-webview platform-cordova');
+
     }
     if (ionic.Platform.isIOS()) {
       angular.element(bundWebApp).addClass('platform-ios');
+
     }else if(ionic.Platform.isAndroid()){
       angular.element(bundWebApp).addClass('platform-android');
     }
