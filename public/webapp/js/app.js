@@ -7,8 +7,13 @@ angular.module('app', ['ionic', 'controllers'])
 
   ionic.Platform.ready(function(){
     //will execute when device is ready, or immediately if the device is already ready.
+    
+    function isNativeApp() {
+        return /bundapp/.test(navigator.userAgent);
+    }
+
     var bundWebApp = document.getElementById('bundWebApp');
-    if(!ionic.Platform.isWebView()){
+    if(isNativeApp()){
       angular.element(bundWebApp).addClass('platform-webview platform-cordova');
 
     }
