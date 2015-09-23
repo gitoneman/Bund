@@ -12,13 +12,16 @@ angular.module('app', ['ionic', 'controllers'])
         return /app/.test(window.location.search);
         return /bundapp/.test(navigator.userAgent);
     }
+    console.log(window.location.search);
 
     var bundWebApp = document.getElementById('bundWebApp');
     if(isNativeApp()){
       angular.element(bundWebApp).addClass('platform-webview platform-cordova');
+      console.log('webview')
     }
     if (ionic.Platform.isIOS()) {
       angular.element(bundWebApp).addClass('platform-ios');
+      console.log('ios')
 
     }else if(ionic.Platform.isAndroid()){
       angular.element(bundWebApp).addClass('platform-android');
