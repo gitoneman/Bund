@@ -399,7 +399,7 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.loadMore = function(cTabs){
       if($scope.data.cateName.length==0) return;
       if(cTabs != tab) return;
-      $http.get("/app-post?p="+newsP[cTabs]+"&n=8&c="+$scope.data.cateName[cTabs])
+      $http.get("/app-post?p="+newsP[cTabs]+"&n=16&c="+$scope.data.cateName[cTabs])
         .success(function(data,$document){
           var html = '';
           for (var i = 1; i <= data.length ; i++) {
@@ -449,6 +449,7 @@ angular.module('controllers', ['tabSlideBox'])
     };
     $scope.getCategories();
     $scope.onSlideMove = function(data) {
+      console.log('1');
       tab = data.index;
       if(angular.element(posts[data.index]).html() === ''){
         $scope.loadMore(data.index);

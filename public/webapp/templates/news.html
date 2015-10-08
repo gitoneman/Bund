@@ -13,7 +13,7 @@
             <ion-slide-box show-pager="false" class="sl" on-slide-changed="slideHasChanged($index)" delegate-handle="slide1Scroll">
                 <ion-slide ng-repeat="tab in data.categories">
                     <!-- <ion-scroll direction="x" class="viewLink" style="height:100%" scrolly="loadMore({{$index}})"> -->
-                    <ion-content class="viewLink" scroll="false" scrolly="loadMore({{$index}})">
+                    <ion-content overflow-scroll="true" scrolly="loadMore({{$index}})">
                        <!--  <ion-refresher
                             pulling-text="Pull to refresh..."
                             on-refresh="doRefresh()"></ion-refresher> -->

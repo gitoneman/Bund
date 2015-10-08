@@ -65,7 +65,9 @@ angular.module('app', ['ionic', 'controllers'])
   }
 })
 
-.config(function($stateProvider, $urlRouterProvider ,$sceDelegateProvider, $sceProvider) {
+.config(function($stateProvider, $urlRouterProvider ,$sceDelegateProvider, $sceProvider, $ionicConfigProvider) {
+
+  // if(!ionic.Platform.isIOS())$ionicConfigProvider.scrolling.jsScrolling(false);
 
   $stateProvider
 
