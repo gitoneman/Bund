@@ -53,6 +53,28 @@ angular.module('tabSlideBox', [])
     }
 })
 
+.directive('touchess', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+        	var x,y;
+        	element.bind('touchstart', function(event) {
+        		x = event.touches[0].screenX;
+        		y = event.touches[0].screenY;
+            });
+            element.bind('touchmove', function(event) {
+            	var countedX = event.touches[0].screenX - x;
+            	var countedY = event.touches[0].screenY - y;
+            	if(Math.abs(countedX) < Math.abs(countedY)){
+            		event.stopPropagation();
+            		console.log('ssq');
+            	}
+            	
+            });
+        }
+    }
+})
+
 .directive('tabSlideBox', [ '$timeout', '$window', '$ionicSlideBoxDelegate', '$ionicScrollDelegate',
 	function($timeout, $window, $ionicSlideBoxDelegate, $ionicScrollDelegate) {
 		'use strict';
