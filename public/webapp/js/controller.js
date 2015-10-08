@@ -179,7 +179,7 @@ angular.module('controllers', ['tabSlideBox'])
         $scope.detailModal.show();
         setTimeout(function(){
           $scope.viewLink = decodeURIComponent(cLink);
-        }, 100);
+        }, 200);
         $scope.getCommentCount();
       });
     };
@@ -188,6 +188,11 @@ angular.module('controllers', ['tabSlideBox'])
     var viewLink= document.getElementsByClassName('viewLink');
     var loadSpinner= document.getElementsByClassName('loadSpinner');
     $scope.getWXImage = function(){
+      // setTimeout(function(){
+      //   var ptag = angular.element(viewLink).contents().find('div');
+      //   console.log(angular.element(ptag).html());
+      // }, 2000);
+      
       var imgs = angular.element(viewLink).contents().find('img');
       var csm = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=';
       for(var i=0;i<imgs.length;i++) {
@@ -207,7 +212,6 @@ angular.module('controllers', ['tabSlideBox'])
           $scope.commentCount = data;
         });
     };
-
 
 // add to favorite 
     var favorite = false;
@@ -406,6 +410,7 @@ angular.module('controllers', ['tabSlideBox'])
             }
           };
           newsP[cTabs]++;
+          console.log(newsP[cTabs]);
           var compiledHtml = $compile(html)($scope);
           angular.element(posts[cTabs]).append(compiledHtml);
           $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -416,6 +421,7 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.getCategories = function(){
       if(Object.getOwnPropertyNames(localCategories).length > 0){
         setCategories(localCategories);
+        $scope.loadMore(0);
       }else{
         $http.get("/app-category")
           .success(function(data){

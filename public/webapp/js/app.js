@@ -7,14 +7,13 @@ angular.module('app', ['ionic', 'controllers'])
 
   ionic.Platform.ready(function(){
     //will execute when device is ready, or immediately if the device is already ready.
-    
+
     function isNativeApp() {
         return /app/.test(window.location.search);
         return /bundapp/.test(navigator.userAgent);
     }
-    
-    var bundWebApp = document.getElementById('bundWebApp');
 
+    var bundWebApp = document.getElementById('bundWebApp');
     if(isNativeApp()){
       angular.element(bundWebApp).addClass('platform-webview platform-cordova');
 
@@ -25,7 +24,6 @@ angular.module('app', ['ionic', 'controllers'])
     }else if(ionic.Platform.isAndroid()){
       angular.element(bundWebApp).addClass('platform-android');
     }
-
   });
 
   var url = $location.url();

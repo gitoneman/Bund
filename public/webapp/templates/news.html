@@ -12,12 +12,13 @@
             </div>
             <ion-slide-box show-pager="false" class="sl" on-slide-changed="slideHasChanged($index)" delegate-handle="slide1Scroll">
                 <ion-slide ng-repeat="tab in data.categories">
-                    <ion-scroll style="height:100%">
-                        <ion-refresher
+                    <!-- <ion-scroll direction="x" class="viewLink" style="height:100%" scrolly="loadMore({{$index}})"> -->
+                    <ion-content class="viewLink" scroll="false" scrolly="loadMore({{$index}})">
+                       <!--  <ion-refresher
                             pulling-text="Pull to refresh..."
-                            on-refresh="doRefresh()"></ion-refresher>
+                            on-refresh="doRefresh()"></ion-refresher> -->
 
-                        <ion-slide-box show-pager="true" class="carousel" stop-propagation auto-play="true" does-continue="false">
+                        <ion-slide-box show-pager="true" class="carousel" stop-propagation auto-play="true" does-continue="true">
                             <ion-slide ng-repeat="carousel in data.carousels[$index]">
                                 <div>
                                     <img ng-src="http://www.bundpic.com/upload/{{carousel}}" width="100%" alt="">
@@ -27,12 +28,14 @@
                         </ion-slide-box>
                         
                         <div class="posts"></div>
-                        <ion-infinite-scroll
+                        <!-- <ion-infinite-scroll
                             immediate-check="true"
                             spinner="bubbles"
                             on-infinite="loadMore({{$index}})"
-                            distance="1%"></ion-infinite-scroll>
-                    </ion-scroll>
+                            distance="1%"></ion-infinite-scroll> -->
+                    </ion-content>
+                    <!-- </ion-scroll> -->
+
                 </ion-slide>
             </ion-slide-box>
         </tab-slide-box>

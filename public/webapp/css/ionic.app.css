@@ -9263,10 +9263,43 @@ a.button {
 * {
   font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif !important; }
 
+.modal {
+  top: 0px !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important; }
+
+.scale-in {
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+      transform: scale(0);
+  opacity: 0; }
+
+.scale-in.ng-enter,
+.scale-in > .ng-enter {
+  -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+  transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms; }
+
+.scale-in.ng-enter-active,
+.scale-in > .ng-enter-active {
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+      transform: scale(1);
+  opacity: 1; }
+
+.scale-in.ng-leave,
+.scale-in > .ng-leave {
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms; }
+
 .loadSpinner {
   display: block;
   text-align: center;
   margin-top: 10px; }
+
+.sideMenuUserName {
+  font-size: 15px !important; }
 
 .sideMenuIcon {
   padding-left: 71px !important;
@@ -9360,11 +9393,9 @@ a.button {
   white-space: normal !important; }
 
 .viewLink {
+  overflow: scroll;
   width: 100% !important;
   height: 100vh !important; }
-
-.viewDetail {
-  display: none; }
 
 .moreCategories {
   width: 50%;

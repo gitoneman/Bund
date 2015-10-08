@@ -18,6 +18,30 @@ angular.module('tabSlideBox', [])
     }
 })
 
+
+.directive('scrolly', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var raw = element[0];
+            var lastTime;
+
+            element.bind('scroll', function () {
+                // console.log('in scroll');
+                // console.log(raw.scrollTop + raw.offsetHeight);
+                // console.log(raw.scrollHeight);
+                if (raw.scrollTop + raw.offsetHeight > raw.scrollHeight - 50) {
+                	var thisTime = new Date().getTime();
+                	if(lastTime&&thisTime-lastTime<1000)return;
+                	lastTime = thisTime;
+                    console.log("I am at the bottom");
+                    scope.$apply(attrs.scrolly);
+                }
+            });
+        }
+    };
+})
+
 .directive('stopPropagation', function () {
     return {
         restrict: 'A',

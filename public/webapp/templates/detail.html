@@ -1,8 +1,9 @@
 <ion-modal-view>
-	<ion-content>
+	<ion-content scroll="false">
 		<div class="contentWrapper">
 			<ion-spinner class="loadSpinner"></ion-spinner>
 			<ng-include class="viewLink" src="viewLink" onload="getWXImage();"></ng-include>
+<!-- 			<iframe class="viewLink" ng-src="{{viewLink}}" frameborder="0" onLoad="getWXImage();"></iframe> -->
 		</div>
 	</ion-content>
 
