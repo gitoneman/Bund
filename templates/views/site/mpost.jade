@@ -8,8 +8,8 @@ block bbody
             if !post
                 h1 文章不存在
             else
-                if post['缩略图']
-                    img.coverImg(src='http://www.bundpic.com/upload/'+post['缩略图']['filename'])
+                //- if post['缩略图']
+                //-     img.coverImg(src='http://www.bundpic.com/upload/'+post['缩略图']['filename'])
                 p.post-title= post['标题']
                 if post['正文'] && post['正文']['简介']
                     div.post-brief!= post['正文']['简介']
