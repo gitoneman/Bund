@@ -9337,7 +9337,8 @@ a.button {
   margin-top: 4px; }
 
 #useAd {
-  display: none; }
+  display: none;
+  overflow: hidden; }
 
 .bootScreenPic {
   width: 100%;
@@ -9396,6 +9397,9 @@ a.button {
   overflow: scroll;
   width: 100% !important;
   height: 100vh !important; }
+
+.viewDetail {
+  display: none; }
 
 .moreCategories {
   width: 50%;
@@ -9636,3 +9640,7 @@ a.button {
 
 .avaterComment {
   background: #e3e4e5; }
+
+.favUsername {
+  text-align: center;
+  margin-top: 0; }

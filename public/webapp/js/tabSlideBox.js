@@ -34,7 +34,6 @@ angular.module('tabSlideBox', [])
                 	var thisTime = new Date().getTime();
                 	if(lastTime&&thisTime-lastTime<1000)return;
                 	lastTime = thisTime;
-                    console.log("I am at the bottom");
                     scope.$apply(attrs.scrolly);
                 }
             });
@@ -62,12 +61,11 @@ angular.module('tabSlideBox', [])
         		x = event.touches[0].screenX;
         		y = event.touches[0].screenY;
             });
-            element.bind('touchmove', function(event) {
+            element.bind('touchmove mousemove', function(event) {
             	var countedX = event.touches[0].screenX - x;
             	var countedY = event.touches[0].screenY - y;
             	if(Math.abs(countedX) < Math.abs(countedY)){
             		event.stopPropagation();
-            		console.log('ssq');
             	}
             	
             });

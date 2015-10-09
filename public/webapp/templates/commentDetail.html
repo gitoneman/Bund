@@ -9,12 +9,12 @@
 		</h1>
 		
 	</ion-header-bar>
-	<ion-content>
+	<ion-content overflow-scroll="true" stop-propagation scrolly="getComment()">
 		<div class="list commentList"></div>
-		<ion-infinite-scroll
+		<!-- <ion-infinite-scroll
 		   immediate-check="true"
 		   on-infinite="getComment()"
-		   distance="1%"></ion-infinite-scroll>
+		   distance="1%"></ion-infinite-scroll> -->
 	</ion-content>
 	<form id="commentForm" ng-submit="doComment()">
 		<div class="list greyBackground ">

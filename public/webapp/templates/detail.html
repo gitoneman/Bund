@@ -1,5 +1,5 @@
-<ion-modal-view>
-	<ion-content scroll="false">
+<ion-modal-view ng-controller="detailModal">
+	<ion-content overflow-scroll="true" stop-propagation>
 		<div class="contentWrapper">
 			<ion-spinner class="loadSpinner"></ion-spinner>
 			<ng-include class="viewLink" src="viewLink" onload="getWXImage();"></ng-include>

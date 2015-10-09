@@ -20,10 +20,8 @@
 
                         <ion-slide-box show-pager="true" class="carousel" stop-propagation auto-play="true" does-continue="true">
                             <ion-slide ng-repeat="carousel in data.carousels[$index]">
-                                <div>
-                                    <img ng-src="http://www.bundpic.com/upload/{{carousel}}" width="100%" alt="">
-                                    <div class="blackCover"></div>
-                                </div>
+                                <img ng-src="http://www.bundpic.com/upload/{{carousel}}" width="100%" alt="">
+                                <div class="blackCover"></div>
                             </ion-slide>
                         </ion-slide-box>
                         
@@ -35,7 +33,6 @@
                             distance="1%"></ion-infinite-scroll> -->
                     </ion-content>
                     <!-- </ion-scroll> -->
-
                 </ion-slide>
             </ion-slide-box>
         </tab-slide-box>

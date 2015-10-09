@@ -158,31 +158,32 @@ angular.module('controllers', ['tabSlideBox'])
 
 })
 
-.controller('news', function($scope,$http,$window,$ionicSlideBoxDelegate,$compile,$stateParams,$ionicModal,localstorage,formDataObject,printAbstract,printAbstractBig,printComment) {
 
-// detail content 
-    // Triggered in the detail modal to close it
-    $scope.closeDetail = function() {
-      $scope.detailModal.hide();
-      $scope.detailModal.remove();
-    };
+.controller('detailModal', function($scope,$http,$ionicModal,localstorage,formDataObject,printComment) {
 
-    // Open the detail modal
-    $scope.showDetail = function(cLink,cid) {
-      $scope.cid = cid;
-      $scope.viewLink = '';
-      $ionicModal.fromTemplateUrl('templates/detail.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-      }).then(function(modal) {
-        $scope.detailModal = modal;
-        $scope.detailModal.show();
-        setTimeout(function(){
-          $scope.viewLink = decodeURIComponent(cLink);
-        }, 200);
-        $scope.getCommentCount();
-      });
-    };
+// // detail content 
+//     // Triggered in the detail modal to close it
+//     $scope.closeDetail = function() {
+//       $scope.detailModal.hide();
+//       $scope.detailModal.remove();
+//     };
+
+//     // Open the detail modal
+//     $scope.showDetail = function(cLink,cid) {
+//       $scope.cid = cid;
+//       $scope.viewLink = '';
+//       $ionicModal.fromTemplateUrl('templates/detail.html', {
+//         scope: $scope,
+//         animation: 'slide-in-up'
+//       }).then(function(modal) {
+//         $scope.detailModal = modal;
+//         $scope.detailModal.show();
+//         setTimeout(function(){
+//           $scope.viewLink = decodeURIComponent(cLink);
+//         }, 200);
+//         detailModalController.getCommentCount();
+//       });
+//     };
 
 //weixin image show
     var viewLink= document.getElementsByClassName('viewLink');
@@ -205,13 +206,16 @@ angular.module('controllers', ['tabSlideBox'])
       angular.element(viewLink).css('display', 'block');
     };
 
+
 //getCommentCount 
     $scope.getCommentCount = function(){
       $http.get("/comment-count?id="+$scope.cid)
         .success(function(data) {
           $scope.commentCount = data;
+          console.log($scope.commentCount)
         });
     };
+    $scope.getCommentCount();
 
 // add to favorite 
     var favorite = false;
@@ -271,13 +275,12 @@ angular.module('controllers', ['tabSlideBox'])
       }).then(function(modal) {
         $scope.commentDetailModal = modal;
         $scope.commentDetailModal.show();
-        // setTimeout(function(){
-        //   $scope.getComment();
-        // }, 100);
+        $scope.getComment();
       });
     };
 
     $scope.closeCommentDetail = function() {
+      commentp = 1;
       $scope.commentDetailModal.hide();
       $scope.commentDetailModal.remove();
     };
@@ -297,7 +300,7 @@ angular.module('controllers', ['tabSlideBox'])
         var username = localstorage.getObject('userinfo').username;
         var html = '';
         html = "<a class='item item-avatar itemMargin'>"
-        var imglink = 'http://ionicframework.com/img/docs/venkman.jpg';
+        var imglink = './img/user.png';
         html+= "<img src="+imglink+">";
         html+= "<h2>"+username+"</h2>"
         html+= "<p class='showAllComment'>"+$scope.comment.data+"</p></a>"
@@ -334,7 +337,7 @@ angular.module('controllers', ['tabSlideBox'])
     var spinner = document.getElementsByClassName('spinner');
     var commentp=1;
     $scope.getComment = function(){
-      $http.get("/comment?id="+$scope.cid+"&p="+commentp+"&n=5")
+      $http.get("/comment?id="+$scope.cid+"&p="+commentp+"&n=10")
         .success(function(data) {
           // $scope.noMoreData = true;
           if(data != ''){
@@ -344,32 +347,49 @@ angular.module('controllers', ['tabSlideBox'])
             };
             commentp++;
             angular.element(commentList).append(html);
-            angular.element(spinner).css('display', 'none');
-            // function printComment(post){
-            //   html = "<a class='item item-avatar' ng-click='getComment();'>"
-            //   var imglink = 'http://ionicframework.com/img/docs/venkman.jpg';
-            //   html+= "<img src="+imglink+">";
-            //   html+= "<h2>"+post['作者']['username']+"</h2>"
-            //   html+= "<p class='showAllComment'>"+post['内容']['md']+"</p></a>"
-            //   return html;
-            // }
-            $scope.$broadcast('scroll.infiniteScrollComplete');
+            // angular.element(spinner).css('display', 'none');
+            // $scope.$broadcast('scroll.infiniteScrollComplete');
           }
         });
     };
+})
 
+.controller('news', function($scope,$controller,$http,$window,$ionicSlideBoxDelegate,$compile,$stateParams,$ionicModal,localstorage,printAbstract,printAbstractBig) {
+
+// detail content 
+    // Triggered in the detail modal to close it
+    $scope.closeDetail = function() {
+      $scope.detailModal.hide();
+      $scope.detailModal.remove();
+    };
+
+    // Open the detail modal
+    $scope.showDetail = function(cLink,cid) {
+      $scope.cid = cid;
+      $scope.viewLink = '';
+      $ionicModal.fromTemplateUrl('templates/detail.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+      }).then(function(modal) {
+        $scope.detailModal = modal;
+        $scope.detailModal.show();
+        setTimeout(function(){
+          $scope.viewLink = decodeURIComponent(cLink);
+        }, 200);
+      });
+    };
 
 // pull to refresh
-    $scope.doRefresh = function() {
-      $http.get('')
-       .success(function(data) {
-         $scope.items = data;
-       })
-       .finally(function() {
-         // Stop the ion-refresher from spinning
-         $scope.$broadcast('scroll.refreshComplete');
-       });
-    };
+    // $scope.doRefresh = function() {
+    //   $http.get('')
+    //    .success(function(data) {
+    //      $scope.items = data;
+    //    })
+    //    .finally(function() {
+    //      // Stop the ion-refresher from spinning
+    //      $scope.$broadcast('scroll.refreshComplete');
+    //    });
+    // };
 
 // get cagegories and news
     var newsP = new Array();
@@ -410,7 +430,6 @@ angular.module('controllers', ['tabSlideBox'])
             }
           };
           newsP[cTabs]++;
-          console.log(newsP[cTabs]);
           var compiledHtml = $compile(html)($scope);
           angular.element(posts[cTabs]).append(compiledHtml);
           $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -449,7 +468,6 @@ angular.module('controllers', ['tabSlideBox'])
     };
     $scope.getCategories();
     $scope.onSlideMove = function(data) {
-      console.log('1');
       tab = data.index;
       if(angular.element(posts[data.index]).html() === ''){
         $scope.loadMore(data.index);
@@ -457,34 +475,33 @@ angular.module('controllers', ['tabSlideBox'])
     };
 })
 
-.controller('detail', function($scope, $stateParams, $http, $timeout, $ionicPopover, localstorage, formDataObject) {
-  // allow ng-include load different page from below by id
-  
-  $scope.getCommentCount = function(){
-    $http.get("/comment-count?id="+$stateParams.id)
-      .success(function(data) {
-        $scope.commentCount = data;
-      });
-  };
-  $scope.getCommentCount();
-
-})
-
-// .controller('outlink', function($scope, $stateParams, $state, $ionicViewSwitcher) {
-
-//   $scope.goBack = function(){
-//     console.log('1');
-//     $ionicViewSwitcher.nextTransition('none');
-//     $state.go('app.news');
-//   }
-
-// })
-
-.controller('favorite', function($scope, $http, localstorage, printAbstract) {
+.controller('favorite', function($scope, $http,$controller, $compile, $ionicModal, localstorage, printAbstract) {
   var userinfo = localstorage.getObject('userinfo');
   $scope.username = userinfo.username;
   var userToken = userinfo.userToken;
   var favList = document.getElementsByClassName('favList');
+
+  // Triggered in the detail modal to close it
+  $scope.closeDetail = function() {
+    $scope.detailModal.hide();
+    $scope.detailModal.remove();
+  };
+
+  // Open the detail modal
+  $scope.showDetail = function(cLink,cid) {
+    $scope.cid = cid;
+    $scope.viewLink = '';
+    $ionicModal.fromTemplateUrl('templates/detail.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.detailModal = modal;
+      $scope.detailModal.show();
+      setTimeout(function(){
+        $scope.viewLink = decodeURIComponent(cLink);
+      }, 200);
+    });
+  };
 
   $scope.getFavorite = function() {
     $http.get("/app-favlist?&c="+userToken)
@@ -498,13 +515,39 @@ angular.module('controllers', ['tabSlideBox'])
           for (var i = data.length - 1; 0 <= i ; i--) {
             html += printAbstract(data[i]);
           };
-          angular.element(favList).append(html);
+          var compiledHtml = $compile(html)($scope);
+          angular.element(favList).append(compiledHtml);
           // $scope.$broadcast('scroll.infiniteScrollComplete');
         }
       });
   }
   $scope.getFavorite();
+
 })
+
+
+// .controller('detail', function($scope, $stateParams, $http, $timeout, $ionicPopover, localstorage, formDataObject) {
+//   // allow ng-include load different page from below by id
+  
+//   $scope.getCommentCount = function(){
+//     $http.get("/comment-count?id="+$stateParams.id)
+//       .success(function(data) {
+//         $scope.commentCount = data;
+//       });
+//   };
+//   $scope.getCommentCount();
+
+// })
+
+// .controller('outlink', function($scope, $stateParams, $state, $ionicViewSwitcher) {
+
+//   $scope.goBack = function(){
+//     console.log('1');
+//     $ionicViewSwitcher.nextTransition('none');
+//     $state.go('app.news');
+//   }
+
+// })
 
 .factory('localstorage', ['$window', function($window) {
   return {
