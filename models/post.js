@@ -130,7 +130,7 @@ Post.schema.pre('save', function(next) {
         var imgRe = /msg_cdn_url.*?"(.*?)"/;
         var timeRe = /<em.*?post-date.*?>(.*?)<\/em>/;
         var authorRe = /<a.*?post-user.*?>(.*?)<\/a>/i;
-        var contentRe =  /<div.*?js_content.*?>(.*?)<\/div>/;
+        var contentRe =  /id=\"js_content.*?>([\s\S]*?)<\/div>/;
         var self=this;
         http.get(options, function(res) {
             var str = '';
