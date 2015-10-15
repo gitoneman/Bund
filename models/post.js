@@ -1,6 +1,7 @@
 var keystone = require('keystone'),
     Types = keystone.Field.Types;
 var getRandom = require('../lib/utils').getRandom;
+var http = require('http');
 var url=require('url');
 
 var Post = new keystone.List('Post', {
