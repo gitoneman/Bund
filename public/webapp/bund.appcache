@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# 2015-10-12 v1.0.0
+img/adLogo.png
+img/logo.png
+img/user.png
+lib/ionic/fonts/ionicons.eot
+lib/ionic/fonts/ionicons.svg
+lib/ionic/fonts/ionicons.ttf
+lib/ionic/fonts/ionicons.woff
+lib/ionic/js/ionic.bundle.min.js
+
+NETWORK:
+*

@@ -134,7 +134,7 @@ angular.module('controllers', ['tabSlideBox'])
   $scope.getVcode = function(){
     $http.get("/app-vcode?no="+$scope.registrationData.phonenumber)
       .success(function(data){
-        console.log(data)
+        //console.log(data)
       });
   }
 
@@ -212,7 +212,6 @@ angular.module('controllers', ['tabSlideBox'])
       $http.get("/comment-count?id="+$scope.cid)
         .success(function(data) {
           $scope.commentCount = data;
-          console.log($scope.commentCount)
         });
     };
     $scope.getCommentCount();
@@ -416,6 +415,7 @@ angular.module('controllers', ['tabSlideBox'])
     };
     $scope.getCarousel();
 
+    var loadPost = document.getElementsByClassName('loadPost');
     $scope.loadMore = function(cTabs){
       if($scope.data.cateName.length==0) return;
       if(cTabs != tab) return;
@@ -432,7 +432,8 @@ angular.module('controllers', ['tabSlideBox'])
           newsP[cTabs]++;
           var compiledHtml = $compile(html)($scope);
           angular.element(posts[cTabs]).append(compiledHtml);
-          $scope.$broadcast('scroll.infiniteScrollComplete');
+          angular.element(loadPost[cTabs]).css('display', 'none');;
+          // $scope.$broadcast('scroll.infiniteScrollComplete');
         })
     };
 

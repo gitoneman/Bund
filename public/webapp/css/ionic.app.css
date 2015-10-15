@@ -9342,13 +9342,22 @@ a.button {
 
 .bootScreenPic {
   width: 100%;
-  height: 80%;
+  height: 100%;
   background-color: #00d7c5; }
 
 .bootScreenLogo {
+  position: fixed;
+  bottom: 0;
   width: 100%;
-  height: 20%;
-  background-color: #e93542; }
+  height: 88px;
+  background-color: #fe5f49;
+  text-align: center; }
+  .bootScreenLogo .bootScreenText {
+    position: absolute;
+    top: 0;
+    right: 0; }
+    .bootScreenLogo .bootScreenText .bootScreenTextEnter {
+      color: white; }
 
 .tabBlack {
   width: 100%;

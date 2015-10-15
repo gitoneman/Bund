@@ -10,13 +10,11 @@ angular.module('app', ['ionic', 'controllers'])
 
     function isNativeApp() {
         return /app/.test(window.location.search);
-        return /bundapp/.test(navigator.userAgent);
     }
 
     var bundWebApp = document.getElementById('bundWebApp');
     if(isNativeApp()){
       angular.element(bundWebApp).addClass('platform-webview platform-cordova');
-
     }
     if (ionic.Platform.isIOS()) {
       angular.element(bundWebApp).addClass('platform-ios');
@@ -24,6 +22,7 @@ angular.module('app', ['ionic', 'controllers'])
     }else if(ionic.Platform.isAndroid()){
       angular.element(bundWebApp).addClass('platform-android');
     }
+
   });
 
   var url = $location.url();
@@ -67,7 +66,7 @@ angular.module('app', ['ionic', 'controllers'])
 
 .config(function($stateProvider, $urlRouterProvider ,$sceDelegateProvider, $sceProvider, $ionicConfigProvider) {
 
-  // if(!ionic.Platform.isIOS())$ionicConfigProvider.scrolling.jsScrolling(false);
+  $ionicConfigProvider.scrolling.jsScrolling(false);
 
   $stateProvider
 
