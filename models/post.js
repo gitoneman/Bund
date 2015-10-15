@@ -1,6 +1,7 @@
 var keystone = require('keystone'),
     Types = keystone.Field.Types;
 var getRandom = require('../lib/utils').getRandom;
+var url=require('url');
 
 var Post = new keystone.List('Post', {
     label: '文章',
@@ -116,10 +117,59 @@ Post.schema.pre('save', function(next) {
     if (this.isModified('状态') && this.isPublished() && !this.发布时间) {
         this.发布时间 = new Date();
     }
-    if (this.isModified('正文.更多')) {
-        this.正文.更多 = this.正文.更多.replace(/tp=webp/g, '');
+    if (this.isModified('链接')) {
+        var postUrl = url.parse(this.'链接');
+        var options = {
+          host: postUrl.hostname,
+          port: postUrl.port,
+          path: postUrl.path
+        };
+        var re = /<\s*title[^>]*>(.+?)<\s*\/\s*title>/i;
+        // var imgRe = /rich_media_content.*?<img.*?<img.*?data-src="(.*?)"/;
+        var imgRe = /msg_cdn_url.*?"(.*?)"/;
+        var timeRe = /<em.*?post-date.*?>(.*?)<\/em>/;
+        var authorRe = /<a.*?post-user.*?>(.*?)<\/a>/i;
+        var contentRe =  /<div.*?js_content.*?>(.*?)<\/div>/;
+        var self=this;
+        http.get(options, function(res) {
+            var str = '';
+            res.on('data', function (chunk) {
+                str += chunk;
+            });
+            res.on('end', function () {
+                var image = imgRe.exec(str);
+                if (image && image[1]) {
+                    self.'图片链接' = "http://img01.store.sogou.com/net/a/04/link?appid=100520031&url="+image[1];
+                }
+                // var time = timeRe.exec(str);
+                // if (time && time[1]) {
+                //     self.time = new Date(time[1]);
+                // }
+                // var title = re.exec(str);
+                // if (title && title[1]) {
+                //     self.name = title[1];
+                // }
+                // var author = authorRe.exec(str);
+                // if (author && author[1]) {
+                //     self.author = author[1];
+                // }
+                var content = contentRe.exec(str);
+                if (content && content[1]) {
+                    var newcontent = content[1].replace(/(data-src=")(.*?)"/g, 'src="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=$2"');
+                    self.'正文'.'更多' = newcontent;
+                }
+                next();
+            });
+        }).on('error', function(e) {
+          next();
+        });
+    } else {
+        next();
     }
-    next();
+    // if (this.isModified('正文.更多')) {
+    //     this.正文.更多 = this.正文.更多.replace(/tp=webp/g, '');
+    // }
+    // next();
 });
 
 /**
