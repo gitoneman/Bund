@@ -118,7 +118,7 @@ Post.schema.pre('save', function(next) {
         this.发布时间 = new Date();
     }
     if (this.isModified('链接')) {
-        var postUrl = url.parse(this.'链接');
+        var postUrl = url.parse(this['链接']);
         var options = {
           host: postUrl.hostname,
           port: postUrl.port,
@@ -139,7 +139,7 @@ Post.schema.pre('save', function(next) {
             res.on('end', function () {
                 var image = imgRe.exec(str);
                 if (image && image[1]) {
-                    self.'图片链接' = "http://img01.store.sogou.com/net/a/04/link?appid=100520031&url="+image[1];
+                    self['图片链接'] = "http://img01.store.sogou.com/net/a/04/link?appid=100520031&url="+image[1];
                 }
                 // var time = timeRe.exec(str);
                 // if (time && time[1]) {
@@ -156,7 +156,7 @@ Post.schema.pre('save', function(next) {
                 var content = contentRe.exec(str);
                 if (content && content[1]) {
                     var newcontent = content[1].replace(/(data-src=")(.*?)"/g, 'src="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=$2"');
-                    self.'正文'.'更多' = newcontent;
+                    self['正文']['更多'] = newcontent;
                 }
                 next();
             });
