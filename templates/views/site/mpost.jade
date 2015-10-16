@@ -17,8 +17,8 @@ block bbody
                     span.post-pub!= post['作者']
                 if post['来源']
                     p.post-subtitle
-                        if post['来源']['图标']
-                            img(src='http://www.bundpic.com/upload/'+post['来源']['图标']['filename'])
+                        //- if post['来源']['图标']
+                        //-     img(src='http://www.bundpic.com/upload/'+post['来源']['图标']['filename'])
                         span 来源：
                         if post['来源']['名称']
                             span.post-from!= post['来源']['名称'] + '&nbsp&nbsp'
@@ -27,11 +27,9 @@ block bbody
                     div.post-content!= post['正文']['更多']
                 p.provide
                     span 由外滩画报提供 &nbsp&nbsp
-                    span 查看原网页
+                    span.originWeb 查看原网页
                 div.copyright
-                    p <span>&copy</span>版权声明
-                    p 如有任何合作意向和疑问，请与外滩画报联系。
-
+                    p <span>&copy</span>版权声明&nbsp&nbsp如有任何合作意向和疑问，请与外滩画报联系。
 
         //- div.top_info
         //-     if !post

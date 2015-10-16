@@ -1,6 +1,7 @@
 <ion-modal-view ng-controller="detailModal">
 	<ion-content overflow-scroll="true" stop-propagation>
 		<div class="contentWrapper">
+			<div class="detailBanner"><img src="./img/logo.png" class="titleImg"></div>
 			<ion-spinner class="loadSpinner"></ion-spinner>
 			<ng-include class="viewLink" src="viewLink" onload="getWXImage();"></ng-include>
 <!-- 			<iframe class="viewLink" ng-src="{{viewLink}}" frameborder="0" onLoad="getWXImage();"></iframe> -->
