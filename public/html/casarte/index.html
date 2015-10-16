@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title></title>
+    <link rel="stylesheet" href="index.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+    <div id="box">
+        <div class="page1 page">
+            <div class="p1txt"></div>
+            <div class="page1text1"></div>
+            <div class="bubble"></div>
+            <div class="arrow"></div>
+        </div>
+        <div class="page2 page">
+            <div class="bubble"></div>
+             <div class="cook"></div>
+            <div class="p2txt"></div>
+           
+            <div class="arrow"></div>
+        </div>
+        <div class="page3 page">
+            <div class="bubble"></div>
+            <div class="p3txt1"></div>
+            <div class="p3txt2"></div>
+            <div class="arrow"></div>
+        </div>
+        <div class="page4 page">
+            <div class="bubble"></div>
+            <div class="p4t1"></div>
+            <div class="arrow"></div>
+        </div>
+        <div class="page5 page">
+            <div class="ball"></div>
+            <div class="ball1"></div>
+            <div class="p4txt"></div>
+            <div class="page4text1"></div>
+            <textarea class="join" value="">请输入20字以内宣言</textarea>
+            <input class="name" type="text">
+            <input class="tel" type="tel">
+            <a class="btn" href="javascript:;"></a>
+            <div class="meng">
+                <div class="content"></div>
+                <button class="ok">确认</button>
+            </div>
+        </div>
+    </div>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+   function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return "";
+    }
+
+    var url = encodeURIComponent(window.location.href);
+
+    var wxData = {
+        title: '家的艺术',
+        desc: '是爱对生活的恩赐',
+        link: 'http://www.locuser.cn/case/test001/haier',
+        imgUrl: 'http://www.locuser.cn/case/test001/haier/img/p4txt.png'
+    };
+
+    function setWxData() {
+        wx.ready(function () {
+            wx.onMenuShareAppMessage({
+                title: wxData.title+'，'+wxData.desc,
+                desc: wxData.title+'，'+wxData.desc,
+                link: wxData.link,
+                imgUrl: wxData.imgUrl,
+                trigger: function (res) {
+
+                },
+                success: function (res) {
+
+                },
+                cancel: function (res) {
+
+                },
+                fail: function (res) {
+
+                }
+            });
+            wx.onMenuShareTimeline({
+                title: wxData.title+'，'+wxData.desc,
+                link: wxData.link,
+                imgUrl: wxData.imgUrl,
+                trigger: function (res) {
+
+                },
+                success: function (res) {
+
+                },
+                cancel: function (res) {
+
+                },
+                fail: function (res) {
+
+                }
+            });
+
+        });
+    }
+
+    $(function () {
+        $.ajax({
+            type: "GET",
+            dataType: "jsonp",
+            url: "http://sso.h6app.com/jssdk/config?url=" + url + "&callback=?",
+            data: {},
+            success: function (result) {
+                if (result.code == 0) {
+                    callback(result.data);
+                    setWxData();
+                }
+            }
+        });
+
+        function callback(config) {
+            wx.config(config);
+        }
+    });
+    </script>
+</body>
+</html>
