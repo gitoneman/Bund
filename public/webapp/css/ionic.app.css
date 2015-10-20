@@ -9453,7 +9453,7 @@ a.button {
     font-size: 2.5em;
     color: black; }
   .tabbed-slidebox .tsb-icons a.active {
-    color: #e42112; }
+    color: #fe5f49; }
 
 .tsb-hscroll.scroll-view {
   white-space: nowrap;
@@ -9474,7 +9474,7 @@ a.button {
   font-weight: normal; }
 
 .tabbed-slidebox .tsb-icons .scroll a.active {
-  border-bottom: 3px solid #e42112; }
+  border-bottom: 3px solid #fe5f49; }
 
 .detail_recommend .re_con {
   margin: 4.8vw 3.33vw;
@@ -9611,8 +9611,11 @@ a.button {
     padding: 10px 0; }
 
 .vcodeBotton {
-  padding: 9px 20px;
-  margin-left: 2px !important; }
+  border: none;
+  line-height: 26px;
+  font-size: 14px;
+  color: #bababa !important;
+  margin: 0 auto !important; }
 
 .commentInput {
   padding: 0 !important;
