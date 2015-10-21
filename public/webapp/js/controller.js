@@ -355,17 +355,15 @@ angular.module('controllers', ['tabSlideBox'])
 // share 
     $scope.share = function(){
       if( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
-        var shareTitle = angular.element(viewLink).contents().find('p').html();
+        var shareTitle = encodeURIComponent(angular.element(viewLink).contents().find('p').html());
         var getShareImage = angular.element(viewLink).contents().find('img');
         var shareImage = encodeURIComponent(angular.element(getShareImage[0]).attr('src'));
 
-        var url = 'bund://doFavirate?title='+shareTitle+'&image='+ shareImage;
+        var url = 'bund:doFavirate?title='+shareTitle+'&image='+ shareImage;
 
         window.location = url;
       }
-
     }
-
 })
 
 .controller('news', function($scope,$controller,$http,$window,$ionicSlideBoxDelegate,$compile,$stateParams,$ionicModal,localstorage,printAbstract,printAbstractBig) {
@@ -596,10 +594,20 @@ angular.module('controllers', ['tabSlideBox'])
   return function(post) {
     html = "<div class='post' >";
     var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
-    // var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
-    var link = "/mpost/"+post['_id'];
-    html += "<div class='detail_recommend'><div class='re_con'>";
-    html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
+    var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
+    var link = '';
+    if( /iPhone|iPad|iPod/i.test(navigator.userAgent) && post['链接']){
+      link = "bund://" + post['链接'];
+      html += "<div class='detail_recommend'><div class='re_con'>";
+      html += "<a href='"+link+"'>"
+    }else{
+      link = "/mpost/"+post['_id'];
+      html += "<div class='detail_recommend'><div class='re_con'>";
+      html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
+    }
+
+    // html += "<div class='detail_recommend'><div class='re_con'>";
+    // html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
     html += "<div class='re_con_left'><div class='imgbox'><img src='" + imglink + "'><div class='blackCover'></div></div></div>"
     html += "<div class='re_con_right'><div class='ellipsis'>" + post['标题'] + "</div>"
     html += "<div class='re_brief'>" + post['标题'] + "</div>"
