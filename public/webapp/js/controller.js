@@ -597,7 +597,9 @@ angular.module('controllers', ['tabSlideBox'])
     var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
     var link = '';
     if( /iPhone|iPad|iPod/i.test(navigator.userAgent) && post['链接']){
-      link = "bund://" + post['链接'];
+      var postLink = post['链接'];
+      var splitPostLink = postLink.split('://');
+      link = "bund://" + splitPostLink[1];
       html += "<div class='detail_recommend'><div class='re_con'>";
       html += "<a href='"+link+"'>"
     }else{
@@ -605,9 +607,6 @@ angular.module('controllers', ['tabSlideBox'])
       html += "<div class='detail_recommend'><div class='re_con'>";
       html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
     }
-
-    // html += "<div class='detail_recommend'><div class='re_con'>";
-    // html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
     html += "<div class='re_con_left'><div class='imgbox'><img src='" + imglink + "'><div class='blackCover'></div></div></div>"
     html += "<div class='re_con_right'><div class='ellipsis'>" + post['标题'] + "</div>"
     html += "<div class='re_brief'>" + post['标题'] + "</div>"
@@ -625,9 +624,21 @@ angular.module('controllers', ['tabSlideBox'])
     var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
     // var link = post['链接'] ? "#/app/news/outlink/"+encodeURIComponent(encodeURIComponent(post['链接'])): "#/app/news/detail/" + post['_id'];
     // var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
-    var link = "/mpost/"+post['_id'];
-    html += "<div class='postBig_bgimg'>";
-    html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
+
+    var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
+    var link = '';
+    if( /iPhone|iPad|iPod/i.test(navigator.userAgent) && post['链接']){
+      var postLink = post['链接'];
+      var splitPostLink = postLink.split('://');
+      link = "bund://" + splitPostLink[1];
+      html += "<div class='postBig_bgimg'>";
+      html += "<a href='"+link+"'>"
+    }else{
+      link = "/mpost/"+post['_id'];
+      html += "<div class='postBig_bgimg'>";
+      html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
+    }
+
     html += "<div class='postBig_bgimg'>"
     html += "<img src='" + imglink + "' /><div class='blackCover'></div>"
     html += "<div class='postBig_content'><div class='postBig_title'>" + post['标题'] + "</div>"
