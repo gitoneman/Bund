@@ -358,10 +358,12 @@ angular.module('controllers', ['tabSlideBox'])
         var shareTitle = encodeURIComponent(angular.element(viewLink).contents().find('p').html());
         var getShareImage = angular.element(viewLink).contents().find('img');
         var shareImage = encodeURIComponent(angular.element(getShareImage[0]).attr('src'));
+        var shareLink = encodeURIComponent($scope.viewLink);
 
-        var url = 'bund:doFavirate?title='+shareTitle+'&image='+ shareImage;
+        var url = 'bund:doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
 
         window.location = url;
+
       }
     }
 })
