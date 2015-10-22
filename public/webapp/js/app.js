@@ -23,34 +23,30 @@ angular.module('app', ['ionic', 'controllers'])
       angular.element(bundWebApp).addClass('platform-android');
     }
 
-  });
+    var url = $location.url();
+    var bootScreenTime = '';
+    var adTime = '';
 
-  var url = $location.url();
-  var bootScreenTime = '';
-  var adTime = '';
+    $ionicModal.fromTemplateUrl('templates/bootScreen.html', {
+      scope: $rootScope,
+      animation: 'superScaleIn'
+    }).then(function(modal) {
+      $rootScope.bootScreenModal = modal;
+      modal.show();
+    });
 
-  if(url == "/app/news"){
+    $rootScope.closeBootScreen = function() {
+      $rootScope.bootScreenModal.hide();
+    };
+
     $http.get("/app-launch")
       .success(function(data){
         if(data == null){
           return;
         }else{
-          // $rootScope.frameUrl = 'http://www.qunar.com';
           $rootScope.frameUrl =data['宽带链接'];
           adTime = data['显示时长']+'000';
         }
-
-        $ionicModal.fromTemplateUrl('templates/bootScreen.html', {
-          scope: $rootScope,
-          animation: 'superScaleIn'
-        }).then(function(modal) {
-          $rootScope.bootScreenModal = modal;
-          modal.show();
-        });
-
-        $rootScope.closeBootScreen = function() {
-          $rootScope.bootScreenModal.hide();
-        };
 
         $window.afterLoad = function(){
           document.getElementById('useAd').style.display = 'block';
@@ -60,8 +56,10 @@ angular.module('app', ['ionic', 'controllers'])
            $rootScope.bootScreenModal.hide();
           }, bootScreenTime);
         };
+
       });
-  }
+
+  });
 })
 
 .config(function($stateProvider, $urlRouterProvider ,$sceDelegateProvider, $sceProvider, $ionicConfigProvider) {
