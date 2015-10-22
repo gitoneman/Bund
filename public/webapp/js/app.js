@@ -42,6 +42,7 @@ angular.module('app', ['ionic', 'controllers'])
     $http.get("/app-launch")
       .success(function(data){
         if(data == null){
+          $rootScope.bootScreenModal.hide();
           return;
         }else{
           $rootScope.frameUrl =data['宽带链接'];
