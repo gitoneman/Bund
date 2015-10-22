@@ -127,7 +127,7 @@ angular.module('app', ['ionic', 'controllers'])
     }
   });
 
-  // $urlRouterProvider.otherwise("/app/news");
+  $urlRouterProvider.otherwise("/app/news");
 
   $sceProvider.enabled(false);
 
