@@ -45,18 +45,18 @@ angular.module('app', ['ionic', 'controllers'])
           $rootScope.bootScreenModal.hide();
           return;
         }else{
-          $rootScope.frameUrl =data['宽带链接'];
           adTime = data['显示时长']+'000';
+          $window.afterLoad = function(){
+            document.getElementById('useAd').style.display = 'block';
+            bootScreenTime = adTime;
+
+            $timeout(function() {
+             $rootScope.bootScreenModal.hide();
+            }, bootScreenTime);
+          };
+          $rootScope.frameUrl =data['宽带链接'];
+          
         }
-
-        $window.afterLoad = function(){
-          document.getElementById('useAd').style.display = 'block';
-          bootScreenTime = adTime;
-
-          $timeout(function() {
-           $rootScope.bootScreenModal.hide();
-          }, bootScreenTime);
-        };
 
       });
 

@@ -61,7 +61,7 @@ angular.module('tabSlideBox', [])
         		x = event.touches[0].screenX;
         		y = event.touches[0].screenY;
             });
-            element.bind('touchmove mousemove', function(event) {
+            element.bind('touchmove', function(event) {
             	var countedX = event.touches[0].screenX - x;
             	var countedY = event.touches[0].screenY - y;
             	if(Math.abs(countedX) < Math.abs(countedY)){
