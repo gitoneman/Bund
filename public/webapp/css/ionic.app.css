@@ -9313,7 +9313,7 @@ a.button {
   width: 14px;
   height: 14px;
   border-radius: 50px;
-  background: #fe5f49;
+  background: #d0121b;
   display: inline-block;
   float: right;
   margin-right: 5px;
@@ -9329,10 +9329,10 @@ a.button {
     height: 100px; }
 
 .bar-assertive {
-  background-color: #fe5f49 !important; }
+  background-color: #d0121b !important; }
 
 .detailBanner {
-  background: #fe5f49;
+  background: #d0121b;
   text-align: center; }
 
 .titleImg {
@@ -9347,14 +9347,14 @@ a.button {
 .bootScreenPic {
   width: 100%;
   height: 100%;
-  background-color: #fe5f49; }
+  background-color: #d0121b; }
 
 .bootScreenLogo {
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 88px;
-  background-color: #fe5f49;
+  background-color: #d0121b;
   text-align: center; }
   .bootScreenLogo .bootScreenText {
     position: absolute;
@@ -9453,7 +9453,7 @@ a.button {
     font-size: 2.5em;
     color: black; }
   .tabbed-slidebox .tsb-icons a.active {
-    color: #fe5f49; }
+    color: #d0121b; }
 
 .tsb-hscroll.scroll-view {
   white-space: nowrap;
@@ -9474,7 +9474,7 @@ a.button {
   font-weight: normal; }
 
 .tabbed-slidebox .tsb-icons .scroll a.active {
-  border-bottom: 3px solid #fe5f49; }
+  border-bottom: 3px solid #d0121b; }
 
 .detail_recommend .re_con {
   margin: 4.8vw 3.33vw;
@@ -9594,7 +9594,7 @@ a.button {
   background: #dfe0e1; }
 
 .bundBackground {
-  background: #fe5f49; }
+  background: #d0121b; }
 
 .loginItem {
   background: #fff; }
