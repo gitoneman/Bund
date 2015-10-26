@@ -419,12 +419,16 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.data.carousels[0] = [];
     var posts = document.getElementsByClassName('posts');
 
+
+
     $scope.getCarousel = function(){
       $http.get("/app-carousel")
         .success(function(data){
+
           for (var i = 0; i < data.length; i++) {
-            $scope.data.carousels[0][i] = data[i]['文件']['filename'];
+            $scope.data.carousels[0][i] = '/upload/'+ data[i]['文件']['filename'];
             $scope.data.carouselsLink = data[i]['链接'];
+
           };
           // $ionicSlideBoxDelegate.update();
         });

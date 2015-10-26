@@ -12,6 +12,30 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(0)'>
+
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[0][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[0][1]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[0][2]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[0][3]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[0][4]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
+
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -119,14 +143,6 @@
         </tab-slide-box>
     </ion-content>
 </ion-view>
-
-
-<!-- <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
-    <ion-slide ng-repeat='carousel in data.carousels[$index]'>
-        <img ng-src='http://www.bundpic.com/upload/{{carousel}}' width='100%' alt=''>
-        <div class='blackCover'></div>
-    </ion-slide>
-</ion-slide-box> -->
 
 
 
