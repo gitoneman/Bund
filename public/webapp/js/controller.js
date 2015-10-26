@@ -426,9 +426,8 @@ angular.module('controllers', ['tabSlideBox'])
             $scope.data.carousels[0][i] = data[i]['文件']['filename'];
             $scope.data.carouselsLink = data[i]['链接'];
           };
-          $ionicSlideBoxDelegate.update();
+          // $ionicSlideBoxDelegate.update();
         });
-        // console.log($scope.data.carouselsLink)
     };
     $scope.getCarousel();
 
@@ -474,23 +473,44 @@ angular.module('controllers', ['tabSlideBox'])
       function setCategories (cata){
         $scope.data.categories.unshift('推荐');
         $scope.data.cateName.unshift('');
+        var categoryHtml = '';
+        var ionSlideHtml = '';
         for (var i = 0; i < cata.length; i++) {
           $scope.data.categories[i+1] = cata[i]['名称'];
           $scope.data.cateName[i+1]= cata[i]['标识'];
           $scope.data.carousels[i+1] = [];
           $scope.data.carousels[i+1][0] = cata[i]['焦点图']['filename'];
+          categoryHtml += "<a href='javascript:;' on-finish-render>"+$scope.data.categories[i]+"</a>"
+          ionSlideHtml += "<ion-slide> <ion-content overflow-scroll='true' scrolly='loadMore(0)'> <ion-spinner class='loadSpinner loadPost'></ion-spinner> <div class='posts' touchess></div> </ion-content> </ion-slide>"
         };
-        $ionicSlideBoxDelegate.update();
+        var tsbHscroll = document.querySelector(".tsb-hscroll > div");
+        angular.element(tsbHscroll).append(categoryHtml);
+
+        var ionSlide = document.querySelector(".slider-slides");
+        // angular.element(ionSlide).append("<ion-slide> <h1>BLUE</h1></ion-slide>"); 
+        // $ionicSlideBoxDelegate.update();
+        // setTimeout(function() {
+        //     angular.element(ionSlide).append(ionSlideHtml);
+
+        //     $ionicSlideBoxDelegate.update();
+        //     $scope.loadMore(0);
+        //   }, 2000);
+        
+        $scope.loadMore(0);
         // $scope.loadMore(0);
+        
       }
+
     };
     $scope.getCategories();
+
     $scope.onSlideMove = function(data) {
       tab = data.index;
       if(angular.element(posts[data.index]).html() === ''){
         $scope.loadMore(data.index);
       }
     };
+
 })
 
 .controller('favorite', function($scope, $http,$controller, $compile, $ionicModal, localstorage, printAbstract) {

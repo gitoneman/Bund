@@ -5,37 +5,31 @@
         <tab-slide-box tab="0" tabs-position="bottom">
             <div class="tsb-icons">
                 <div class="tsb-ic-wrp">
-                    <ion-scroll direction="x" class="tsb-hscroll sl" delegate-handle="slide1Scroll">
-                        <a href="javascript:;" ng-repeat="tab in data.categories" on-finish-render>{{tab}}</a>
-                    </ion-scroll>
+                    <ion-scroll direction="x" class="tsb-hscroll sl" delegate-handle="slide1Scroll"></ion-scroll>
                 </div>
             </div>
-            <ion-slide-box show-pager="false" class="sl" on-slide-changed="slideHasChanged($index)" delegate-handle="slide1Scroll">
+            <ion-slide-box show-pager="false" class="sl ionSlide" on-slide-changed="slideHasChanged($index)" delegate-handle="slide1Scroll">
                 <ion-slide ng-repeat="tab in data.categories">
-                    <!-- <ion-scroll direction="x" class="viewLink" style="height:100%" scrolly="loadMore({{$index}})"> -->
-                    <ion-content overflow-scroll="true" scrolly="loadMore({{$index}})">
-                       <!--  <ion-refresher
-                            pulling-text="Pull to refresh..."
-                            on-refresh="doRefresh()"></ion-refresher> -->
 
-                        <ion-slide-box show-pager="true" class="carousel" stop-propagation auto-play="true" does-continue="true">
-                            <ion-slide ng-repeat="carousel in data.carousels[$index]">
-                                <img ng-src="http://www.bundpic.com/upload/{{carousel}}" width="100%" alt="">
-                                <div class="blackCover"></div>
-                            </ion-slide>
-                        </ion-slide-box>
-                        
+                    <ion-content overflow-scroll="true" scrolly="loadMore({{$index}})">
+
                         <ion-spinner class="loadSpinner loadPost"></ion-spinner>
                         <div class="posts" touchess></div>
-                        <!-- <ion-infinite-scroll
-                            immediate-check="true"
-                            spinner="bubbles"
-                            on-infinite="loadMore({{$index}})"
-                            distance="1%"></ion-infinite-scroll> -->
+
                     </ion-content>
-                    <!-- </ion-scroll> -->
                 </ion-slide>
             </ion-slide-box>
         </tab-slide-box>
     </ion-content>
 </ion-view>
+
+
+<!-- <ion-slide-box show-pager="true" class="carousel" stop-propagation auto-play="true" does-continue="true">
+    <ion-slide ng-repeat="carousel in data.carousels[$index]">
+        <img ng-src="http://www.bundpic.com/upload/{{carousel}}" width="100%" alt="">
+        <div class="blackCover"></div>
+    </ion-slide>
+</ion-slide-box> -->
+
+
+
