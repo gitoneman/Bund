@@ -354,15 +354,16 @@ angular.module('controllers', ['tabSlideBox'])
 
 // share 
     $scope.share = function(){
-      if( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+      if( window.webkit.messageHandlers.share ) {
         var shareTitle = encodeURIComponent(angular.element(viewLink).contents().find('p').html());
         var getShareImage = angular.element(viewLink).contents().find('img');
         var shareImage = encodeURIComponent(angular.element(getShareImage[0]).attr('src'));
         var shareLink = encodeURIComponent($scope.viewLink);
 
-        var url = 'bund:doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
+        var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
 
-        window.location = url;
+        // window.location = url;
+        window.webkit.messageHandlers.share.postMessage(url)
 
       }
     }
@@ -430,6 +431,7 @@ angular.module('controllers', ['tabSlideBox'])
             $scope.data.carouselsLink = data[i]['链接'];
 
           };
+
           // $ionicSlideBoxDelegate.update();
         });
     };
@@ -631,13 +633,17 @@ angular.module('controllers', ['tabSlideBox'])
     html = "<div class='post' >";
     var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
     var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
-    var link = '';
-    if( /iPhone|iPad|iPod/i.test(navigator.userAgent) && post['链接']){
+
+    if( post['链接']){
       var postLink = post['链接'];
-      var splitPostLink = postLink.split('://');
-      link = "bund://" + splitPostLink[1];
+
       html += "<div class='detail_recommend'><div class='re_con'>";
-      html += "<a href='"+link+"'>"
+      if( window.webkit) {
+        html += "<a href='javascript:window.webkit.messageHandlers.inappbrowser.postMessage("+postLink+");'>"
+      } else {
+        html += "<a href='"+postLink+"' target='_blank'>"
+      }
+      
     }else{
       link = "/mpost/"+post['_id'];
       html += "<div class='detail_recommend'><div class='re_con'>";
@@ -658,18 +664,17 @@ angular.module('controllers', ['tabSlideBox'])
   return function(post) {
     html = "<div class='postBig' >";
     var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
-    // var link = post['链接'] ? "#/app/news/outlink/"+encodeURIComponent(encodeURIComponent(post['链接'])): "#/app/news/detail/" + post['_id'];
-    // var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
-
     var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
-    var link = '';
-    if( /iPhone|iPad|iPod/i.test(navigator.userAgent) && post['链接']){
+    if( post['链接']){
       var postLink = post['链接'];
-      var splitPostLink = postLink.split('://');
-      link = "bund://" + splitPostLink[1];
       html += "<div class='postBig_bgimg'>";
-      html += "<a href='"+link+"'>"
-    }else{
+      if(window.webkit) {
+        html += "<a href='javascript:window.webkit.messageHandlers.inappbrowser.postMessage("+postLink+");'>"
+      } else {
+        html += "<a href='"+postLink+"' target='_blank'>"
+      }
+
+    }else {
       link = "/mpost/"+post['_id'];
       html += "<div class='postBig_bgimg'>";
       html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
