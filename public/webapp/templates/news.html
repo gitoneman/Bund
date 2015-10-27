@@ -8,7 +8,7 @@
                     <ion-scroll direction='x' class='tsb-hscroll sl' delegate-handle='slide1Scroll'></ion-scroll>
                 </div>
             </div>
-            <ion-slide-box show-pager='false' class='sl ionSlide' on-slide-changed='slideHasChanged($index)' delegate-handle='slide1Scroll'>
+            <ion-slide-box show-pager='false' class='sl ionSlide' on-slide-changed='slideHasChanged($index)' stop-propagation delegate-handle='slide1Scroll'>
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(0)'>
@@ -43,6 +43,14 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(1)'>
+
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[1][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
+
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -50,6 +58,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(2)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[2][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -57,6 +71,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(3)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[3][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -64,6 +84,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(4)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[4][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -71,6 +97,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(5)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[5][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -78,6 +110,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(6)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[6][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -85,6 +123,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(7)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[7][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -92,6 +136,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(8)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[8][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -99,6 +149,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(9)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[9][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -106,6 +162,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(10)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[10][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -113,6 +175,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(11)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[11][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -120,6 +188,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(12)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[12][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -127,6 +201,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(13)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[13][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>
@@ -134,6 +214,12 @@
 
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(14)'>
+                        <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide>
+                                <img ng-src='{{data.carousels[14][0]}}' width='100%' alt=''>
+                                <div class='blackCover'></div>
+                            </ion-slide>
+                        </ion-slide-box>
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                     </ion-content>

@@ -40,7 +40,7 @@ angular.module('controllers', ['tabSlideBox'])
       pwd:($scope.loginData.password?$scope.loginData.password:"")
     }
     postLoginData.pwd = pwdEncode(postLoginData.pwd);
-    $http.get("/app-login?no="+postLoginData.no+"&pwd="+postLoginData.pwd)
+    $http.get("http://www.bundpic.com/app-login?no="+postLoginData.no+"&pwd="+postLoginData.pwd)
       .success(function(data){
         if (data == 0) {
           alert('用户名或密码为空');
@@ -107,7 +107,7 @@ angular.module('controllers', ['tabSlideBox'])
       postRegistrationData.pwd = pwdEncode(postRegistrationData.pwd);
       $http({
         method: 'POST',
-        url: '/app-join',
+        url: 'http://www.bundpic.com/app-join',
         headers: {
           'Content-Type': undefined
         },
@@ -132,7 +132,7 @@ angular.module('controllers', ['tabSlideBox'])
   };
 
   $scope.getVcode = function(){
-    $http.get("/app-vcode?no="+$scope.registrationData.phonenumber)
+    $http.get("http://www.bundpic.com/app-vcode?no="+$scope.registrationData.phonenumber)
       .success(function(data){
         //console.log(data)
       });
@@ -209,7 +209,7 @@ angular.module('controllers', ['tabSlideBox'])
 
 //getCommentCount 
     $scope.getCommentCount = function(){
-      $http.get("/comment-count?id="+$scope.cid)
+      $http.get("http://www.bundpic.com/comment-count?id="+$scope.cid)
         .success(function(data) {
           $scope.commentCount = data;
         });
@@ -227,7 +227,7 @@ angular.module('controllers', ['tabSlideBox'])
       }
       if(!favorite){
         angular.element(addFav).css('color', '#ef473a');
-        $http.get("/app-addfav?p="+$scope.cid+"&c="+userToken)
+        $http.get("http://www.bundpic.com/app-addfav?p="+$scope.cid+"&c="+userToken)
           .success(function(data) {
             if (data == 0) {
               console.log('收藏成功');
@@ -246,7 +246,7 @@ angular.module('controllers', ['tabSlideBox'])
         favorite = true;
       }else if(favorite){
         angular.element(addFav).css('color', 'white');
-        $http.get("/app-delfav?p="+$scope.cid+"&c="+userToken)
+        $http.get("http://www.bundpic.com/app-delfav?p="+$scope.cid+"&c="+userToken)
           .success(function(data) {
             if (data == 0) {
               console.log('删除成功');
@@ -308,7 +308,7 @@ angular.module('controllers', ['tabSlideBox'])
 
       $http({
         method: 'POST',
-        url: '/app-comment',
+        url: 'http://www.bundpic.com/app-comment',
         headers: {
           'Content-Type': undefined
         },
@@ -336,7 +336,7 @@ angular.module('controllers', ['tabSlideBox'])
     var spinner = document.getElementsByClassName('spinner');
     var commentp=1;
     $scope.getComment = function(){
-      $http.get("/comment?id="+$scope.cid+"&p="+commentp+"&n=10")
+      $http.get("http://www.bundpic.com/comment?id="+$scope.cid+"&p="+commentp+"&n=10")
         .success(function(data) {
           // $scope.noMoreData = true;
           if(data != ''){
@@ -408,7 +408,7 @@ angular.module('controllers', ['tabSlideBox'])
 
 // get cagegories and news
     var newsP = new Array();
-    for(var j=0; j < 13; j++){
+    for(var j=0; j < 14; j++){
       newsP[j] = 1;
     }
 
@@ -423,11 +423,11 @@ angular.module('controllers', ['tabSlideBox'])
 
 
     $scope.getCarousel = function(){
-      $http.get("/app-carousel")
+      $http.get("http://www.bundpic.com/app-carousel")
         .success(function(data){
 
           for (var i = 0; i < data.length; i++) {
-            $scope.data.carousels[0][i] = '/upload/'+ data[i]['文件']['filename'];
+            $scope.data.carousels[0][i] = 'http://www.bundpic.com/upload/'+ data[i]['文件']['filename'];
             $scope.data.carouselsLink = data[i]['链接'];
 
           };
@@ -440,7 +440,7 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.loadMore = function(cTabs){
       if($scope.data.cateName.length==0) return;
       if(cTabs != tab) return;
-      $http.get("/app-post?p="+newsP[cTabs]+"&n=16&c="+$scope.data.cateName[cTabs])
+      $http.get("http://www.bundpic.com/app-post?p="+newsP[cTabs]+"&n=16&c="+$scope.data.cateName[cTabs])
         .success(function(data,$document){
           var html = '';
           for (var i = 1; i <= data.length ; i++) {
@@ -464,7 +464,7 @@ angular.module('controllers', ['tabSlideBox'])
         setCategories(localCategories);
         $scope.loadMore(0);
       }else{
-        $http.get("/app-category")
+        $http.get("http://www.bundpic.com/app-category")
           .success(function(data){
             try{
               localstorage.setObject('localCategories',data);
@@ -485,7 +485,7 @@ angular.module('controllers', ['tabSlideBox'])
           $scope.data.categories[i+1] = cata[i]['名称'];
           $scope.data.cateName[i+1]= cata[i]['标识'];
           $scope.data.carousels[i+1] = [];
-          $scope.data.carousels[i+1][0] = cata[i]['焦点图']['filename'];
+          $scope.data.carousels[i+1][0] ="http://www.bundpic.com/upload/" + cata[i]['焦点图']['filename'];
           categoryHtml += "<a href='javascript:;' on-finish-render>"+$scope.data.categories[i]+"</a>";
           // ionSlideHtml += "<ion-slide> <ion-content overflow-scroll='true' scrolly='loadMore(0)'> <ion-spinner class='loadSpinner loadPost'></ion-spinner> <div class='posts' touchess></div> </ion-content> </ion-slide>";
         };
@@ -496,7 +496,7 @@ angular.module('controllers', ['tabSlideBox'])
         // var ionSlide = document.querySelector(".ionSlide");
 
         // angular.element(ionSlide).append(ionSlideHtml);
-        $ionicSlideBoxDelegate.update();
+
         // setTimeout(function() {
         //     angular.element(ionSlide).append(ionSlideHtml);
 
@@ -555,7 +555,7 @@ angular.module('controllers', ['tabSlideBox'])
   };
 
   $scope.getFavorite = function() {
-    $http.get("/app-favlist?&c="+userToken)
+    $http.get("http://www.bundpic.com/app-favlist?&c="+userToken)
       .success(function(data) {
         if (data == 1) {
           console.log('服务器处理错误');
@@ -581,7 +581,7 @@ angular.module('controllers', ['tabSlideBox'])
 //   // allow ng-include load different page from below by id
   
 //   $scope.getCommentCount = function(){
-//     $http.get("/comment-count?id="+$stateParams.id)
+//     $http.get("http://www.bundpic.com/comment-count?id="+$stateParams.id)
 //       .success(function(data) {
 //         $scope.commentCount = data;
 //       });
@@ -630,8 +630,8 @@ angular.module('controllers', ['tabSlideBox'])
 .factory('printAbstract', function() {
   return function(post) {
     html = "<div class='post' >";
-    var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
-    var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("/mpost/"+post['_id']);
+    var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? 'http://www.bundpic.com/upload/' + post['缩略图'].filename : '/images/test.png');
+    var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("http://www.bundpic.com/mpost/"+post['_id']);
 
     if( post['链接']){
       var postLink = post['链接'];
@@ -640,11 +640,11 @@ angular.module('controllers', ['tabSlideBox'])
       if( window.webkit) {
         html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
       } else {
-        html += "<a href='"+postLink+"' target='_blank'>"
+        html += "<a href='"+postLink+"'>"
       }
       
     }else{
-      // link = "/mpost/"+post['_id'];
+      // link = "http://www.bundpic.com/mpost/"+post['_id'];
       html += "<div class='detail_recommend'><div class='re_con'>";
       html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
     }
@@ -662,8 +662,8 @@ angular.module('controllers', ['tabSlideBox'])
 .factory('printAbstractBig', function() {
   return function(post) {
     html = "<div class='postBig' >";
-    var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
-    var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("/mpost/"+post['_id']);
+    var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? 'http://www.bundpic.com/upload/' + post['缩略图'].filename : '/images/test.png');
+    var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("http://www.bundpic.com/mpost/"+post['_id']);
     if( post['链接']){
       var postLink = post['链接'];
       html += "<div class='postBig_bgimg'>";
@@ -671,11 +671,11 @@ angular.module('controllers', ['tabSlideBox'])
         html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
 
       } else {
-        html += "<a href='"+postLink+"' target='_blank'>"
+        html += "<a href='"+postLink+"'>"
       }
 
     }else {
-      // link = "/mpost/"+post['_id'];
+      // link = "http://www.bundpic.com/mpost/"+post['_id'];
       html += "<div class='postBig_bgimg'>";
       html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
     }
