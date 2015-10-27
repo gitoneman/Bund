@@ -431,7 +431,6 @@ angular.module('controllers', ['tabSlideBox'])
             $scope.data.carouselsLink = data[i]['链接'];
 
           };
-
           // $ionicSlideBoxDelegate.update();
         });
     };
@@ -632,20 +631,20 @@ angular.module('controllers', ['tabSlideBox'])
   return function(post) {
     html = "<div class='post' >";
     var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
-    var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
+    var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("/mpost/"+post['_id']);
 
     if( post['链接']){
       var postLink = post['链接'];
 
       html += "<div class='detail_recommend'><div class='re_con'>";
       if( window.webkit) {
-        html += "<a href='javascript:window.webkit.messageHandlers.inappbrowser.postMessage("+postLink+");'>"
+        html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
       } else {
         html += "<a href='"+postLink+"' target='_blank'>"
       }
       
     }else{
-      link = "/mpost/"+post['_id'];
+      // link = "/mpost/"+post['_id'];
       html += "<div class='detail_recommend'><div class='re_con'>";
       html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
     }
@@ -664,18 +663,19 @@ angular.module('controllers', ['tabSlideBox'])
   return function(post) {
     html = "<div class='postBig' >";
     var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? '/upload/' + post['缩略图'].filename : '/images/test.png');
-    var link = post['链接'] ? encodeURIComponent(post['链接']): "/mpost/"+post['_id'];
+    var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("/mpost/"+post['_id']);
     if( post['链接']){
       var postLink = post['链接'];
       html += "<div class='postBig_bgimg'>";
       if(window.webkit) {
-        html += "<a href='javascript:window.webkit.messageHandlers.inappbrowser.postMessage("+postLink+");'>"
+        html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
+
       } else {
         html += "<a href='"+postLink+"' target='_blank'>"
       }
 
     }else {
-      link = "/mpost/"+post['_id'];
+      // link = "/mpost/"+post['_id'];
       html += "<div class='postBig_bgimg'>";
       html += "<a ng-click=\"showDetail(\'"+link+"\',\'"+post['_id']+"\');\">"
     }
