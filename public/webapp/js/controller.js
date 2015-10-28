@@ -384,7 +384,7 @@ angular.module('controllers', ['tabSlideBox'])
       $scope.viewLink = '';
       $ionicModal.fromTemplateUrl('templates/detail.html', {
         scope: $scope,
-        animation: 'slide-in-up'
+        animation: 'slide-in-right'
       }).then(function(modal) {
         $scope.detailModal = modal;
         $scope.detailModal.show();
@@ -541,7 +541,7 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.viewLink = '';
     $ionicModal.fromTemplateUrl('templates/detail.html', {
       scope: $scope,
-      animation: 'slide-in-up'
+      animation: 'slide-in-right'
     }).then(function(modal) {
       $scope.detailModal = modal;
       $scope.detailModal.show();

@@ -39,7 +39,7 @@ angular.module('app', ['ionic', 'controllers'])
       $rootScope.bootScreenModal.hide();
     };
 
-    $http.get("/app-launch")
+    $http.get("http://www.bundpic.com/app-launch")
       .success(function(data){
         if(data == null){
           $rootScope.bootScreenModal.hide();
@@ -134,7 +134,7 @@ angular.module('app', ['ionic', 'controllers'])
   //   // Allow same origin resource loads.
   //   'self',
   //   // Allow loading from outer templates domain.
-  //   '/**',
+  //   'http://www.bundpic.com/**',
   //   // 'http://www.baidu.com/**',
   //   'http://mp.weixin.qq.com/**'
   // ]); 
