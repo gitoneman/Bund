@@ -503,10 +503,7 @@ angular.module('controllers', ['tabSlideBox'])
         //     $ionicSlideBoxDelegate.update();
         //     $scope.loadMore(0);
         //   }, 2000);
-        
-        $scope.loadMore(0);
-        // $scope.loadMore(0);
-        
+              
       }
 
     };
