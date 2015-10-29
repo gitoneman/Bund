@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script>
+	if(window.screen.width>=800){
+	//document.write('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />');
+	}
+	else{
+	document.write('<meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no" />');
+	
+	}
+	</script>
+	<!---->
+	
+	
+	<title>家的艺术,在于发现爱的意义</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div id="wrap">
+		<img src="images/page.png" alt="" id="page">
+	</div>
+</body>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script>
+var scrollTop1 = $(window).scrollTop();
+window.onscroll= function(){
+	var newScrollTop = $(window).scrollTop();
+	if(newScrollTop - scrollTop1 > 0){
+		$("#wrap").find('.change').addClass('Change');
+	}
+	else if(newScrollTop - scrollTop1 < 0){
+		$("#wrap").find('.change').removeClass('Change');
+	}
+	scrollTop1 = newScrollTop;
+}
+</script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>    
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+/*$(function(){
+
+    var url = encodeURIComponent(window.location.href);
+    $.ajax({
+        type : "GET",
+        dataType : "jsonp",
+        url : "http://sso.h6app.com/jssdk/config?url="+url+"&callback=?",
+        data:{},
+        success : function(result){
+            if(result.code != 0){
+
+            }else{
+                callback(result.data);
+            }
+        }
+    });
+
+    function callback(config){
+        wx.config(config);
+        wx.ready(function(){
+            wx.onMenuShareAppMessage({
+                title: '闯入，寻找一个重新定位幸福的方法',
+                desc: '王小帅携娇妻，成为卡萨帝思享荟美食沙龙首席体验官。',
+                link: 'http://www.h6app.com/data/case/waitan',
+                imgUrl: 'http://www.h6app.com/data/case/waitan/images/pic6.jpg'
+            });
+			wx.onMenuShareTimeline({
+                title: '独家访谈：王小帅。闯入，寻找一个重新把幸福定位的方法',
+                 link: 'http://www.h6app.com/data/case/waitan',
+                imgUrl: 'http://www.h6app.com/data/case/waitan/images/pic6.jpg'
+	   });
+        });
+
+		 
+  
+    }
+	
+});*/
+</script>
+<!-- 统计代码-->
+ <span style="display:none;"><script src="http://v1.cnzz.com/stat.php?id=1253466349&web_id=1253466349" language="JavaScript"></script></span>
+</html>
