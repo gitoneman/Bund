@@ -3,8 +3,3 @@ body{background:#939494;}
 #wrap{width:100%;position:relative;left:0;top:0;}
 #wrap>img{width:100%;}
 #page{width:100%;}
-
-@media screen and (min-width:640px){
-	#wrap{width:640px;left:50%;margin-left:-320px;}
-	#registerBtn{width:232px;height:111px;margin-left:-116px;}
-}
