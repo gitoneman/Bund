@@ -1,22 +1,15 @@
 CACHE MANIFEST
-# 2015-10-12 v1.0.3
-/img/adLogo.png
-/img/logo.png
-/img/user.png
-/lib/ionic/fonts/ionicons.eot
-/lib/ionic/fonts/ionicons.svg
-/lib/ionic/fonts/ionicons.ttf
-/lib/ionic/fonts/ionicons.woff
-/lib/ionic/js/ionic.bundle.min.js
-/js/tabSlideBox.js
-/templates/bootScreen.html
-/templates/commentDetail.html
-/templates/detail.html
-/templates/favorite.html
-/templates/login.html
-/templates/menu.html
-/templates/news.html
-/templates/registration.html
+# 2015-10-12 v1.0.1
+./img/adLogo.png
+./img/logo.png
+./img/user.png
+./lib/ionic/fonts/ionicons.eot
+./lib/ionic/fonts/ionicons.svg
+./lib/ionic/fonts/ionicons.ttf
+./lib/ionic/fonts/ionicons.woff
+./lib/ionic/js/ionic.bundle.min.js
+./js/tabSlideBox.js
+
 
 NETWORK:
 *

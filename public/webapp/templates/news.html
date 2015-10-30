@@ -5,11 +5,12 @@
         <tab-slide-box tab='0' tabs-position='bottom'>
             <div class='tsb-icons'>
                 <div class='tsb-ic-wrp'>
-                    <ion-scroll direction='x' class='tsb-hscroll sl' delegate-handle='slide1Scroll'></ion-scroll>
+                    <ion-scroll direction='x' class='tsb-hscroll sl' delegate-handle='slide1Scroll'>
+<!--                         <a href="javascript:;" ng-repeat="tab in data.categories" on-finish-render>{{tab}}</a> -->
+                    </ion-scroll>
                 </div>
             </div>
-            <ion-slide-box show-pager='false' class='sl ionSlide' on-slide-changed='slideHasChanged($index)' stop-propagation delegate-handle='slide1Scroll'>
-
+            <ion-slide-box show-pager='false' class='sl' on-slide-changed='slideHasChanged($index)' stop-propagation delegate-handle='slide1Scroll'>
                 <ion-slide>
                     <ion-content overflow-scroll='true' scrolly='loadMore(0)'>
 

@@ -412,6 +412,7 @@ angular.module('controllers', ['tabSlideBox'])
       newsP[j] = 1;
     }
 
+
     var tab = 0;
     $scope.data = {};
     $scope.data.categories = [];
@@ -440,7 +441,7 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.loadMore = function(cTabs){
       if($scope.data.cateName.length==0) return;
       if(cTabs != tab) return;
-      $http.get("http://www.bundpic.com/app-post?p="+newsP[cTabs]+"&n=16&c="+$scope.data.cateName[cTabs])
+      $http.get("http://www.bundpic.com/app-post?p="+newsP[cTabs]+"&n=8&c="+$scope.data.cateName[cTabs])
         .success(function(data,$document){
           var html = '';
           for (var i = 1; i <= data.length ; i++) {
@@ -460,33 +461,40 @@ angular.module('controllers', ['tabSlideBox'])
 
     var localCategories = localstorage.getObject('localCategories');
     $scope.getCategories = function(){
-      if(Object.getOwnPropertyNames(localCategories).length > 0){
-        setCategories(localCategories);
-        $scope.loadMore(0);
-      }else{
+      function checkCategory(){
         $http.get("http://www.bundpic.com/app-category")
           .success(function(data){
+            if(Object.getOwnPropertyNames(localCategories).length == 0){
+              setCategories(data);
+              $scope.loadMore(0);
+            }
             try{
               localstorage.setObject('localCategories',data);
             }catch (e) { 
               alert("您处于无痕浏览，无法为您保存数据"); 
-            }
-            setCategories(data);
-            $scope.loadMore(0);
+            }           
           });
       }
+
+      if(Object.getOwnPropertyNames(localCategories).length > 0){
+        setCategories(localCategories);
+        $scope.loadMore(0);
+        checkCategory();
+      } else{
+        checkCategory();
+      }
+
       function setCategories (cata){
         $scope.data.categories.unshift('推荐');
         $scope.data.cateName.unshift('');
         var categoryHtml = '';
-         
-        var ionSlideHtml = '';
+        // var ionSlideHtml = '';
         for (var i = 0; i < cata.length; i++) {
           $scope.data.categories[i+1] = cata[i]['名称'];
           $scope.data.cateName[i+1]= cata[i]['标识'];
           $scope.data.carousels[i+1] = [];
           $scope.data.carousels[i+1][0] ="http://www.bundpic.com/upload/" + cata[i]['焦点图']['filename'];
-          categoryHtml += "<a href='javascript:;' on-finish-render>"+$scope.data.categories[i]+"</a>";
+          categoryHtml += "<a href='javascript:;' class='tsb-icons' on-finish-render>"+$scope.data.categories[i]+"</a>";
           // ionSlideHtml += "<ion-slide> <ion-content overflow-scroll='true' scrolly='loadMore(0)'> <ion-spinner class='loadSpinner loadPost'></ion-spinner> <div class='posts' touchess></div> </ion-content> </ion-slide>";
         };
 
@@ -505,7 +513,6 @@ angular.module('controllers', ['tabSlideBox'])
         //   }, 2000);
               
       }
-
     };
     $scope.getCategories();
 
