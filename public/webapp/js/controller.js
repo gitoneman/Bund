@@ -4,9 +4,9 @@ angular.module('controllers', ['tabSlideBox'])
 
 .controller("mainController", function($scope, $ionicModal, $timeout ,$http, localstorage, formDataObject){
 
-  var userinfo = localstorage.getObject('userinfo');
-  $scope.userToken = userinfo.userToken;
-  $scope.username = userinfo.username;
+  if (localstorage.getObject('userinfo') != null || Object.getOwnPropertyNames(localstorage.getObject('userinfo')).length > 0){
+    var userinfo = localstorage.getObject('userinfo');
+  }
 
   // Form data for the login modal
   $scope.loginData = {};
@@ -54,9 +54,9 @@ angular.module('controllers', ['tabSlideBox'])
           alert('服务器错误');
         } else {
           localstorage.setObject('userinfo',data);
-          var userinfo = localstorage.getObject('userinfo');
-          $scope.username = userinfo.username;
-          $scope.userToken = userinfo.userToken;
+          // var userinfo = localstorage.getObject('userinfo');
+          // $scope.username = userinfo.username;
+          // $scope.userToken = userinfo.userToken;
           $timeout(function() {
             $scope.closeLogin();
           }, 1000);
@@ -68,7 +68,7 @@ angular.module('controllers', ['tabSlideBox'])
     // localStorage.clear();
     // remove the specific item from local storage than use the following code
     localStorage.removeItem('userinfo');
-    $scope.username = '';
+    // $scope.username = '';
   };
   $scope.checkLogout = function () {
     if (Object.getOwnPropertyNames(localstorage.getObject('userinfo')).length == 0) return true;
@@ -218,16 +218,21 @@ angular.module('controllers', ['tabSlideBox'])
 
 // add to favorite 
     var favorite = false;
+    // var userToken;
+    // var userToken = localstorage.getObject('userinfo').userToken;
+    // var username = localstorage.getObject('userinfo').username;
+    // if (localstorage.getObject('userinfo') != null || Object.getOwnPropertyNames(localstorage.getObject('userinfo')).length > 0){
+    //   var userinfo = localstorage.getObject('userinfo');
+    // }
     $scope.toggleFavorite = function(){
-      var userToken = localstorage.getObject('userinfo').userToken;
       var addFav = document.getElementsByClassName('addFav');
-      if(userToken == undefined){
+      if(localstorage.getObject('userinfo').userToken == null || localstorage.getObject('userinfo').userToken == undefined){
         alert('登陆后收藏');
         return
       }
       if(!favorite){
         angular.element(addFav).css('color', '#ef473a');
-        $http.get("http://www.bundpic.com/app-addfav?p="+$scope.cid+"&c="+userToken)
+        $http.get("http://www.bundpic.com/app-addfav?p="+$scope.cid+"&c="+localstorage.getObject('userinfo').userToken)
           .success(function(data) {
             if (data == 0) {
               console.log('收藏成功');
@@ -246,7 +251,7 @@ angular.module('controllers', ['tabSlideBox'])
         favorite = true;
       }else if(favorite){
         angular.element(addFav).css('color', 'white');
-        $http.get("http://www.bundpic.com/app-delfav?p="+$scope.cid+"&c="+userToken)
+        $http.get("http://www.bundpic.com/app-delfav?p="+$scope.cid+"&c="+localstorage.getObject('userinfo').userToken)
           .success(function(data) {
             if (data == 0) {
               console.log('删除成功');
@@ -270,7 +275,7 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.showCommentDetail = function() {
       $ionicModal.fromTemplateUrl('templates/commentDetail.html', {
         scope: $scope,
-        animation: 'slide-in-up'
+        animation: 'slide-in-right'
       }).then(function(modal) {
         $scope.commentDetailModal = modal;
         $scope.commentDetailModal.show();
@@ -287,21 +292,25 @@ angular.module('controllers', ['tabSlideBox'])
 // doComment 
     $scope.comment = {};
     $scope.doComment = function() {
-      var userToken = localstorage.getObject('userinfo').userToken;
+
+      if(localstorage.getObject('userinfo').userToken == null || localstorage.getObject('userinfo').userToken == undefined){
+        alert('登陆后评论');
+        return
+      }
+
       var postComment = {
-        c:userToken,
+        c:localstorage.getObject('userinfo').userToken,
         p:$scope.cid,
         content:($scope.comment.data?$scope.comment.data:"")
       };
 
       function appendComment(postComment){
         var commentList = document.getElementsByClassName('commentList');
-        var username = localstorage.getObject('userinfo').username;
         var html = '';
         html = "<a class='item item-avatar itemMargin'>"
         var imglink = './img/user.png';
         html+= "<img src="+imglink+">";
-        html+= "<h2>"+username+"</h2>"
+        html+= "<h2>"+localstorage.getObject('userinfo').username+"</h2>"
         html+= "<p class='showAllComment'>"+$scope.comment.data+"</p></a>"
         angular.element(commentList).prepend(html);
       }
@@ -531,9 +540,9 @@ angular.module('controllers', ['tabSlideBox'])
 })
 
 .controller('favorite', function($scope, $http,$controller, $compile, $ionicModal, localstorage, printAbstract) {
-  var userinfo = localstorage.getObject('userinfo');
-  $scope.username = userinfo.username;
-  var userToken = userinfo.userToken;
+  // var userinfo = localstorage.getObject('userinfo');
+  // $scope.username = userinfo.username;
+  // var userToken = userinfo.userToken;
   var favList = document.getElementsByClassName('favList');
 
   // Triggered in the detail modal to close it
@@ -559,12 +568,17 @@ angular.module('controllers', ['tabSlideBox'])
   };
 
   $scope.getFavorite = function() {
-    $http.get("http://www.bundpic.com/app-favlist?&c="+userToken)
+    if(localstorage.getObject('userinfo').userToken == null || localstorage.getObject('userinfo').userToken == undefined){
+      alert('登陆后查看收藏');
+      return
+    }
+    $http.get("http://www.bundpic.com/app-favlist?&c="+localstorage.getObject('userinfo').userToken)
       .success(function(data) {
         if (data == 1) {
           console.log('服务器处理错误');
         } else if (data == 2) {
-          console.log('用户key无效');
+          // console.log('用户key无效');
+          alert('登录后查看收藏');
         } else {
           var html = '';
           for (var i = data.length - 1; 0 <= i ; i--) {

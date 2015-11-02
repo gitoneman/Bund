@@ -24,8 +24,9 @@ angular.module('app', ['ionic', 'controllers'])
     }
 
     var url = $location.url();
-    var bootScreenTime = '';
+    // var bootScreenTime = '';
     var adTime = '';
+    var iframeLoaded = false;
 
     $ionicModal.fromTemplateUrl('templates/bootScreen.html', {
       scope: $rootScope,
@@ -39,6 +40,15 @@ angular.module('app', ['ionic', 'controllers'])
       $rootScope.bootScreenModal.hide();
     };
 
+    $window.afterLoad = function(){
+      iframeLoaded = true;
+      // if(adTime != ''){
+      //   $timeout(function() {
+      //    $rootScope.bootScreenModal.hide();
+      //   }, adTime);
+      // }
+    }
+
     $http.get("http://www.bundpic.com/app-launch")
       .success(function(data){
         if(data == null){
@@ -46,18 +56,14 @@ angular.module('app', ['ionic', 'controllers'])
           return;
         }else{
           adTime = data['显示时长']+'000';
-          $window.afterLoad = function(){
-            document.getElementById('useAd').style.display = 'block';
-            bootScreenTime = adTime;
-
+          $rootScope.frameUrl =data['宽带链接'];
+          document.getElementById('useAd').style.display = 'block';
+          if (iframeLoaded){
             $timeout(function() {
              $rootScope.bootScreenModal.hide();
-            }, bootScreenTime);
-          };
-          $rootScope.frameUrl =data['宽带链接'];
-          
-        }
-
+            }, adTime);
+          }
+        };
       });
 
   });

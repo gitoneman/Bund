@@ -9356,7 +9356,8 @@ a.button {
     top: 0;
     right: 0; }
     .bootScreenLogo .bootScreenText .bootScreenTextEnter {
-      color: white; }
+      color: white;
+      margin-top: 20px; }
 
 .tabBlack {
   width: 100%;
