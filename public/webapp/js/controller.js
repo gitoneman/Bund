@@ -4,10 +4,6 @@ angular.module('controllers', ['tabSlideBox'])
 
 .controller("mainController", function($scope, $ionicModal, $timeout ,$http, localstorage, formDataObject){
 
-  if (localstorage.getObject('userinfo') != null || Object.getOwnPropertyNames(localstorage.getObject('userinfo')).length > 0){
-    var userinfo = localstorage.getObject('userinfo');
-  }
-
   // Form data for the login modal
   $scope.loginData = {};
   $scope.checkLogin = function () {
