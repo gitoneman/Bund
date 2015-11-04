@@ -94,6 +94,7 @@ angular.module('controllers', ['tabSlideBox'])
   };
 
   $scope.doRegistration = function() {
+
       var postRegistrationData = {
         no:($scope.registrationData.phonenumber?$scope.registrationData.phonenumber:""),
         uname:($scope.registrationData.username?$scope.registrationData.username:""),
@@ -110,7 +111,6 @@ angular.module('controllers', ['tabSlideBox'])
         data:postRegistrationData,
         transformRequest: formDataObject
       }).success(function(data) {
-        console.log(data);
         if (data == 1) {
           alert('输入信息不完整');
         } else if (data == 2) {
@@ -128,6 +128,8 @@ angular.module('controllers', ['tabSlideBox'])
   };
 
   $scope.getVcode = function(){
+    if($scope.registrationData.phonenumber == null || $scope.registrationData.phonenumber == undefined) return;
+
     $http.get("http://www.bundpic.com/app-vcode?no="+$scope.registrationData.phonenumber)
       .success(function(data){
         //console.log(data)
@@ -359,18 +361,21 @@ angular.module('controllers', ['tabSlideBox'])
 
 // share 
     $scope.share = function(){
-      if( window.webkit.messageHandlers.share ) {
-        var shareTitle = encodeURIComponent(angular.element(viewLink).contents().find('p').html());
-        var getShareImage = angular.element(viewLink).contents().find('img');
-        var shareImage = encodeURIComponent(angular.element(getShareImage[0]).attr('src'));
-        var shareLink = encodeURIComponent($scope.viewLink);
+      var shareTitle = encodeURIComponent(angular.element(viewLink).contents().find('p').html());
+      var getShareImage = angular.element(viewLink).contents().find('img');
+      var shareImage = encodeURIComponent(angular.element(getShareImage[0]).attr('src'));
+      var shareLink = encodeURIComponent($scope.viewLink);
 
+      if( window.webkit.messageHandlers.share ) {
+        
         var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
 
         // window.location = url;
         window.webkit.messageHandlers.share.postMessage(url)
-
+      }else if(Android){
+        Android.androidShare(shareTitle,shareImage,shareLink);
       }
+
     }
 })
 
