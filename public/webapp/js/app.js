@@ -42,11 +42,12 @@ angular.module('app', ['ionic', 'controllers'])
 
     $window.afterLoad = function(){
       iframeLoaded = true;
-      // if(adTime != ''){
-      //   $timeout(function() {
-      //    $rootScope.bootScreenModal.hide();
-      //   }, adTime);
-      // }
+
+      if(adTime != ''){
+        $timeout(function() {
+         $rootScope.bootScreenModal.hide();
+        }, adTime);
+      }
     }
 
     $http.get("http://www.bundpic.com/app-launch")
@@ -56,8 +57,10 @@ angular.module('app', ['ionic', 'controllers'])
           return;
         }else{
           adTime = data['显示时长']+'000';
+
           $rootScope.frameUrl =data['宽带链接'];
           document.getElementById('useAd').style.display = 'block';
+
           if (iframeLoaded){
             $timeout(function() {
              $rootScope.bootScreenModal.hide();
