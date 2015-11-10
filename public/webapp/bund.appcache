@@ -8,7 +8,7 @@ CACHE MANIFEST
 ./lib/ionic/fonts/ionicons.ttf
 ./lib/ionic/fonts/ionicons.woff
 ./lib/ionic/js/ionic.bundle.min.js
-./js/tabSlideBox.js
+
 
 
 NETWORK:

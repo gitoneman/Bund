@@ -366,11 +366,15 @@ angular.module('controllers', ['tabSlideBox'])
       var shareImage = encodeURIComponent(angular.element(getShareImage[0]).attr('src'));
       var shareLink = encodeURIComponent($scope.viewLink);
 
-      if( window.webkit.messageHandlers.share ) {
-        
-        var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
 
-        // window.location = url;
+      if( window.webkit && window.webkit.messageHandlers.share ) {
+        
+        // var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
+        var url = {
+          title:shareTitle,
+          image:shareImage,
+          link:shareLink
+        }
         window.webkit.messageHandlers.share.postMessage(url)
       }else if(Android){
         Android.androidShare(shareTitle,shareImage,shareLink);
@@ -379,7 +383,7 @@ angular.module('controllers', ['tabSlideBox'])
     }
 })
 
-.controller('news', function($scope,$controller,$http,$window,$ionicSlideBoxDelegate,$compile,$stateParams,$ionicModal,localstorage,printAbstract,printAbstractBig) {
+.controller('news', function($scope,$q,$controller,$http,$window,$ionicSlideBoxDelegate,$compile,$stateParams,$ionicModal,localstorage,printAbstract,printAbstractBig) {
 
 // detail content 
     // Triggered in the detail modal to close it
@@ -418,7 +422,7 @@ angular.module('controllers', ['tabSlideBox'])
 
 // get cagegories and news
     var newsP = new Array();
-    for(var j=0; j < 14; j++){
+    for(var j=0; j < 16; j++){
       newsP[j] = 1;
     }
 
@@ -429,6 +433,7 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.data.cateName = [];
     $scope.data.carousels = [];
     $scope.data.carousels[0] = [];
+    $scope.data.carouselsLink = [];
     var posts = document.getElementsByClassName('posts');
 
 
@@ -438,11 +443,13 @@ angular.module('controllers', ['tabSlideBox'])
         .success(function(data){
 
           for (var i = 0; i < data.length; i++) {
-            $scope.data.carousels[0][i] = 'http://www.bundpic.com/upload/'+ data[i]['文件']['filename'];
-            $scope.data.carouselsLink = data[i]['链接'];
+            $scope.data.carousels[0][i] = {
+              image: 'http://www.bundpic.com/upload/'+ data[i]['文件']['filename'],
+              link: encodeURIComponent(data[i]['链接']),
+              postId: data[i]['_id']
+            };
 
           };
-          // $ionicSlideBoxDelegate.update();
         });
     };
     $scope.getCarousel();
@@ -451,7 +458,7 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.loadMore = function(cTabs){
       if($scope.data.cateName.length==0) return;
       if(cTabs != tab) return;
-      $http.get("http://www.bundpic.com/app-post?p="+newsP[cTabs]+"&n=8&c="+$scope.data.cateName[cTabs])
+      $http.get("http://www.bundpic.com/app-post?p="+newsP[cTabs]+"&n=16&c="+$scope.data.cateName[cTabs])
         .success(function(data,$document){
           var html = '';
           for (var i = 1; i <= data.length ; i++) {
@@ -464,13 +471,14 @@ angular.module('controllers', ['tabSlideBox'])
           newsP[cTabs]++;
           var compiledHtml = $compile(html)($scope);
           angular.element(posts[cTabs]).append(compiledHtml);
-          angular.element(loadPost[cTabs]).css('display', 'none');;
+          angular.element(loadPost[cTabs]).css('display', 'none');
           // $scope.$broadcast('scroll.infiniteScrollComplete');
         })
     };
 
     var localCategories = localstorage.getObject('localCategories');
     $scope.getCategories = function(){
+
       function checkCategory(){
         $http.get("http://www.bundpic.com/app-category")
           .success(function(data){
@@ -497,19 +505,23 @@ angular.module('controllers', ['tabSlideBox'])
       function setCategories (cata){
         $scope.data.categories.unshift('推荐');
         $scope.data.cateName.unshift('');
-        var categoryHtml = '';
+        // var categoryHtml = "<a href='javascript:;' class='tsb-icons' on-finish-render>推荐</a>";
         // var ionSlideHtml = '';
         for (var i = 0; i < cata.length; i++) {
           $scope.data.categories[i+1] = cata[i]['名称'];
           $scope.data.cateName[i+1]= cata[i]['标识'];
+
           $scope.data.carousels[i+1] = [];
-          $scope.data.carousels[i+1][0] ="http://www.bundpic.com/upload/" + cata[i]['焦点图']['filename'];
-          categoryHtml += "<a href='javascript:;' class='tsb-icons' on-finish-render>"+$scope.data.categories[i]+"</a>";
+          $scope.data.carousels[i+1][0] ={
+            image:"http://www.bundpic.com/upload/" + cata[i]['焦点图']['filename'],
+            link:''
+          }
+          // categoryHtml += "<a href='javascript:;' class='tsb-icons' on-finish-render>"+$scope.data.categories[i+1]+"</a>";
           // ionSlideHtml += "<ion-slide> <ion-content overflow-scroll='true' scrolly='loadMore(0)'> <ion-spinner class='loadSpinner loadPost'></ion-spinner> <div class='posts' touchess></div> </ion-content> </ion-slide>";
         };
 
-        var tsbHscroll = document.querySelector(".tsb-hscroll > div");
-        angular.element(tsbHscroll).append(categoryHtml);
+        // var tsbHscroll = document.querySelector(".tsb-hscroll > div");
+        // angular.element(tsbHscroll).append(categoryHtml);
 
         // var ionSlide = document.querySelector(".ionSlide");
 
@@ -528,10 +540,10 @@ angular.module('controllers', ['tabSlideBox'])
 
     $scope.onSlideMove = function(data) {
       tab = data.index;
-      if($ionicSlideBoxDelegate.currentIndex() == $scope.data.categories.length - 1){
-        $ionicSlideBoxDelegate.slide(0,0);
-        return;
-      }
+      // if($ionicSlideBoxDelegate.currentIndex() == $scope.data.categories.length - 1){
+      //   $ionicSlideBoxDelegate.slide(0,0);
+      //   return;
+      // }
       if(angular.element(posts[data.index]).html() === ''){
         $scope.loadMore(data.index);
       }
