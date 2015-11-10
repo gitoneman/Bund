@@ -369,12 +369,8 @@ angular.module('controllers', ['tabSlideBox'])
 
       if( window.webkit && window.webkit.messageHandlers.share ) {
         
-        // var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
-        var url = {
-          title:shareTitle,
-          image:shareImage,
-          link:shareLink
-        }
+        var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
+
         window.webkit.messageHandlers.share.postMessage(url)
       }else if(Android){
         Android.androidShare(shareTitle,shareImage,shareLink);
@@ -665,13 +661,12 @@ angular.module('controllers', ['tabSlideBox'])
     var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("http://www.bundpic.com/mpost/"+post['_id']);
 
     if( post['链接']){
-      var postLink = post['链接'];
-
+      var postLink = 'doinappbrowser?title='+encodeURIComponent(post['标题'])+'&image='+encodeURIComponent(imglink)+'&link='+encodeURIComponent(post['链接']);
       html += "<div class='detail_recommend'><div class='re_con'>";
       if( window.webkit) {
         html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
       } else {
-        html += "<a href='"+postLink+"'>"
+        html += "<a href='"+post['链接']+"'>"
       }
       
     }else{
@@ -696,13 +691,13 @@ angular.module('controllers', ['tabSlideBox'])
     var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? 'http://www.bundpic.com/upload/' + post['缩略图'].filename : '/images/test.png');
     var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("http://www.bundpic.com/mpost/"+post['_id']);
     if( post['链接']){
-      var postLink = post['链接'];
+      var postLink = 'doinappbrowser?title='+encodeURIComponent(post['标题'])+'&image='+encodeURIComponent(imglink)+'&link='+encodeURIComponent(post['链接']);
       html += "<div class='postBig_bgimg'>";
       if(window.webkit) {
         html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
 
       } else {
-        html += "<a href='"+postLink+"'>"
+        html += "<a href='"+post['链接']+"'>"
       }
 
     }else {
