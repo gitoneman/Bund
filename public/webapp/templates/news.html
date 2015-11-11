@@ -2,7 +2,7 @@
     <ion-nav-title>
         <img src='./img/logo.png' class='titleImg'></ion-nav-title>
     <ion-content scroll='false'>
-        <tab-slide-box tab='0' tabs-position='bottom'>
+        <tab-slide-box tab='0'>
             <div class='tsb-icons'>
                 <div class='tsb-ic-wrp'>
                     <ion-scroll direction='x' class='tsb-hscroll sl' delegate-handle='slide1Scroll'>
@@ -14,11 +14,12 @@
                 <ion-slide ng-repeat="tab in data.categories">
                     <ion-content overflow-scroll='true' scrolly='loadMore({{$index}})'>
                         
-                        <ion-slide-box show-pager="true" class="carousel" stop-propagation auto-play="true" does-continue="false">
+                        <ion-slide-box show-pager="true" class="carousel" stop-propagation auto-play="true" does-continue="true">
                             <ion-slide ng-repeat="carousel in data.carousels[$index]">
                                 <div ng-click="showDetail('{{carousel.link}}','{{carousel.postId}}');">
                                     <img ng-src="{{carousel.image}}" width="100%" alt="">
                                     <div class="blackCover"></div>
+                                    <p class="imageName">{{carousel.imageName}}</p>
                                 </div>
                             </ion-slide>
                         </ion-slide-box>

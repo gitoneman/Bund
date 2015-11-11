@@ -404,6 +404,13 @@ angular.module('controllers', ['tabSlideBox'])
       });
     };
 
+    $scope.openWX = function(postLink){
+      var usertoken = localstorage.getObject('userinfo').userToken;
+      var postData = postLink;
+      postData += '&appusertoken='+encodeURIComponent(usertoken);
+      window.webkit.messageHandlers.inappbrowser.postMessage(postData);
+    }
+
 // pull to refresh
     // $scope.doRefresh = function() {
     //   $http.get('')
@@ -441,9 +448,21 @@ angular.module('controllers', ['tabSlideBox'])
           for (var i = 0; i < data.length; i++) {
             $scope.data.carousels[0][i] = {
               image: 'http://www.bundpic.com/upload/'+ data[i]['文件']['filename'],
+              imageName: data[i]['图名'],
               link: encodeURIComponent(data[i]['链接']),
+              // link: data[i]['链接'],
               postId: data[i]['_id']
             };
+
+            // var car = document.querySelector(".firstcarousel > .slider-slides");
+            // angular.element(car).append();
+            // <ion-slide>
+            //     <div ng-click="showDetail('{{data.carousels[0][0].link}}','{{data.carousels[0][0].postId}}');">
+            //         <img ng-src='{{data.carousels[0][0].image}}' width='100%' alt=''>
+            //         <div class='blackCover'></div>
+            //         <div class="carouselTitle"></div>
+            //     </div>
+            // </ion-slide>
 
           };
         });
@@ -661,10 +680,11 @@ angular.module('controllers', ['tabSlideBox'])
     var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("http://www.bundpic.com/mpost/"+post['_id']);
 
     if( post['链接']){
-      var postLink = 'doinappbrowser?title='+encodeURIComponent(post['标题'])+'&image='+encodeURIComponent(imglink)+'&link='+encodeURIComponent(post['链接']);
+      var postLink = 'doinappbrowser?title='+encodeURIComponent(post['标题'])+'&appimage='+encodeURIComponent(imglink)+'&applink='+encodeURIComponent(post['链接'])+'&apppostid='+encodeURIComponent(post['_id']);
       html += "<div class='detail_recommend'><div class='re_con'>";
       if( window.webkit) {
-        html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
+        // html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
+        html += "<a ng-click=\"openWX(\'"+postLink+"\');\">"
       } else {
         html += "<a href='"+post['链接']+"'>"
       }
@@ -685,16 +705,19 @@ angular.module('controllers', ['tabSlideBox'])
   };
 })
 
-.factory('printAbstractBig', function() {
+.factory('printAbstractBig',function() {
   return function(post) {
     html = "<div class='postBig' >";
     var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? 'http://www.bundpic.com/upload/' + post['缩略图'].filename : '/images/test.png');
     var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("http://www.bundpic.com/mpost/"+post['_id']);
+    
     if( post['链接']){
-      var postLink = 'doinappbrowser?title='+encodeURIComponent(post['标题'])+'&image='+encodeURIComponent(imglink)+'&link='+encodeURIComponent(post['链接']);
+
+      var postLink = 'doinappbrowser?title='+encodeURIComponent(post['标题'])+'&appimage='+encodeURIComponent(imglink)+'&applink='+encodeURIComponent(post['链接'])+'&apppostid='+encodeURIComponent(post['_id']);
       html += "<div class='postBig_bgimg'>";
       if(window.webkit) {
-        html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
+        // html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
+        html += "<a ng-click=\"openWX(\'"+postLink+"\');\">"
 
       } else {
         html += "<a href='"+post['链接']+"'>"
