@@ -404,11 +404,13 @@ angular.module('controllers', ['tabSlideBox'])
       });
     };
 
-    $scope.openWX = function(postLink){
+    $scope.openWX = function(data, link){
       var usertoken = localstorage.getObject('userinfo').userToken;
-      var postData = postLink;
+      var postData = data;
+      var postLink = link;
       postData += '&appusertoken='+encodeURIComponent(usertoken);
-      window.webkit.messageHandlers.inappbrowser.postMessage(postData);
+      window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
+      window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
     }
 
 // pull to refresh
@@ -684,7 +686,7 @@ angular.module('controllers', ['tabSlideBox'])
       html += "<div class='detail_recommend'><div class='re_con'>";
       if( window.webkit) {
         // html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
-        html += "<a ng-click=\"openWX(\'"+postLink+"\');\">"
+        html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
       } else {
         html += "<a href='"+post['链接']+"'>"
       }
@@ -717,7 +719,7 @@ angular.module('controllers', ['tabSlideBox'])
       html += "<div class='postBig_bgimg'>";
       if(window.webkit) {
         // html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
-        html += "<a ng-click=\"openWX(\'"+postLink+"\');\">"
+        html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
 
       } else {
         html += "<a href='"+post['链接']+"'>"
