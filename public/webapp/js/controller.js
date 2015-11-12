@@ -409,8 +409,8 @@ angular.module('controllers', ['tabSlideBox'])
       var postData = data;
       var postLink = link;
       postData += '&appusertoken='+encodeURIComponent(usertoken);
-      window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
       window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
+      window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
     }
 
 // pull to refresh
@@ -678,7 +678,7 @@ angular.module('controllers', ['tabSlideBox'])
 .factory('printAbstract', function() {
   return function(post) {
     html = "<div class='post' >";
-    var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? 'http://www.bundpic.com/upload/' + post['缩略图'].filename : '/images/test.png');
+    var imglink = (post['缩略图'] && post['缩略图'].filename) ? 'http://www.bundpic.com/upload/' + post['缩略图'].filename : (post['图片链接']?post['图片链接']:'/images/test.png');
     var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("http://www.bundpic.com/mpost/"+post['_id']);
 
     if( post['链接']){
@@ -710,7 +710,7 @@ angular.module('controllers', ['tabSlideBox'])
 .factory('printAbstractBig',function() {
   return function(post) {
     html = "<div class='postBig' >";
-    var imglink = post['图片链接'] ? post['图片链接'] : ((post['缩略图'] && post['缩略图'].filename) ? 'http://www.bundpic.com/upload/' + post['缩略图'].filename : '/images/test.png');
+    var imglink = (post['缩略图'] && post['缩略图'].filename) ? 'http://www.bundpic.com/upload/' + post['缩略图'].filename : (post['图片链接']?post['图片链接']:'/images/test.png');
     var link = post['链接'] ? encodeURIComponent(post['链接']): encodeURIComponent("http://www.bundpic.com/mpost/"+post['_id']);
     
     if( post['链接']){
