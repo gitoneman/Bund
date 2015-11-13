@@ -11,11 +11,11 @@
                 </div>
             </div>
             <ion-slide-box show-pager='false' class='sl' on-slide-changed='slideHasChanged($index)' stop-propagation delegate-handle='slide1Scroll'>
-                <ion-slide ng-repeat="tab in data.categories">
-                    <ion-content overflow-scroll='true' scrolly='loadMore({{$index}})'>
+                <ion-slide>
+                    <ion-content overflow-scroll='true' scrolly='loadMore(0)'>
                         
                         <ion-slide-box show-pager="true" class="carousel" stop-propagation auto-play="true" does-continue="true">
-                            <ion-slide ng-repeat="carousel in data.carousels[$index]">
+                            <ion-slide ng-repeat="carousel in data.carousels[0]">
                                 <div ng-click="showDetail('{{carousel.link}}','{{carousel.postId}}');">
                                     <img ng-src="{{carousel.image}}" width="100%" alt="">
                                     <div class="blackCover"></div>
@@ -27,6 +27,26 @@
                         <ion-spinner class='loadSpinner loadPost'></ion-spinner>
                         <div class='posts' touchess></div>
                         
+                    </ion-content>
+                </ion-slide>
+
+                <ion-slide ng-repeat="data in data.categoryData">
+                    <ion-content overflow-scroll='true' scrolly='loadMore({{$index+1}})'>
+<!--                         <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
+                            <ion-slide> -->
+                            <div class='carousel'>
+                                <div ng-click="openWX('{{data.postData}}','{{data.link}}');">
+                                    <img ng-src='{{data.image}}' width='100%' alt=''>
+                                    <div class='blackCover'></div>
+                                    <p class="imageName">{{data.title}}</p>
+                                </div>
+                            </div>
+
+<!--                             </ion-slide>
+                        </ion-slide-box> -->
+
+                        <ion-spinner class='loadSpinner loadPost'></ion-spinner>
+                        <div class='posts' touchess></div>
                     </ion-content>
                 </ion-slide>
 

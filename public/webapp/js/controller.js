@@ -438,7 +438,7 @@ angular.module('controllers', ['tabSlideBox'])
     $scope.data.cateName = [];
     $scope.data.carousels = [];
     $scope.data.carousels[0] = [];
-    $scope.data.carouselsLink = [];
+    $scope.data.categoryData = [];
     var posts = document.getElementsByClassName('posts');
 
 
@@ -455,16 +455,6 @@ angular.module('controllers', ['tabSlideBox'])
               // link: data[i]['链接'],
               postId: data[i]['_id']
             };
-
-            // var car = document.querySelector(".firstcarousel > .slider-slides");
-            // angular.element(car).append();
-            // <ion-slide>
-            //     <div ng-click="showDetail('{{data.carousels[0][0].link}}','{{data.carousels[0][0].postId}}');">
-            //         <img ng-src='{{data.carousels[0][0].image}}' width='100%' alt=''>
-            //         <div class='blackCover'></div>
-            //         <div class="carouselTitle"></div>
-            //     </div>
-            // </ion-slide>
 
           };
         });
@@ -504,6 +494,7 @@ angular.module('controllers', ['tabSlideBox'])
               $scope.loadMore(0);
             }
             try{
+              // localstorage.setObject('localCategories',data);
               localstorage.setObject('localCategories',data);
             }catch (e) { 
               alert("您处于无痕浏览，无法为您保存数据"); 
@@ -528,29 +519,24 @@ angular.module('controllers', ['tabSlideBox'])
           $scope.data.categories[i+1] = cata[i]['名称'];
           $scope.data.cateName[i+1]= cata[i]['标识'];
 
-          $scope.data.carousels[i+1] = [];
-          $scope.data.carousels[i+1][0] ={
-            image:"http://www.bundpic.com/upload/" + cata[i]['焦点图']['filename'],
-            link:''
-          }
+          // $scope.data.carousels[i+1] = [];
+          // $scope.data.carousels[i+1][0] ={
+          //   image:"http://www.bundpic.com/upload/" + cata[i]['焦点图']['filename'],
+          //   link:''
+          // }
+          $scope.data.categoryData[i] = {
+
+            image: "http://www.bundpic.com/upload/" + cata[i]['焦点图']['filename'],
+            link: cata[i]['链接'],
+            title: cata[i]['焦点标题'],
+            postid: cata[i]['_id'],
+            postData: 'doinappbrowser?title='+encodeURIComponent(cata[i]['焦点标题'])+'&appimage='+encodeURIComponent('http://www.bundpic.com/upload/' + cata[i]['焦点图']['filename'])+'&applink='+encodeURIComponent(cata[i]['链接'])+'&apppostid='+encodeURIComponent(cata[i]['_id'])
+          };
+          
           // categoryHtml += "<a href='javascript:;' class='tsb-icons' on-finish-render>"+$scope.data.categories[i+1]+"</a>";
           // ionSlideHtml += "<ion-slide> <ion-content overflow-scroll='true' scrolly='loadMore(0)'> <ion-spinner class='loadSpinner loadPost'></ion-spinner> <div class='posts' touchess></div> </ion-content> </ion-slide>";
         };
-
-        // var tsbHscroll = document.querySelector(".tsb-hscroll > div");
-        // angular.element(tsbHscroll).append(categoryHtml);
-
-        // var ionSlide = document.querySelector(".ionSlide");
-
-        // angular.element(ionSlide).append(ionSlideHtml);
-
-        // setTimeout(function() {
-        //     angular.element(ionSlide).append(ionSlideHtml);
-
-        //     $ionicSlideBoxDelegate.update();
-        //     $scope.loadMore(0);
-        //   }, 2000);
-              
+        // console.log($scope.data.categoryData);           
       }
     };
     $scope.getCategories();
@@ -570,9 +556,16 @@ angular.module('controllers', ['tabSlideBox'])
 })
 
 .controller('favorite', function($scope, $http,$controller, $compile, $ionicModal, localstorage, printAbstract) {
-  // var userinfo = localstorage.getObject('userinfo');
-  // $scope.username = userinfo.username;
-  // var userToken = userinfo.userToken;
+
+  $scope.openWX = function(data, link){
+    var usertoken = localstorage.getObject('userinfo').userToken;
+    var postData = data;
+    var postLink = link;
+    postData += '&appusertoken='+encodeURIComponent(usertoken);
+    window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
+    window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
+  }
+
   var favList = document.getElementsByClassName('favList');
 
   // Triggered in the detail modal to close it
