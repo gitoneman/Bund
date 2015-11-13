@@ -49,6 +49,11 @@ block btail
         });
         function openonphone(link, hideTitle) {
             if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                if(window.webkit){
+                    var adlink = "doad?link=" + link;
+                    window.webkit.messageHandlers.inappbrowser.postMessage(link);
+                    window.webkit.messageHandlers.newinappbrowser.postMessage(adlink);
+                }
                 window.location = "yios:openUrl(" + link + "," + hideTitle + ")";
             } else if (/Android/i.test(navigator.userAgent)) {
                 try {
