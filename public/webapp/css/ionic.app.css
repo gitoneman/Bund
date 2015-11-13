@@ -9427,7 +9427,8 @@ a.button {
   line-height: 30px;
   font-weight: bold; }
 
-.carousel, .firstcarousel {
+.carousel {
+  position: relative;
   height: 75vw !important; }
 
 .carousel .slider-pager {
