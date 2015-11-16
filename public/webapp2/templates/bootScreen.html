@@ -1,0 +1,17 @@
+<ion-modal-view>
+  <ion-content scroll="false">
+    <div class="bootScreenPic" >
+      <iframe id='useAd' src="{{frameUrl}}" width="100%" height="100%" onload="afterLoad();"></iframe>
+       <!-- <ng-include src="adLink"></ng-include> -->
+<!--       <a href="">
+        <img ng-src="{{bootScreenPic}}" width="100%" alt="">
+      </a> -->
+    </div>
+    <div class="bootScreenLogo" ng-click="closeBootScreen()">
+      <img src="./img/adLogo.png" alt="" height="100%;">
+      <div class="buttons bootScreenText">
+        <button class="button button-clear bootScreenTextEnter">进入 ></button>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

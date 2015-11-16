@@ -1,0 +1,52 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+      <ion-nav-bar align-title="center" class="bar-assertive">
+          <ion-nav-back-button class="button-icon ion-arrow-left-c">
+          </ion-nav-back-button>
+          <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+          </ion-nav-buttons>
+      </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-content>
+      <div class="list">
+        <a menu-close class="item avaterCircle" href="#">
+          <div class="userAvatar">
+            <img src="./img/user.png">
+          </div>
+          <p class="sideMenuUserName" ng-bind="username"></p>
+        </a>
+
+        <a menu-close class="item item-icon-left sideMenuIcon" ng-click="getFavorite()" href="#/app/favorite">
+          <i class="icon sideMenuIcon-i ion-ios-heart-outline"></i>
+          收藏
+        </a>
+
+        <a menu-close class="item item-icon-left sideMenuIcon" href="#/app/news">
+          <i class="icon sideMenuIcon-i ion-ios-email-outline"></i>
+          消息
+          <!-- <span class="sideMenuRedDot"></span> -->
+        </a>
+
+        <a menu-close class="item item-icon-left sideMenuIcon" ng-click="registration()" ng-hide="checkLogin()">
+          <i class="icon sideMenuIcon-i ion-ios-compose-outline"></i>
+          注册
+        </a>
+
+        <a menu-close class="item item-icon-left sideMenuIcon" ng-click="login()" ng-hide="checkLogin()">
+          <i class="icon sideMenuIcon-i ion-ios-unlocked-outline"></i>
+           登录
+        </a>
+
+        <a menu-close class="item item-icon-left sideMenuIcon" ng-click="logout()" ng-hide="checkLogout()">
+          <i class="icon sideMenuIcon-i ion-ios-upload-outline"></i>
+          退出
+        </a>
+      </div>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

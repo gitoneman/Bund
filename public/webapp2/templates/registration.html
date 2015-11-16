@@ -1,0 +1,40 @@
+<ion-modal-view class="greyBackground">
+  <ion-header-bar class="greyBackground">
+    <h1 class="title"></h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeRegistration()">
+        <i class="icon ion-close-round"></i>
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doRegistration()">
+      <div class="list">
+        <div class="item loginPadding item-input-inset">
+          <label class="item loginItem item-input-wrapper">
+            <input type="text" placeholder="手机号" ng-model="registrationData.phonenumber"></label>
+        </div>
+        <div class="item loginPadding item-input-inset">
+          <label class="item loginItem item-input-wrapper">
+            <input type="text" placeholder="昵称" ng-model="registrationData.username"></label>
+        </div>
+        <div class="item loginPadding item-input-inset">
+          <label class="item loginItem item-input-wrapper">
+            <input type="password" placeholder="密码" ng-model="registrationData.password"></label>
+        </div>
+        <div class="item loginPadding item-input-inset">
+          <label class="item loginItem item-input-wrapper">
+            <input type="text" placeholder="验证码" ng-model="registrationData.vcode"></label>
+            <label class="item loginItem item-input-wrapper">
+            <button class="button button-light vcodeBotton button-small" ng-click="getVcode()">发送手机验证码</button></label>
+        </div>
+
+        <div class="item loginSubmit item-input-inset">
+            <button class="button button-block button-light" type="submit">注册</button>
+        </div>
+
+      </div>
+    </form>
+
+  </ion-content>
+</ion-modal-view>

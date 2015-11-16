@@ -1,0 +1,31 @@
+<ion-modal-view ng-controller="detailModal">
+	<ion-header-bar class="bundBackground">
+		<h1 class="title">
+			<img src="./img/logo.png" class="titleImg">
+		</h1>
+	</ion-header-bar>
+
+	<ion-content overflow-scroll="true" stop-propagation>
+		<div class="contentWrapper">
+			<ion-spinner class="loadSpinner"></ion-spinner>
+			<ng-include class="viewLink" src="viewLink" onload="getWXImage();"></ng-include>
+<!-- 			<iframe class="viewLink" ng-src="{{viewLink}}" frameborder="0" onLoad="getWXImage();"></iframe> -->
+		</div>
+	</ion-content>
+
+	<div class="tabBlack">
+		<a class=" itemBlack firstIcon" ng-click="closeDetail();"> <i class="icon ion-ios-play-outline"></i>
+		</a>
+		<a class=" itemBlack nextIcon" ng-click="showCommentDetail();"> 
+			<i class="icon ion-ios-chatbubble-outline"></i>
+			<span class="badge badge-assertive badgeCount">{{commentCount}}</span>
+		</a>
+		<a class=" itemBlack nextIcon" ng-click="share();">
+			<i class="icon ion-ios-upload-outline"></i>
+		</a>
+		<a class=" addFav itemBlack nextIcon" ng-click="toggleFavorite();">
+			<i class="icon ion-ios-heart-outline"></i>
+		</a>
+	</div>
+</ion-modal-view>
+

@@ -1,0 +1,9 @@
+<ion-modal-view>
+	<ion-content>
+		<div class="contentWrapper">
+			<button class="button backBotton" ng-click="closeDetail();">goback</button>
+			<ion-spinner class="loadSpinner"></ion-spinner>
+			<ng-include class="viewOutlink" src="viewLink" onload="getWXImage();"></ng-include>
+		</div>
+	</ion-content>
+</ion-modal-view>
