@@ -9263,6 +9263,9 @@ a.button {
 * {
   font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif !important; }
 
+body {
+  background-color: #e73847; }
+
 .modal {
   top: 0px !important;
   bottom: 0 !important;
@@ -9429,11 +9432,8 @@ a.button {
 
 .carousel {
   position: relative;
-  height: 75vw !important; }
-
-.carousel .slider-pager {
-  position: absolute important;
-  bottom: 12px important; }
+  height: 75vw !important;
+  width: 100vw !important; }
 
 .carousel .slider-pager .slider-pager-page {
   color: #fff !important;

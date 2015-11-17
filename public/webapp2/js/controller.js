@@ -458,9 +458,44 @@ angular.module('controllers', ['tabSlideBox'])
             };
 
           };
+          $ionicSlideBoxDelegate.$getByHandle("handleWidth").update();
+          
         });
+
     };
     $scope.getCarousel();
+
+    // setTimeout(function() {
+    //   var y;
+    //   var sels = document.getElementsByTagName("ion-slide");
+    //   var pop = document.getElementById("pop");
+    //   for(i=0;i<sels.length;i++) {
+
+    //     sels[i].addEventListener('touchstart', function(event) {
+    //       y = event.touches[0].screenY;
+    //       console.log(pop[0].scrollTop)
+    //       // console.log("111111")
+    //     });
+
+    //     sels[i].addEventListener('touchmove', function(event) {
+    //       var countedY = event.touches[0].screenY - y;
+    //       // console.log("2222222")
+    //       // document.getElementById("debug").innerHTML = sels[i]+ ";" +countedY;
+    //       // document.getElementById("debug").innerHTML = pop[0].scrollTop;
+    //       console.log(pop[i].scrollTop)
+    //       y = event.touches[0].screenY;
+
+    //       // if(countedY > 0) {
+    //       //   event.preventDefault();
+    //       // }
+    //     });
+
+    //   }
+    // }, 3000)
+
+
+
+
 
     var loadPost = document.getElementsByClassName('loadPost');
     $scope.loadMore = function(cTabs){
