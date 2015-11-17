@@ -409,8 +409,8 @@ angular.module('controllers', ['tabSlideBox'])
       var postData = data;
       var postLink = link;
       postData += '&appusertoken='+encodeURIComponent(usertoken);
-      window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
       window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
+      window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
     }
 
 // pull to refresh
@@ -450,16 +450,52 @@ angular.module('controllers', ['tabSlideBox'])
           for (var i = 0; i < data.length; i++) {
             $scope.data.carousels[0][i] = {
               image: 'http://www.bundpic.com/upload/'+ data[i]['文件']['filename'],
-              imageName: data[i]['图名'],
-              link: encodeURIComponent(data[i]['链接']),
-              // link: data[i]['链接'],
-              postId: data[i]['_id']
+              title: data[i]['图名'],
+              link: data[i]['链接'],
+              postId: data[i]['_id'],
+              postData: 'doinappbrowser?title='+encodeURIComponent(data[i]['图名'])+'&appimage='+encodeURIComponent('http://www.bundpic.com/upload/' + data[i]['文件']['filename'])+'&applink='+encodeURIComponent(data[i]['链接'])+'&apppostid='+encodeURIComponent(data[i]['_id'])
+
             };
 
           };
+          $ionicSlideBoxDelegate.$getByHandle("handleWidth").update();
+          
         });
+
     };
     $scope.getCarousel();
+
+    // setTimeout(function() {
+    //   var y;
+    //   var sels = document.getElementsByTagName("ion-slide");
+    //   var pop = document.getElementById("pop");
+    //   for(i=0;i<sels.length;i++) {
+
+    //     sels[i].addEventListener('touchstart', function(event) {
+    //       y = event.touches[0].screenY;
+    //       console.log(pop[0].scrollTop)
+    //       // console.log("111111")
+    //     });
+
+    //     sels[i].addEventListener('touchmove', function(event) {
+    //       var countedY = event.touches[0].screenY - y;
+    //       // console.log("2222222")
+    //       // document.getElementById("debug").innerHTML = sels[i]+ ";" +countedY;
+    //       // document.getElementById("debug").innerHTML = pop[0].scrollTop;
+    //       console.log(pop[i].scrollTop)
+    //       y = event.touches[0].screenY;
+
+    //       // if(countedY > 0) {
+    //       //   event.preventDefault();
+    //       // }
+    //     });
+
+    //   }
+    // }, 3000)
+
+
+
+
 
     var loadPost = document.getElementsByClassName('loadPost');
     $scope.loadMore = function(cTabs){
@@ -531,6 +567,7 @@ angular.module('controllers', ['tabSlideBox'])
             title: cata[i]['焦点标题'],
             postid: cata[i]['_id'],
             postData: 'doinappbrowser?title='+encodeURIComponent(cata[i]['焦点标题'])+'&appimage='+encodeURIComponent('http://www.bundpic.com/upload/' + cata[i]['焦点图']['filename'])+'&applink='+encodeURIComponent(cata[i]['链接'])+'&apppostid='+encodeURIComponent(cata[i]['_id'])
+
           };
           
           // categoryHtml += "<a href='javascript:;' class='tsb-icons' on-finish-render>"+$scope.data.categories[i+1]+"</a>";

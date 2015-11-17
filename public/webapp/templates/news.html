@@ -1,6 +1,7 @@
 <ion-view>
     <ion-nav-title>
         <img src='./img/logo.png' class='titleImg'></ion-nav-title>
+        <!-- <p id="debug"></p> -->
     <ion-content scroll='false'>
         <tab-slide-box tab='0'>
             <div class='tsb-icons'>
@@ -12,14 +13,14 @@
             </div>
             <ion-slide-box show-pager='false' class='sl' on-slide-changed='slideHasChanged($index)' stop-propagation delegate-handle='slide1Scroll'>
                 <ion-slide>
-                    <ion-content overflow-scroll='true' scrolly='loadMore(0)'>
+                    <ion-content overflow-scroll='true' scrolly='loadMore(0)' width="100%" id="pop">
                         
-                        <ion-slide-box show-pager="true" class="carousel" stop-propagation auto-play="true" does-continue="true">
-                            <ion-slide ng-repeat="carousel in data.carousels[0]">
-                                <div ng-click="showDetail('{{carousel.link}}','{{carousel.postId}}');">
+                        <ion-slide-box show-pager="true" class="carousel" stop-propagation auto-play="true" does-continue="true" delegate-handle="handleWidth">
+                            <ion-slide class="" ng-repeat="carousel in data.carousels[0]" width="100%">
+                                <div ng-click="openWX('{{carousel.postData}}','{{carousel.link}}');">
                                     <img ng-src="{{carousel.image}}" width="100%" alt="">
                                     <div class="blackCover"></div>
-                                    <p class="imageName">{{carousel.imageName}}</p>
+                                    <p class="imageName">{{carousel.title}}</p>
                                 </div>
                             </ion-slide>
                         </ion-slide-box>
@@ -31,7 +32,7 @@
                 </ion-slide>
 
                 <ion-slide ng-repeat="data in data.categoryData">
-                    <ion-content overflow-scroll='true' scrolly='loadMore({{$index+1}})'>
+                    <ion-content overflow-scroll='true' scrolly='loadMore({{$index+1}})' class="pop">
 <!--                         <ion-slide-box show-pager='true' class='carousel' stop-propagation auto-play='true' does-continue='true'>
                             <ion-slide> -->
                             <div class='carousel'>

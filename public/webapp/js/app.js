@@ -7,7 +7,6 @@ angular.module('app', ['ionic', 'controllers'])
 
   ionic.Platform.ready(function(){
     //will execute when device is ready, or immediately if the device is already ready.
-
     function isNativeApp() {
         return /app/.test(window.location.search);
     }
