@@ -26,6 +26,7 @@ angular.module('app', ['ionic', 'controllers'])
     var url = $location.url();
     // var bootScreenTime = '';
     var adTime = '';
+    $rootScope.launchScreenLogo = true;
     var iframeLoaded = false;
 
     $ionicModal.fromTemplateUrl('templates/bootScreen.html', {
@@ -63,6 +64,7 @@ angular.module('app', ['ionic', 'controllers'])
           return;
         }else{
           adTime = data['显示时长']+'000';
+          $rootScope.launchScreenLogo = data['显示底栏']
 
           $rootScope.frameUrl =data['宽带链接'];
           document.getElementById('useAd').style.display = 'block';
