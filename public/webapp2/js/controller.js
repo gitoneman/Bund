@@ -373,14 +373,13 @@ angular.module('controllers', ['tabSlideBox'])
 
         window.webkit.messageHandlers.share.postMessage(url)
       }else if(Android){
-        Android.androidShare(shareTitle,shareImage,shareLink);
+        Android.androidShare(url);
       }
 
     }
 })
 
 .controller('news', function($scope,$q,$controller,$http,$window,$ionicSlideBoxDelegate,$compile,$stateParams,$ionicModal,localstorage,printAbstract,printAbstractBig) {
-
 // detail content 
     // Triggered in the detail modal to close it
     $scope.closeDetail = function() {
@@ -409,8 +408,13 @@ angular.module('controllers', ['tabSlideBox'])
       var postData = data;
       var postLink = link;
       postData += '&appusertoken='+encodeURIComponent(usertoken);
-      window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
-      window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
+      if(window.webkit){
+        window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
+        window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
+      } else if (Android){
+        Android.openWeb(postData);
+      }
+      
     }
 
 // pull to refresh
@@ -714,10 +718,12 @@ angular.module('controllers', ['tabSlideBox'])
     if( post['链接']){
       var postLink = 'doinappbrowser?title='+encodeURIComponent(post['标题'])+'&appimage='+encodeURIComponent(imglink)+'&applink='+encodeURIComponent(post['链接'])+'&apppostid='+encodeURIComponent(post['_id']);
       html += "<div class='detail_recommend'><div class='re_con'>";
-      if( true) {
+      if( window.webkit) {
         // html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
         html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
-      } else {
+      } else if(Android){
+        html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
+      }else{
         html += "<a href='"+post['链接']+"'>"
       }
       
@@ -751,7 +757,9 @@ angular.module('controllers', ['tabSlideBox'])
         // html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
         html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
 
-      } else {
+      } else if(Android){
+        html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
+      }else{
         html += "<a href='"+post['链接']+"'>"
       }
 
