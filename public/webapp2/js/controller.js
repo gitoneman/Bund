@@ -365,14 +365,14 @@ angular.module('controllers', ['tabSlideBox'])
       var getShareImage = angular.element(viewLink).contents().find('img');
       var shareImage = encodeURIComponent(angular.element(getShareImage[0]).attr('src'));
       var shareLink = encodeURIComponent($scope.viewLink);
+      var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
 
 
       if( window.webkit && window.webkit.messageHandlers.share ) {
-        
-        var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
-
+      
         window.webkit.messageHandlers.share.postMessage(url)
       }else if(Android){
+        
         Android.androidShare(url);
       }
 
@@ -718,14 +718,12 @@ angular.module('controllers', ['tabSlideBox'])
     if( post['链接']){
       var postLink = 'doinappbrowser?title='+encodeURIComponent(post['标题'])+'&appimage='+encodeURIComponent(imglink)+'&applink='+encodeURIComponent(post['链接'])+'&apppostid='+encodeURIComponent(post['_id']);
       html += "<div class='detail_recommend'><div class='re_con'>";
-      if( window.webkit) {
+      // if( window.webkit) {
         // html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
         html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
-      } else if(Android){
-        html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
-      }else{
-        html += "<a href='"+post['链接']+"'>"
-      }
+      // } else{
+      //   html += "<a href='"+post['链接']+"'>"
+      // }
       
     }else{
       // link = "http://www.bundpic.com/mpost/"+post['_id'];
@@ -753,15 +751,13 @@ angular.module('controllers', ['tabSlideBox'])
 
       var postLink = 'doinappbrowser?title='+encodeURIComponent(post['标题'])+'&appimage='+encodeURIComponent(imglink)+'&applink='+encodeURIComponent(post['链接'])+'&apppostid='+encodeURIComponent(post['_id']);
       html += "<div class='postBig_bgimg'>";
-      if(window.webkit) {
+      // if(window.webkit) {
         // html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
         html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
 
-      } else if(Android){
-        html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
-      }else{
-        html += "<a href='"+post['链接']+"'>"
-      }
+      // } else{
+      //   html += "<a href='"+post['链接']+"'>"
+      // }
 
     }else {
       // link = "http://www.bundpic.com/mpost/"+post['_id'];
