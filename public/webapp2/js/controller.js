@@ -366,13 +366,10 @@ angular.module('controllers', ['tabSlideBox'])
       var shareImage = encodeURIComponent(angular.element(getShareImage[0]).attr('src'));
       var shareLink = encodeURIComponent($scope.viewLink);
       var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
-
-
-      if( window.webkit && window.webkit.messageHandlers.share ) {
       
+      if( window.webkit && window.webkit.messageHandlers.share ) {
         window.webkit.messageHandlers.share.postMessage(url)
       }else if(Android){
-        
         Android.androidShare(url);
       }
 
@@ -603,8 +600,13 @@ angular.module('controllers', ['tabSlideBox'])
     var postData = data;
     var postLink = link;
     postData += '&appusertoken='+encodeURIComponent(usertoken);
-    window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
-    window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
+    if(window.webkit){
+      window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
+      window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
+    } else if (Android){
+      Android.openWeb(postData);
+    }
+    
   }
 
   var favList = document.getElementsByClassName('favList');
