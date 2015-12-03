@@ -60,9 +60,11 @@ block btail
                     var adlink = "doad?link=" + link;
                     Android.openWeb(adlink);
                 }
-                try {
-                    window.JSInterface.openUrl(link, hideTitle);
-                } catch (err) {
+                else{
+                    try {
+                        window.JSInterface.openUrl(link, hideTitle);
+                    } catch (err) {
+                    }
                 }
             }
             return false;
