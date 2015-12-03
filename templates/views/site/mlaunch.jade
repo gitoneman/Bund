@@ -56,6 +56,10 @@ block btail
                 }
                 window.location = "yios:openUrl(" + link + "," + hideTitle + ")";
             } else if (/Android/i.test(navigator.userAgent)) {
+                if(Android){
+                    var adlink = "doad?link=" + link;
+                    Android.openWeb(adlink);
+                }
                 try {
                     window.JSInterface.openUrl(link, hideTitle);
                 } catch (err) {
