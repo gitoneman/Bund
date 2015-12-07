@@ -364,23 +364,23 @@ angular.module('controllers', ['tabSlideBox'])
       var shareTitle = encodeURIComponent(angular.element(viewLink).contents().find('p').html());
       var getShareImage = angular.element(viewLink).contents().find('img');
       var shareImage = encodeURIComponent(angular.element(getShareImage[0]).attr('src'));
+      
+      if(shareImage.indexOf('http') < 0){
+        shareImage = encodeURIComponent(window.location) + shareImage;
+      }
       var shareLink = encodeURIComponent($scope.viewLink);
-
-
+      var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
+      
       if( window.webkit && window.webkit.messageHandlers.share ) {
-        
-        var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
-
         window.webkit.messageHandlers.share.postMessage(url)
       }else if(Android){
-        Android.androidShare(shareTitle,shareImage,shareLink);
+        Android.androidShare(url);
       }
 
     }
 })
 
 .controller('news', function($scope,$q,$controller,$http,$window,$ionicSlideBoxDelegate,$compile,$stateParams,$ionicModal,localstorage,printAbstract,printAbstractBig) {
-
 // detail content 
     // Triggered in the detail modal to close it
     $scope.closeDetail = function() {
@@ -409,8 +409,13 @@ angular.module('controllers', ['tabSlideBox'])
       var postData = data;
       var postLink = link;
       postData += '&appusertoken='+encodeURIComponent(usertoken);
-      window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
-      window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
+      if(window.webkit){
+        window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
+        window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
+      } else if (Android){
+        Android.openWeb(postData);
+      }
+      
     }
 
 // pull to refresh
@@ -459,7 +464,6 @@ angular.module('controllers', ['tabSlideBox'])
 
           };
           $ionicSlideBoxDelegate.$getByHandle("handleWidth").update();
-          
         });
 
     };
@@ -599,8 +603,13 @@ angular.module('controllers', ['tabSlideBox'])
     var postData = data;
     var postLink = link;
     postData += '&appusertoken='+encodeURIComponent(usertoken);
-    window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
-    window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
+    if(window.webkit){
+      window.webkit.messageHandlers.inappbrowser.postMessage(postLink);
+      window.webkit.messageHandlers.newinappbrowser.postMessage(postData);
+    } else if (Android){
+      Android.openWeb(postData);
+    }
+    
   }
 
   var favList = document.getElementsByClassName('favList');
@@ -714,12 +723,12 @@ angular.module('controllers', ['tabSlideBox'])
     if( post['链接']){
       var postLink = 'doinappbrowser?title='+encodeURIComponent(post['标题'])+'&appimage='+encodeURIComponent(imglink)+'&applink='+encodeURIComponent(post['链接'])+'&apppostid='+encodeURIComponent(post['_id']);
       html += "<div class='detail_recommend'><div class='re_con'>";
-      if( window.webkit) {
+      // if( window.webkit) {
         // html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
         html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
-      } else {
-        html += "<a href='"+post['链接']+"'>"
-      }
+      // } else{
+      //   html += "<a href='"+post['链接']+"'>"
+      // }
       
     }else{
       // link = "http://www.bundpic.com/mpost/"+post['_id'];
@@ -747,13 +756,13 @@ angular.module('controllers', ['tabSlideBox'])
 
       var postLink = 'doinappbrowser?title='+encodeURIComponent(post['标题'])+'&appimage='+encodeURIComponent(imglink)+'&applink='+encodeURIComponent(post['链接'])+'&apppostid='+encodeURIComponent(post['_id']);
       html += "<div class='postBig_bgimg'>";
-      if(window.webkit) {
+      // if(window.webkit) {
         // html += "<a href=\"javascript:window.webkit.messageHandlers.inappbrowser.postMessage(\'"+postLink+"\');\">"
         html += "<a ng-click=\"openWX(\'"+postLink+"\',\'"+post['链接']+"\');\">"
 
-      } else {
-        html += "<a href='"+post['链接']+"'>"
-      }
+      // } else{
+      //   html += "<a href='"+post['链接']+"'>"
+      // }
 
     }else {
       // link = "http://www.bundpic.com/mpost/"+post['_id'];
