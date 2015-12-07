@@ -366,7 +366,7 @@ angular.module('controllers', ['tabSlideBox'])
       var shareImage = encodeURIComponent(angular.element(getShareImage[0]).attr('src'));
       
       if(shareImage.indexOf('http') < 0){
-        shareImage = encodeURIComponent(window.location) + shareImage;
+        shareImage = encodeURIComponent("http://www.bundpic.com/") + shareImage;
       }
       var shareLink = encodeURIComponent($scope.viewLink);
       var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
