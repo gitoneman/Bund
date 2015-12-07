@@ -364,10 +364,12 @@ angular.module('controllers', ['tabSlideBox'])
       var shareTitle = encodeURIComponent(angular.element(viewLink).contents().find('p').html());
       var getShareImage = angular.element(viewLink).contents().find('img');
       var shareImage = encodeURIComponent(angular.element(getShareImage[0]).attr('src'));
-      
-      if(shareImage.indexOf('http') < 0){
-        shareImage = encodeURIComponent("http://www.bundpic.com/") + shareImage;
+
+      if(shareImage.indexOf('http') < 0 && shareImage.indexOf(encodeURIComponent('../..')) == 0){
+        var l = shareImage.split(encodeURIComponent('../..'));
+        shareImage = encodeURIComponent("http://www.bundpic.com") + l[1];
       }
+
       var shareLink = encodeURIComponent($scope.viewLink);
       var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
       
