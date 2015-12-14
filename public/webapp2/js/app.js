@@ -51,12 +51,6 @@ angular.module('app', ['ionic', 'controllers'])
       }
     }
 
-    function openonphone(adlink){
-      var link = "doad?link=" + adlink;
-      window.webkit.messageHandlers.inappbrowser.postMessage(adlink);
-      window.webkit.messageHandlers.newinappbrowser.postMessage(link);
-    }
-
     $http.get("http://www.bundpic.com/app-launch")
       .success(function(data){
         if(data == null){
@@ -64,7 +58,7 @@ angular.module('app', ['ionic', 'controllers'])
           return;
         }else{
           adTime = data['显示时长']+'000';
-          $rootScope.launchScreenLogo = data['显示底栏']
+          $rootScope.launchScreenLogo = data['显示底栏'];
 
           $rootScope.frameUrl =data['宽带链接'];
           document.getElementById('useAd').style.display = 'block';

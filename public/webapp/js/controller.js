@@ -369,7 +369,7 @@ angular.module('controllers', ['tabSlideBox'])
         var l = shareImage.split(encodeURIComponent('../..'));
         shareImage = encodeURIComponent("http://www.bundpic.com") + l[1];
       }
-
+      
       var shareLink = encodeURIComponent($scope.viewLink);
       var url = 'doFavorite?title='+shareTitle+'&image='+shareImage+'&link='+shareLink;
       
@@ -466,6 +466,7 @@ angular.module('controllers', ['tabSlideBox'])
 
           };
           $ionicSlideBoxDelegate.$getByHandle("handleWidth").update();
+          
         });
 
     };
