@@ -156,7 +156,7 @@ Post.schema.pre('save', function(next) {
                 // }
                 var content = contentRe.exec(str);
                 if (content && content[1]) {
-                    var newcontent = content[1].replace(/(data-src=")(.*?)"/g, 'src="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=$2"');
+                    var newcontent = content[1].replace(/data-src="http:\/\/mmbiz.qpic.cn\//g, 'src="https://mmbiz.qlogo.cn/');
                     self['正文']['更多'] = newcontent;
                 }
                 next();
